@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "US College Transfer Eligibility Checker"
+version = "1.0.0"
+id = "artifacts/transfer-checker"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21928
+
+[services.development]
+run = "pnpm --filter @workspace/transfer-checker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/transfer-checker", "run", "build" ]
+publicDir = "artifacts/transfer-checker/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21928"
+BASE_PATH = "/"

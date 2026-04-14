@@ -1,0 +1,122 @@
+[
+  {
+    "id": "gatech-me",
+    "name": "Georgia Tech",
+    "major": "Mechanical Engineering",
+    "location": "Atlanta, GA",
+    "website": "https://www.gatech.edu",
+    "minCompletedCredits": 30,
+    "acceptInProgress": false,
+    "minGPA": 3.0,
+    "englishRequirement": {
+      "toefl": { "min": 100 },
+      "ielts": { "min": 7.0 },
+      "duolingo": { "min": 125 },
+      "compositionWaiver": true,
+      "note": "Students who completed English Composition 1 and 2 at a US institution may be exempt from English test requirements."
+    },
+    "requiredCourses": [
+      {
+        "id": "calc1",
+        "name": "Calculus 1",
+        "description": "Single-variable calculus, differentiation and integration"
+      },
+      {
+        "id": "calc2",
+        "name": "Calculus 2",
+        "description": "Integration techniques, sequences and series"
+      },
+      {
+        "id": "physics1",
+        "name": "Physics 1",
+        "description": "Classical mechanics, kinematics, and dynamics"
+      },
+      {
+        "id": "physics2",
+        "name": "Physics 2",
+        "description": "Electricity, magnetism, and waves"
+      }
+    ],
+    "notes": "Highly competitive. A GPA of 3.3+ is strongly recommended for a competitive application."
+  },
+  {
+    "id": "uiuc-me",
+    "name": "UIUC",
+    "major": "Mechanical Engineering",
+    "location": "Champaign, IL",
+    "website": "https://illinois.edu",
+    "minCompletedCredits": 24,
+    "acceptInProgress": true,
+    "minGPA": 2.75,
+    "englishRequirement": {
+      "toefl": { "min": 96 },
+      "ielts": { "min": 6.5 },
+      "duolingo": { "min": 115 },
+      "compositionWaiver": true,
+      "note": "Completion of English Composition at a US college may satisfy English proficiency requirements."
+    },
+    "requiredCourses": [
+      {
+        "id": "calc1",
+        "name": "Calculus 1",
+        "description": "Single-variable calculus, differentiation and integration"
+      },
+      {
+        "id": "calc2",
+        "name": "Calculus 2",
+        "description": "Integration techniques, sequences and series"
+      },
+      {
+        "id": "physics1",
+        "name": "Physics 1",
+        "description": "Classical mechanics, kinematics, and dynamics"
+      },
+      {
+        "id": "physics2",
+        "name": "Physics 2",
+        "description": "Electricity, magnetism, and waves"
+      }
+    ],
+    "notes": "In-progress courses are accepted at time of application. Final admission contingent on course completion."
+  },
+  {
+    "id": "purdue-me",
+    "name": "Purdue University",
+    "major": "Mechanical Engineering",
+    "location": "West Lafayette, IN",
+    "website": "https://www.purdue.edu",
+    "minCompletedCredits": 12,
+    "acceptInProgress": true,
+    "minGPA": 2.5,
+    "englishRequirement": {
+      "toefl": { "min": 80 },
+      "ielts": { "min": 6.5 },
+      "duolingo": { "min": 105 },
+      "compositionWaiver": true,
+      "note": "English proficiency may be demonstrated by completing college English courses at a US institution."
+    },
+    "requiredCourses": [
+      {
+        "id": "calc1",
+        "name": "Calculus 1",
+        "description": "Single-variable calculus, differentiation and integration"
+      },
+      {
+        "id": "calc2",
+        "name": "Calculus 2",
+        "description": "Integration techniques, sequences and series"
+      },
+      {
+        "id": "physics1",
+        "name": "Physics 1",
+        "description": "Classical mechanics, kinematics, and dynamics"
+      },
+      {
+        "id": "physics2",
+        "name": "Physics 2",
+        "description": "Electricity, magnetism, and waves"
+      }
+    ],
+    "notes": "Purdue accepts transfer applicants with as few as 12 credit hours. A strong foundation in math and science is emphasized."
+  }
+]
