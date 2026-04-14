@@ -8,12 +8,13 @@
     "minCompletedCredits": 30,
     "acceptInProgress": false,
     "minGPA": 3.0,
+    "noEnglishRequirement": true,
     "englishRequirement": {
-      "toefl": { "min": 100 },
-      "ielts": { "min": 7.0 },
-      "duolingo": { "min": 125 },
-      "compositionWaiver": true,
-      "note": "Students who completed English Composition 1 and 2 at a US institution may be exempt from English test requirements."
+      "toefl": { "min": 0 },
+      "ielts": { "min": 0 },
+      "duolingo": { "min": 0 },
+      "compositionWaiver": false,
+      "note": "Georgia Tech does not require an English proficiency test for transfer applicants."
     },
     "requiredCourses": [
       {
@@ -37,7 +38,7 @@
         "description": "Electricity, magnetism, and waves"
       }
     ],
-    "notes": "Highly competitive. A GPA of 3.3+ is strongly recommended for a competitive application."
+    "notes": "Highly competitive. A GPA of 3.3+ is strongly recommended. No English proficiency test required for transfer applicants."
   },
   {
     "id": "uiuc-me",
@@ -48,12 +49,13 @@
     "minCompletedCredits": 24,
     "acceptInProgress": true,
     "minGPA": 2.75,
+    "noEnglishRequirement": false,
     "englishRequirement": {
-      "toefl": { "min": 96 },
-      "ielts": { "min": 6.5 },
-      "duolingo": { "min": 115 },
-      "compositionWaiver": true,
-      "note": "Completion of English Composition at a US college may satisfy English proficiency requirements."
+      "toefl": { "min": 5.0, "note": "New scale (exams on/after Jan 21, 2026). Exams before Jan 21, 2026 required a minimum of 100." },
+      "ielts": { "min": 7.5 },
+      "duolingo": { "min": 130 },
+      "compositionWaiver": false,
+      "note": "English proficiency cannot be waived via English Composition courses alone. Accepted paths: TOEFL 5.0+ (new scale) / 100+ (old scale), IELTS 7.5+, Duolingo 130+, or completing two years of continuous full-time study (12+ credit hours/semester) at a U.S. regionally accredited institution."
     },
     "requiredCourses": [
       {
@@ -88,6 +90,7 @@
     "minCompletedCredits": 12,
     "acceptInProgress": true,
     "minGPA": 2.5,
+    "noEnglishRequirement": false,
     "englishRequirement": {
       "toefl": { "min": 80 },
       "ielts": { "min": 6.5 },

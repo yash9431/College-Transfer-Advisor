@@ -50,6 +50,10 @@ function checkEnglish(
   comp1: boolean,
   comp2: boolean
 ): { met: boolean; isConditional: boolean; reason: string } {
+  if (university.noEnglishRequirement) {
+    return { met: true, isConditional: false, reason: "No English proficiency test required for transfer applicants." };
+  }
+
   const req = university.englishRequirement;
 
   if (req.compositionWaiver && comp1 && comp2) {
@@ -75,10 +79,13 @@ function checkEnglish(
   }
 
   if (testType === "None") {
+    const compNote = req.compositionWaiver
+      ? " or completing English Composition 1 & 2"
+      : "";
     return {
       met: false,
       isConditional: false,
-      reason: `No English test provided. Required: TOEFL ${req.toefl.min}+, IELTS ${req.ielts.min}+, or Duolingo ${req.duolingo.min}+; or completing English Composition 1 & 2.`,
+      reason: `No English test provided. Required: TOEFL ${req.toefl.min}+, IELTS ${req.ielts.min}+, or Duolingo ${req.duolingo.min}+${compNote}.`,
     };
   }
 

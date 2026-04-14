@@ -1,5 +1,6 @@
 export interface EnglishTestThreshold {
   min: number;
+  note?: string;
 }
 
 export interface EnglishRequirement {
@@ -25,6 +26,7 @@ export interface University {
   minCompletedCredits: number;
   acceptInProgress: boolean;
   minGPA: number;
+  noEnglishRequirement: boolean;
   englishRequirement: EnglishRequirement;
   requiredCourses: RequiredCourse[];
   notes: string;
