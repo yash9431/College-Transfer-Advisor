@@ -23,26 +23,28 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import gtMajorsData from "@/data/gt-majors.json";
+import uiucMajorsData from "@/data/uiuc-majors.json";
 import type { StudentProfile, CourseRecord, CourseStatus, EnglishTestType } from "@/lib/eligibility";
-import type { GtMajorsData } from "@/types";
+import type { GtMajorsData, UiucMajorsData } from "@/types";
 
 const gtData = gtMajorsData as unknown as GtMajorsData;
+const uiucData = uiucMajorsData as unknown as UiucMajorsData;
 
 const COURSE_IDS = [
-  "calc1", "calc2", "calc3", "diffEq", "linAlg",
+  "calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures",
   "physics1", "physics2",
   "chem1", "chem2",
-  "bio1", "bio2",
-  "compSci1", "compSci2", "computing",
+  "bio1", "bio2", "molecularBio",
+  "compSci1", "compSci2", "computing", "ece110", "ece120",
   "labSciElective", "advancedScience", "englishComp",
 ] as const;
 
 const COURSE_GROUPS: { label: string; ids: string[] }[] = [
-  { label: "Mathematics", ids: ["calc1", "calc2", "calc3", "diffEq", "linAlg"] },
+  { label: "Mathematics", ids: ["calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures"] },
   { label: "Physics", ids: ["physics1", "physics2"] },
   { label: "Chemistry", ids: ["chem1", "chem2"] },
-  { label: "Biology", ids: ["bio1", "bio2"] },
-  { label: "Computing", ids: ["compSci1", "compSci2", "computing"] },
+  { label: "Biology / Life Sciences", ids: ["bio1", "bio2", "molecularBio"] },
+  { label: "Computing / Electronics", ids: ["compSci1", "compSci2", "computing", "ece110", "ece120"] },
   { label: "Other / Electives", ids: ["labSciElective", "advancedScience", "englishComp"] },
 ];
 
@@ -52,32 +54,40 @@ const COURSE_LABELS: Record<string, string> = {
   calc3: "Calculus III",
   diffEq: "Differential Equations",
   linAlg: "Linear Algebra",
+  discreteStructures: "Discrete Structures",
   physics1: "Physics 1 (Calculus-based)",
   physics2: "Physics 2 (Calculus-based)",
   chem1: "General Chemistry I",
   chem2: "General Chemistry II + Lab",
   bio1: "Biology I + Lab",
   bio2: "Biology II + Lab",
+  molecularBio: "Molecular & Cellular Biology",
   compSci1: "Computer Science I",
   compSci2: "Computer Science II",
   computing: "Computing / Programming",
+  ece110: "Introduction to Electronics (ECE 110)",
+  ece120: "Introduction to Computing for ECE (ECE 120)",
   labSciElective: "Lab Science Elective",
   advancedScience: "Advanced Math / Science Elective",
   englishComp: "English Composition or Speech",
 };
 
 const COURSE_DESCRIPTIONS: Record<string, string> = {
-  diffEq: "Required by GT (most engineering) and UIUC is not required for this",
-  linAlg: "Required by GT Applied Math, Discrete Math",
-  chem2: "Required by GT BME, ChBE, Environmental Eng, Biochemistry, Chemistry",
-  bio1: "Required by GT BME, Biology, Biochemistry, Neuroscience",
-  bio2: "Required by GT Biology, Neuroscience",
-  compSci1: "Required by GT (most engineering/CS majors). Equiv. to CS 1301 at GT.",
-  compSci2: "Required by GT CompE, EE, CS, Computational Media, Discrete Math",
-  computing: "Required by UIUC ME — CS 101, CS 124, SE 101, or ME 170",
-  labSciElective: "Required by GT (Design/Liberal Arts majors) — any one lab science course",
-  advancedScience: "Required by Purdue — one advanced math, chemistry, or physics course",
-  englishComp: "Required by Purdue as pre-transfer coursework",
+  diffEq: "Required by GT (most engineering) and most UIUC engineering majors. Equiv. MATH 2552 at GT / MATH 285 at UIUC.",
+  linAlg: "Required by GT Applied Math, Discrete Math; UIUC CS. Equiv. MATH 1554 at GT / MATH 257 at UIUC.",
+  discreteStructures: "Required by UIUC CS, CS+Physics. Equiv. CS 173 at UIUC.",
+  chem2: "Required by GT BME, ChBE, Environmental Eng, Biochemistry, Chemistry; and UIUC AgBE, BioEng, ChemE, EnvE, MSE, Neural Eng.",
+  bio1: "Required by GT BME, Biology, Biochemistry, Neuroscience.",
+  bio2: "Required by GT Biology, Neuroscience.",
+  molecularBio: "Required by UIUC Bioengineering, CS+BioEng, Neural Eng. Equiv. MCB 150 at UIUC.",
+  compSci1: "Required by GT (most engineering/CS majors) and UIUC CompE, CS. Equiv. CS 1301 at GT / CS 124 at UIUC.",
+  compSci2: "Required by GT CompE, EE, CS, Computational Media, Discrete Math; UIUC CS. Equiv. CS 128 at UIUC.",
+  computing: "Required by UIUC ME, AE, CE, IE, Physics, SE&D, etc. Equiv. CS 101, CS 124, SE 101, or ME 170 at UIUC.",
+  ece110: "Required by UIUC EE and Computer Engineering. Equiv. ECE 110 (Introduction to Electronics) at UIUC.",
+  ece120: "Required by UIUC EE and Computer Engineering alongside ECE 110. Equiv. ECE 120 (Intro to Computing) at UIUC.",
+  labSciElective: "Required by GT (Design/Liberal Arts majors) — any one lab science course with lecture and lab.",
+  advancedScience: "Required by Purdue ME — one advanced math, chemistry, or physics course.",
+  englishComp: "Required by Purdue as pre-transfer coursework. Must be completed (not in progress).",
 };
 
 const courseStatusEnum = z.enum(["completed", "in-progress", "not-taken"]);
@@ -91,20 +101,25 @@ const formSchema = z.object({
   completedEnglishComp1: z.enum(["yes", "no"]),
   completedEnglishComp2: z.enum(["yes", "no"]),
   gtMajorId: z.string().min(1, "Please select a Georgia Tech major"),
+  uiucMajorId: z.string().min(1, "Please select a UIUC major"),
   calc1: courseStatusEnum,
   calc2: courseStatusEnum,
   calc3: courseStatusEnum,
   diffEq: courseStatusEnum,
   linAlg: courseStatusEnum,
+  discreteStructures: courseStatusEnum,
   physics1: courseStatusEnum,
   physics2: courseStatusEnum,
   chem1: courseStatusEnum,
   chem2: courseStatusEnum,
   bio1: courseStatusEnum,
   bio2: courseStatusEnum,
+  molecularBio: courseStatusEnum,
   compSci1: courseStatusEnum,
   compSci2: courseStatusEnum,
   computing: courseStatusEnum,
+  ece110: courseStatusEnum,
+  ece120: courseStatusEnum,
   labSciElective: courseStatusEnum,
   advancedScience: courseStatusEnum,
   englishComp: courseStatusEnum,
@@ -113,7 +128,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface TransferFormProps {
-  onSubmit: (profile: StudentProfile & { gtMajorId: string }) => void;
+  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string }) => void;
   onReset: () => void;
   hasResults: boolean;
 }
@@ -130,20 +145,25 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       completedEnglishComp1: "no",
       completedEnglishComp2: "no",
       gtMajorId: "mechanical-engineering",
+      uiucMajorId: "mechanical-engineering",
       calc1: "not-taken",
       calc2: "not-taken",
       calc3: "not-taken",
       diffEq: "not-taken",
       linAlg: "not-taken",
+      discreteStructures: "not-taken",
       physics1: "not-taken",
       physics2: "not-taken",
       chem1: "not-taken",
       chem2: "not-taken",
       bio1: "not-taken",
       bio2: "not-taken",
+      molecularBio: "not-taken",
       compSci1: "not-taken",
       compSci2: "not-taken",
       computing: "not-taken",
+      ece110: "not-taken",
+      ece120: "not-taken",
       labSciElective: "not-taken",
       advancedScience: "not-taken",
       englishComp: "not-taken",
@@ -169,6 +189,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       completedEnglishComp2: values.completedEnglishComp2 === "yes",
       intendedMajor: values.gtMajorId,
       gtMajorId: values.gtMajorId,
+      uiucMajorId: values.uiucMajorId,
       courses,
     };
     onSubmit(profile);
@@ -212,9 +233,42 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormDescription>
-                    UIUC and Purdue results are always for Mechanical Engineering.
-                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Separator />
+
+          {/* UIUC Major */}
+          <div>
+            <h3 className="text-base font-medium text-foreground mb-4">UIUC — Intended Major</h3>
+            <FormField
+              control={form.control}
+              name="uiucMajorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Target Major at UIUC</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger data-testid="select-uiuc-major">
+                        <SelectValue placeholder="Select a major" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {uiucData.colleges.map((college) => (
+                        <SelectGroup key={college.name}>
+                          <SelectLabel>{college.name}</SelectLabel>
+                          {college.majors.map((major) => (
+                            <SelectItem key={major.id} value={major.id}>
+                              {major.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -401,7 +455,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
           <div>
             <h3 className="text-base font-medium text-foreground mb-1">Courses Completed</h3>
             <p className="text-sm text-muted-foreground mb-5">
-              Mark each course as completed, in progress, or not yet taken. Different universities require different courses.
+              Mark each course as completed, in progress, or not yet taken. Different universities and majors require different courses.
             </p>
             <div className="space-y-6">
               {COURSE_GROUPS.map((group) => (

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import universitiesData from "@/data/universities.json";
 import gtMajorsData from "@/data/gt-majors.json";
-import type { University, GtMajorsData } from "@/types";
+import uiucMajorsData from "@/data/uiuc-majors.json";
+import type { University, GtMajorsData, UiucMajorsData } from "@/types";
 import { TransferForm } from "@/components/TransferForm";
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { evaluateAll } from "@/lib/eligibility";
@@ -9,6 +10,7 @@ import type { StudentProfile, EligibilityResult } from "@/lib/eligibility";
 
 const universities = universitiesData as University[];
 const gtData = gtMajorsData as unknown as GtMajorsData;
+const uiucData = uiucMajorsData as unknown as UiucMajorsData;
 
 const COURSE_NAMES: Record<string, string> = {
   calc1: "Calculus I",
@@ -16,15 +18,22 @@ const COURSE_NAMES: Record<string, string> = {
   calc3: "Calculus III",
   diffEq: "Differential Equations",
   linAlg: "Linear Algebra",
+  discreteStructures: "Discrete Structures",
   physics1: "Physics 1 (Calculus-based)",
   physics2: "Physics 2 (Calculus-based)",
   chem1: "General Chemistry I",
   chem2: "General Chemistry II + Lab",
   bio1: "Biology I + Lab",
   bio2: "Biology II + Lab",
+  molecularBio: "Molecular & Cellular Biology",
   compSci1: "Computer Science I",
   compSci2: "Computer Science II",
+  computing: "Computing / Programming",
+  ece110: "Introduction to Electronics (ECE 110)",
+  ece120: "Introduction to Computing for ECE (ECE 120)",
   labSciElective: "Lab Science Elective",
+  advancedScience: "Advanced Math / Science Elective",
+  englishComp: "English Composition or Speech",
 };
 
 const COURSE_DESCRIPTIONS_GT: Record<string, string> = {
@@ -42,6 +51,25 @@ const COURSE_DESCRIPTIONS_GT: Record<string, string> = {
   compSci1: "Equivalent to CS 1301 at Georgia Tech.",
   compSci2: "Equivalent to CS 1331 at Georgia Tech.",
   labSciElective: "Any one lab science course (biology, chemistry, calculus-based physics, earth & atmospheric, or environmental sciences). Must include lecture and lab.",
+};
+
+const COURSE_DESCRIPTIONS_UIUC: Record<string, string> = {
+  calc1: "Required for all UIUC majors. Equivalent to MATH 220 at UIUC.",
+  calc2: "Equivalent to MATH 231 at UIUC.",
+  calc3: "Equivalent to MATH 241 at UIUC.",
+  diffEq: "Equivalent to MATH 285 at UIUC.",
+  linAlg: "Equivalent to MATH 257 (Linear Algebra with Computational Applications) at UIUC.",
+  discreteStructures: "Equivalent to CS 173 (Discrete Structures) at UIUC.",
+  physics1: "Equivalent to PHYS 211 at UIUC.",
+  physics2: "Equivalent to PHYS 212 at UIUC.",
+  chem1: "Equivalent to CHEM 102 + CHEM 103 at UIUC.",
+  chem2: "Equivalent to CHEM 104 + CHEM 105 at UIUC.",
+  molecularBio: "Equivalent to MCB 150 (Molecular & Cellular Basis of Life) at UIUC.",
+  compSci1: "Equivalent to CS 124 at UIUC.",
+  compSci2: "Equivalent to CS 128 at UIUC.",
+  computing: "Equivalent to CS 101, CS 124, SE 101, or ME 170 at UIUC.",
+  ece110: "Equivalent to ECE 110 (Introduction to Electronics) at UIUC.",
+  ece120: "Equivalent to ECE 120 (Introduction to Computing) at UIUC.",
 };
 
 function buildGtUniversity(majorId: string): University {
@@ -65,17 +93,45 @@ function buildGtUniversity(majorId: string): University {
   } as University;
 }
 
+function buildUiucUniversity(majorId: string): University {
+  const allMajors = uiucData.colleges.flatMap((c) => c.majors);
+  const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
+  const base = uiucData.base;
+
+  const allCourseIds = ["calc1", ...major.requiredCourseIds];
+  const requiredCourses = allCourseIds.map((id) => ({
+    id,
+    name: COURSE_NAMES[id] ?? id,
+    description: COURSE_DESCRIPTIONS_UIUC[id] ?? "",
+  }));
+
+  const sourceLink = major.sourceUrl ?? base.sourceUrl ?? "https://transferhandbook.illinois.edu/";
+
+  return {
+    ...base,
+    id: `uiuc-${major.id}`,
+    major: major.name,
+    requiredCourses,
+    sourceUrl: sourceLink,
+    notes: base.notes,
+  } as University;
+}
+
 export default function Home() {
   const [results, setResults] = useState<EligibilityResult[] | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [gtMajorId, setGtMajorId] = useState("mechanical-engineering");
+  const [uiucMajorId, setUiucMajorId] = useState("mechanical-engineering");
 
-  function handleSubmit(profile: StudentProfile & { gtMajorId: string }) {
-    const selectedId = profile.gtMajorId;
-    setGtMajorId(selectedId);
+  function handleSubmit(profile: StudentProfile & { gtMajorId: string; uiucMajorId: string }) {
+    const selectedGtId = profile.gtMajorId;
+    const selectedUiucId = profile.uiucMajorId;
+    setGtMajorId(selectedGtId);
+    setUiucMajorId(selectedUiucId);
 
-    const gtUniversity = buildGtUniversity(selectedId);
-    const allUniversities = [gtUniversity, ...universities];
+    const gtUniversity = buildGtUniversity(selectedGtId);
+    const uiucUniversity = buildUiucUniversity(selectedUiucId);
+    const allUniversities = [gtUniversity, uiucUniversity, ...universities];
     const evaluated = evaluateAll(profile, allUniversities);
     setResults(evaluated);
     setSubmitted(true);
@@ -91,7 +147,8 @@ export default function Home() {
   }
 
   const gtUniversityForDisplay = buildGtUniversity(gtMajorId);
-  const allUniversitiesForDisplay = [gtUniversityForDisplay, ...universities];
+  const uiucUniversityForDisplay = buildUiucUniversity(uiucMajorId);
+  const allUniversitiesForDisplay = [gtUniversityForDisplay, uiucUniversityForDisplay, ...universities];
 
   return (
     <main className="min-h-screen bg-background">
@@ -101,7 +158,7 @@ export default function Home() {
             US College Transfer Eligibility Checker
           </h1>
           <p className="mt-2 text-primary-foreground/80 text-base">
-            Check eligibility for Georgia Tech (any major), UIUC ME, and Purdue ME.
+            Check eligibility for Georgia Tech (any major), UIUC (any Grainger Engineering major), and Purdue ME.
           </p>
         </div>
       </header>
@@ -125,7 +182,7 @@ export default function Home() {
         <p className="mt-1 space-x-2">
           <a href="https://admission.gatech.edu/transfer/course-requirements-major" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GT source (Sept 2025)</a>
           <span>·</span>
-          <a href="https://transferhandbook.illinois.edu/eng/mechanical-engineering/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UIUC source</a>
+          <a href="https://transferhandbook.illinois.edu/eng/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UIUC source</a>
           <span>·</span>
           <a href="https://admissions.purdue.edu/become-student/transfer/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Purdue source</a>
         </p>

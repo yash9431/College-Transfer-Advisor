@@ -56,3 +56,20 @@ export interface GtMajorsData {
   base: Omit<University, "major" | "requiredCourses">;
   colleges: GtCollege[];
 }
+
+export interface UiucMajor {
+  id: string;
+  name: string;
+  requiredCourseIds: string[];
+  sourceUrl?: string;
+}
+
+export interface UiucCollege {
+  name: string;
+  majors: UiucMajor[];
+}
+
+export interface UiucMajorsData {
+  base: Omit<University, "major" | "requiredCourses">;
+  colleges: UiucCollege[];
+}

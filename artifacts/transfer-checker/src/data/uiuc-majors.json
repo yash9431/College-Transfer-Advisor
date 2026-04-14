@@ -1,0 +1,155 @@
+{
+  "base": {
+    "id": "uiuc",
+    "name": "UIUC",
+    "location": "Champaign, IL",
+    "website": "https://illinois.edu",
+    "sourceUrl": "https://transferhandbook.illinois.edu/eng/",
+    "minCompletedCredits": 24,
+    "acceptInProgress": true,
+    "minGPA": 3.0,
+    "noEnglishRequirement": false,
+    "englishRequirement": {
+      "toefl": { "min": 5.0, "note": "New scale — exams taken on or after Jan 21, 2026." },
+      "toeflLegacy": { "min": 100, "subscoreMin": 20, "note": "Old scale — exams taken before Jan 21, 2026. All section scores must be 20+." },
+      "ielts": { "min": 7.5 },
+      "duolingo": { "min": 130 },
+      "compositionWaiver": false,
+      "note": "TOEFL 5.0+ (new scale, on/after Jan 21 2026) or 100+ (old scale, before Jan 21 2026, all sections 20+), IELTS 7.5+, or Duolingo 130+."
+    },
+    "notes": "Admission to Grainger Engineering is competitive. B or better required in each required/technical course. Average admitted GPA is above 3.5. Source: transferhandbook.illinois.edu"
+  },
+  "colleges": [
+    {
+      "name": "Grainger College of Engineering",
+      "majors": [
+        {
+          "id": "aerospace-engineering",
+          "name": "Aerospace Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/aerospace-engineering/"
+        },
+        {
+          "id": "agricultural-biological-engineering",
+          "name": "Agricultural & Biological Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/agricultural-biological-engineering/"
+        },
+        {
+          "id": "bioengineering",
+          "name": "Bioengineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "molecularBio", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/bioengineering/"
+        },
+        {
+          "id": "chemical-engineering",
+          "name": "Chemical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/las/chemical-engineering/"
+        },
+        {
+          "id": "civil-engineering",
+          "name": "Civil Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/civil-engineering/"
+        },
+        {
+          "id": "computer-engineering",
+          "name": "Computer Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "ece110", "ece120", "compSci1"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/computer-engineering/"
+        },
+        {
+          "id": "computer-science",
+          "name": "Computer Science",
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "compSci1", "compSci2", "discreteStructures"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/computer-science/"
+        },
+        {
+          "id": "cs-bioengineering",
+          "name": "CS + Bioengineering",
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "compSci1", "compSci2", "discreteStructures", "physics1", "physics2", "chem1", "chem2", "molecularBio"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/cs-bioengineering/"
+        },
+        {
+          "id": "cs-physics",
+          "name": "CS + Physics",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "linAlg", "compSci1", "compSci2", "discreteStructures", "physics1", "physics2"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/cs-physics/"
+        },
+        {
+          "id": "electrical-engineering",
+          "name": "Electrical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "ece110", "ece120"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/electrical-engineering/"
+        },
+        {
+          "id": "engineering-mechanics",
+          "name": "Engineering Mechanics",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/engineering-mechanics/"
+        },
+        {
+          "id": "environmental-engineering",
+          "name": "Environmental Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/environmental-engineering/"
+        },
+        {
+          "id": "industrial-engineering",
+          "name": "Industrial Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/industrial-engineering/"
+        },
+        {
+          "id": "materials-science-engineering",
+          "name": "Materials Science & Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/materials-science-engineering/"
+        },
+        {
+          "id": "materials-science-data-science",
+          "name": "Materials Science & Engineering + Data Science",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/materials-science-engineering/"
+        },
+        {
+          "id": "mechanical-engineering",
+          "name": "Mechanical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/mechanical-engineering/"
+        },
+        {
+          "id": "neural-engineering",
+          "name": "Neural Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "molecularBio", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/neural-engineering/"
+        },
+        {
+          "id": "npre",
+          "name": "Nuclear, Plasma & Radiological Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/npre/"
+        },
+        {
+          "id": "npre-data-science",
+          "name": "NPRE + Data Science",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/npre-data-science/"
+        },
+        {
+          "id": "physics",
+          "name": "Physics",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/physics/"
+        },
+        {
+          "id": "systems-engineering-design",
+          "name": "Systems Engineering & Design",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "computing"],
+          "sourceUrl": "https://transferhandbook.illinois.edu/eng/systems-engineering-design/"
+        }
+      ]
+    }
+  ]
+}
