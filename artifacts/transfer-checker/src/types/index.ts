@@ -39,3 +39,20 @@ export interface University {
   requiredCourses: RequiredCourse[];
   notes: string;
 }
+
+export interface GtMajor {
+  id: string;
+  name: string;
+  requiredCourseIds: string[];
+  note?: string;
+}
+
+export interface GtCollege {
+  name: string;
+  majors: GtMajor[];
+}
+
+export interface GtMajorsData {
+  base: Omit<University, "major" | "requiredCourses">;
+  colleges: GtCollege[];
+}

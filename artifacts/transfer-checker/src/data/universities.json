@@ -1,47 +1,5 @@
 [
   {
-    "id": "gatech-me",
-    "name": "Georgia Tech",
-    "major": "Mechanical Engineering",
-    "location": "Atlanta, GA",
-    "website": "https://www.gatech.edu",
-    "sourceUrl": "https://admission.gatech.edu/transfer/course-requirements-major",
-    "minCompletedCredits": 30,
-    "acceptInProgress": true,
-    "minGPA": 3.3,
-    "noEnglishRequirement": true,
-    "englishRequirement": {
-      "toefl": { "min": 0 },
-      "ielts": { "min": 0 },
-      "duolingo": { "min": 0 },
-      "compositionWaiver": false,
-      "note": "Georgia Tech does not require an English proficiency test for transfer applicants. All majors do require English Composition 1101 and 1102 equivalents."
-    },
-    "requiredCourses": [
-      {
-        "id": "calc1",
-        "name": "Calculus I",
-        "description": "Required for all GT majors. Equivalent to MATH 1551 at Georgia Tech."
-      },
-      {
-        "id": "calc2",
-        "name": "Calculus II",
-        "description": "Required for Mechanical Engineering. Equivalent to MATH 1552 at Georgia Tech."
-      },
-      {
-        "id": "chem1",
-        "name": "Chemistry I (lecture only)",
-        "description": "Chemistry I lecture is required for Mechanical Engineering. Lab is NOT required. Equivalent to CHEM 1211 at Georgia Tech."
-      },
-      {
-        "id": "physics1",
-        "name": "Physics 1 (Calculus-based)",
-        "description": "Required for Mechanical Engineering. Equivalent to PHYS 2211 at Georgia Tech."
-      }
-    ],
-    "notes": "Highly competitive. A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. In-progress courses are accepted at time of application. No English proficiency test required for transfer applicants. Source: admission.gatech.edu/transfer/course-requirements-major"
-  },
-  {
     "id": "uiuc-me",
     "name": "UIUC",
     "major": "Mechanical Engineering",
@@ -84,7 +42,7 @@
       {
         "id": "physics2",
         "name": "Physics 2 — University Physics: E&M",
-        "description": "Equivalent to PHYS 212 at UIUC. (Electricity & Magnetism)"
+        "description": "Equivalent to PHYS 212 at UIUC."
       },
       {
         "id": "chem1",
@@ -115,7 +73,7 @@
       "ielts": { "min": 6.5 },
       "duolingo": { "min": 105 },
       "compositionWaiver": false,
-      "note": "English composition or speech is required as a pre-transfer course (not just a test waiver). International students must also meet TOEFL 80+, IELTS 6.5+, or Duolingo 105+."
+      "note": "English composition or speech is required as a pre-transfer course. International students must also meet TOEFL 80+, IELTS 6.5+, or Duolingo 105+."
     },
     "requiredCourses": [
       {
@@ -141,12 +99,12 @@
       {
         "id": "advancedScience",
         "name": "Advanced Math, Chemistry, or Physics",
-        "description": "One advanced course in math, chemistry, or physics. Some programs have specific requirements — refer to Purdue's Additional Notes for ME."
+        "description": "One advanced course in math, chemistry, or physics."
       },
       {
         "id": "englishComp",
         "name": "English Composition or Speech",
-        "description": "A college-level English composition or speech course. Required as pre-transfer coursework at Purdue. Must be completed (not in progress) at time of application."
+        "description": "A college-level English composition or speech course. Must be completed (not in progress) at time of application."
       }
     ],
     "notes": "All required courses must be completed and cannot be in progress at time of application. Minimum 3.0 GPA. Source: admissions.purdue.edu"

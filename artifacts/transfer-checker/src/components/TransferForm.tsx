@@ -14,51 +14,98 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import gtMajorsData from "@/data/gt-majors.json";
 import type { StudentProfile, CourseRecord, CourseStatus, EnglishTestType } from "@/lib/eligibility";
+import type { GtMajorsData } from "@/types";
 
-const COURSE_IDS = ["calc1", "calc2", "calc3", "physics1", "physics2", "chem1", "computing", "advancedScience", "englishComp"] as const;
+const gtData = gtMajorsData as unknown as GtMajorsData;
+
+const COURSE_IDS = [
+  "calc1", "calc2", "calc3", "diffEq", "linAlg",
+  "physics1", "physics2",
+  "chem1", "chem2",
+  "bio1", "bio2",
+  "compSci1", "compSci2", "computing",
+  "labSciElective", "advancedScience", "englishComp",
+] as const;
+
+const COURSE_GROUPS: { label: string; ids: string[] }[] = [
+  { label: "Mathematics", ids: ["calc1", "calc2", "calc3", "diffEq", "linAlg"] },
+  { label: "Physics", ids: ["physics1", "physics2"] },
+  { label: "Chemistry", ids: ["chem1", "chem2"] },
+  { label: "Biology", ids: ["bio1", "bio2"] },
+  { label: "Computing", ids: ["compSci1", "compSci2", "computing"] },
+  { label: "Other / Electives", ids: ["labSciElective", "advancedScience", "englishComp"] },
+];
+
 const COURSE_LABELS: Record<string, string> = {
   calc1: "Calculus I",
   calc2: "Calculus II",
   calc3: "Calculus III",
+  diffEq: "Differential Equations",
+  linAlg: "Linear Algebra",
   physics1: "Physics 1 (Calculus-based)",
   physics2: "Physics 2 (Calculus-based)",
   chem1: "General Chemistry I",
+  chem2: "General Chemistry II + Lab",
+  bio1: "Biology I + Lab",
+  bio2: "Biology II + Lab",
+  compSci1: "Computer Science I",
+  compSci2: "Computer Science II",
   computing: "Computing / Programming",
+  labSciElective: "Lab Science Elective",
   advancedScience: "Advanced Math / Science Elective",
   englishComp: "English Composition or Speech",
 };
+
 const COURSE_DESCRIPTIONS: Record<string, string> = {
-  calc3: "Required by UIUC (MATH 241)",
-  computing: "Required by UIUC — CS 101, CS 124, SE 101, or ME 170",
-  advancedScience: "Required by Purdue — advanced math, chem, or physics course",
+  diffEq: "Required by GT (most engineering) and UIUC is not required for this",
+  linAlg: "Required by GT Applied Math, Discrete Math",
+  chem2: "Required by GT BME, ChBE, Environmental Eng, Biochemistry, Chemistry",
+  bio1: "Required by GT BME, Biology, Biochemistry, Neuroscience",
+  bio2: "Required by GT Biology, Neuroscience",
+  compSci1: "Required by GT (most engineering/CS majors). Equiv. to CS 1301 at GT.",
+  compSci2: "Required by GT CompE, EE, CS, Computational Media, Discrete Math",
+  computing: "Required by UIUC ME — CS 101, CS 124, SE 101, or ME 170",
+  labSciElective: "Required by GT (Design/Liberal Arts majors) — any one lab science course",
+  advancedScience: "Required by Purdue — one advanced math, chemistry, or physics course",
   englishComp: "Required by Purdue as pre-transfer coursework",
 };
 
 const courseStatusEnum = z.enum(["completed", "in-progress", "not-taken"]);
 
 const formSchema = z.object({
-  completedCredits: z.coerce.number().min(0, "Must be 0 or more").max(300, "Enter a realistic number"),
-  inProgressCredits: z.coerce.number().min(0, "Must be 0 or more").max(100, "Enter a realistic number"),
+  completedCredits: z.coerce.number().min(0).max(300),
+  inProgressCredits: z.coerce.number().min(0).max(200),
   englishTestType: z.enum(["TOEFL", "IELTS", "Duolingo", "None"]),
   englishTestScore: z.coerce.number().min(0).max(160),
   toeflDate: z.enum(["legacy", "new"]).optional(),
   completedEnglishComp1: z.enum(["yes", "no"]),
   completedEnglishComp2: z.enum(["yes", "no"]),
-  intendedMajor: z.string().min(1, "Please select a major"),
+  gtMajorId: z.string().min(1, "Please select a Georgia Tech major"),
   calc1: courseStatusEnum,
   calc2: courseStatusEnum,
   calc3: courseStatusEnum,
+  diffEq: courseStatusEnum,
+  linAlg: courseStatusEnum,
   physics1: courseStatusEnum,
   physics2: courseStatusEnum,
   chem1: courseStatusEnum,
+  chem2: courseStatusEnum,
+  bio1: courseStatusEnum,
+  bio2: courseStatusEnum,
+  compSci1: courseStatusEnum,
+  compSci2: courseStatusEnum,
   computing: courseStatusEnum,
+  labSciElective: courseStatusEnum,
   advancedScience: courseStatusEnum,
   englishComp: courseStatusEnum,
 });
@@ -66,7 +113,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface TransferFormProps {
-  onSubmit: (profile: StudentProfile) => void;
+  onSubmit: (profile: StudentProfile & { gtMajorId: string }) => void;
   onReset: () => void;
   hasResults: boolean;
 }
@@ -82,14 +129,22 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       toeflDate: "new",
       completedEnglishComp1: "no",
       completedEnglishComp2: "no",
-      intendedMajor: "Mechanical Engineering",
+      gtMajorId: "mechanical-engineering",
       calc1: "not-taken",
       calc2: "not-taken",
       calc3: "not-taken",
+      diffEq: "not-taken",
+      linAlg: "not-taken",
       physics1: "not-taken",
       physics2: "not-taken",
       chem1: "not-taken",
+      chem2: "not-taken",
+      bio1: "not-taken",
+      bio2: "not-taken",
+      compSci1: "not-taken",
+      compSci2: "not-taken",
       computing: "not-taken",
+      labSciElective: "not-taken",
       advancedScience: "not-taken",
       englishComp: "not-taken",
     },
@@ -104,7 +159,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       status: values[id] as CourseStatus,
     }));
 
-    const profile: StudentProfile = {
+    const profile = {
       completedCredits: values.completedCredits,
       inProgressCredits: values.inProgressCredits,
       englishTestType: values.englishTestType as EnglishTestType,
@@ -112,7 +167,8 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       toeflIsLegacy: values.toeflDate === "legacy",
       completedEnglishComp1: values.completedEnglishComp1 === "yes",
       completedEnglishComp2: values.completedEnglishComp2 === "yes",
-      intendedMajor: values.intendedMajor,
+      intendedMajor: values.gtMajorId,
+      gtMajorId: values.gtMajorId,
       courses,
     };
     onSubmit(profile);
@@ -128,6 +184,45 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8" data-testid="form-transfer">
 
+          {/* Georgia Tech Major */}
+          <div>
+            <h3 className="text-base font-medium text-foreground mb-4">Georgia Tech — Intended Major</h3>
+            <FormField
+              control={form.control}
+              name="gtMajorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Target Major at Georgia Tech</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger data-testid="select-gt-major">
+                        <SelectValue placeholder="Select a major" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {gtData.colleges.map((college) => (
+                        <SelectGroup key={college.name}>
+                          <SelectLabel>{college.name}</SelectLabel>
+                          {college.majors.map((major) => (
+                            <SelectItem key={major.id} value={major.id}>
+                              {major.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    UIUC and Purdue results are always for Mechanical Engineering.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Separator />
+
           {/* Credits Section */}
           <div>
             <h3 className="text-base font-medium text-foreground mb-4">Credit Hours</h3>
@@ -139,13 +234,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                   <FormItem>
                     <FormLabel>Completed Credits</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        min={0}
-                        placeholder="e.g. 45"
-                        data-testid="input-completed-credits"
-                        {...field}
-                      />
+                      <Input type="number" min={0} placeholder="e.g. 45" data-testid="input-completed-credits" {...field} />
                     </FormControl>
                     <FormDescription>Credits you've already finished.</FormDescription>
                     <FormMessage />
@@ -159,13 +248,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                   <FormItem>
                     <FormLabel>In-Progress Credits</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        min={0}
-                        placeholder="e.g. 15"
-                        data-testid="input-inprogress-credits"
-                        {...field}
-                      />
+                      <Input type="number" min={0} placeholder="e.g. 15" data-testid="input-inprogress-credits" {...field} />
                     </FormControl>
                     <FormDescription>Credits you're currently taking.</FormDescription>
                     <FormMessage />
@@ -257,7 +340,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                         </SelectContent>
                       </Select>
                       <FormDescription>
-                        ETS changed the TOEFL scoring system on January 21, 2026. Select which scale your score is on.
+                        ETS changed the TOEFL scoring system on January 21, 2026.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -314,71 +397,47 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
 
           <Separator />
 
-          {/* Intended Major */}
-          <FormField
-            control={form.control}
-            name="intendedMajor"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Intended Major</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger data-testid="select-major">
-                      <SelectValue />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Mechanical Engineering">Mechanical Engineering</SelectItem>
-                    <SelectItem value="Electrical Engineering">Electrical Engineering</SelectItem>
-                    <SelectItem value="Computer Science">Computer Science</SelectItem>
-                    <SelectItem value="Civil Engineering">Civil Engineering</SelectItem>
-                    <SelectItem value="Chemical Engineering">Chemical Engineering</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>
-                  Note: Requirements shown are specifically for Mechanical Engineering programs at these universities.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Separator />
-
-          {/* Courses Section */}
+          {/* Courses Section — grouped by category */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-1">Required Courses</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Mark each course as completed, in progress, or not yet taken. Different universities require different courses — mark all that apply to your situation.
+            <h3 className="text-base font-medium text-foreground mb-1">Courses Completed</h3>
+            <p className="text-sm text-muted-foreground mb-5">
+              Mark each course as completed, in progress, or not yet taken. Different universities require different courses.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {COURSE_IDS.map((courseId) => (
-                <FormField
-                  key={courseId}
-                  control={form.control}
-                  name={courseId}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{COURSE_LABELS[courseId]}</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger data-testid={`select-course-${courseId}`}>
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="completed">Completed</SelectItem>
-                          <SelectItem value="in-progress">In Progress</SelectItem>
-                          <SelectItem value="not-taken">Not Taken</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {COURSE_DESCRIPTIONS[courseId] && (
-                        <FormDescription className="text-xs">{COURSE_DESCRIPTIONS[courseId]}</FormDescription>
-                      )}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <div className="space-y-6">
+              {COURSE_GROUPS.map((group) => (
+                <div key={group.label}>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">{group.label}</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {group.ids.map((courseId) => (
+                      <FormField
+                        key={courseId}
+                        control={form.control}
+                        name={courseId as keyof FormValues}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{COURSE_LABELS[courseId]}</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value as string}>
+                              <FormControl>
+                                <SelectTrigger data-testid={`select-course-${courseId}`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="completed">Completed</SelectItem>
+                                <SelectItem value="in-progress">In Progress</SelectItem>
+                                <SelectItem value="not-taken">Not Taken</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {COURSE_DESCRIPTIONS[courseId] && (
+                              <FormDescription className="text-xs">{COURSE_DESCRIPTIONS[courseId]}</FormDescription>
+                            )}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -388,12 +447,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
               Check Eligibility
             </Button>
             {hasResults && (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={onReset}
-                data-testid="button-reset"
-              >
+              <Button type="button" variant="outline" onClick={onReset} data-testid="button-reset">
                 Reset
               </Button>
             )}

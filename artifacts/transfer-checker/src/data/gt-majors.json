@@ -1,0 +1,225 @@
+{
+  "base": {
+    "id": "gatech",
+    "name": "Georgia Tech",
+    "location": "Atlanta, GA",
+    "website": "https://www.gatech.edu",
+    "sourceUrl": "https://admission.gatech.edu/transfer/course-requirements-major",
+    "minCompletedCredits": 30,
+    "acceptInProgress": true,
+    "minGPA": 3.3,
+    "noEnglishRequirement": true,
+    "englishRequirement": {
+      "toefl": { "min": 0 },
+      "ielts": { "min": 0 },
+      "duolingo": { "min": 0 },
+      "compositionWaiver": false,
+      "note": "No English proficiency test required for transfer applicants. All majors require English Composition 1101 and 1102 equivalents."
+    },
+    "notes": "A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. In-progress courses are accepted. Source: admission.gatech.edu/transfer/course-requirements-major (Sept 2025 chart)"
+  },
+  "colleges": [
+    {
+      "name": "College of Engineering",
+      "majors": [
+        {
+          "id": "aerospace-engineering",
+          "name": "Aerospace Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1"]
+        },
+        {
+          "id": "biomedical-engineering",
+          "name": "Biomedical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "bio1"]
+        },
+        {
+          "id": "chemical-biomolecular-engineering",
+          "name": "Chemical & Biomolecular Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2"]
+        },
+        {
+          "id": "civil-engineering",
+          "name": "Civil Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1"]
+        },
+        {
+          "id": "computer-engineering",
+          "name": "Computer Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1", "compSci2"]
+        },
+        {
+          "id": "electrical-engineering",
+          "name": "Electrical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1", "compSci2"]
+        },
+        {
+          "id": "environmental-engineering",
+          "name": "Environmental Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2"]
+        },
+        {
+          "id": "industrial-engineering",
+          "name": "Industrial Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "compSci1"]
+        },
+        {
+          "id": "materials-science-engineering",
+          "name": "Materials Science & Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1"]
+        },
+        {
+          "id": "mechanical-engineering",
+          "name": "Mechanical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1"]
+        },
+        {
+          "id": "nuclear-radiological-engineering",
+          "name": "Nuclear & Radiological Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1"]
+        }
+      ]
+    },
+    {
+      "name": "College of Computing",
+      "majors": [
+        {
+          "id": "computer-science",
+          "name": "Computer Science",
+          "requiredCourseIds": ["calc2", "compSci1", "compSci2"]
+        },
+        {
+          "id": "computational-media",
+          "name": "Computational Media",
+          "requiredCourseIds": ["calc2", "compSci1", "compSci2"]
+        }
+      ]
+    },
+    {
+      "name": "College of Sciences",
+      "majors": [
+        {
+          "id": "applied-mathematics",
+          "name": "Applied Mathematics",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "linAlg", "compSci1"]
+        },
+        {
+          "id": "biochemistry",
+          "name": "Biochemistry",
+          "requiredCourseIds": ["calc2", "physics1", "chem1", "chem2", "bio1"]
+        },
+        {
+          "id": "biology",
+          "name": "Biology",
+          "requiredCourseIds": ["calc2", "chem1", "bio1", "bio2"]
+        },
+        {
+          "id": "chemistry",
+          "name": "Chemistry",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1", "chem2"]
+        },
+        {
+          "id": "discrete-mathematics",
+          "name": "Discrete Mathematics",
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "compSci1", "compSci2"]
+        },
+        {
+          "id": "earth-atmospheric-sciences",
+          "name": "Earth & Atmospheric Sciences",
+          "requiredCourseIds": ["calc2", "physics1", "physics2", "chem1"]
+        },
+        {
+          "id": "neuroscience",
+          "name": "Neuroscience",
+          "requiredCourseIds": ["calc2", "chem1", "bio1", "bio2"]
+        },
+        {
+          "id": "physics",
+          "name": "Physics",
+          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2"]
+        },
+        {
+          "id": "psychology",
+          "name": "Psychology",
+          "requiredCourseIds": ["calc2", "labSciElective"]
+        },
+        {
+          "id": "solid-earth-planetary-sciences",
+          "name": "Solid Earth & Planetary Sciences",
+          "requiredCourseIds": ["calc2", "physics1", "physics2", "chem1"]
+        }
+      ]
+    },
+    {
+      "name": "College of Design",
+      "majors": [
+        {
+          "id": "architecture",
+          "name": "Architecture",
+          "requiredCourseIds": ["labSciElective"],
+          "note": "Portfolio approval from College of Design faculty also required."
+        },
+        {
+          "id": "arts-entertainment-creative-technologies",
+          "name": "Arts, Entertainment & Creative Technologies",
+          "requiredCourseIds": ["labSciElective"],
+          "note": "Portfolio approval from College of Design faculty also required."
+        },
+        {
+          "id": "industrial-design",
+          "name": "Industrial Design",
+          "requiredCourseIds": ["labSciElective"]
+        },
+        {
+          "id": "music-technology",
+          "name": "Music Technology",
+          "requiredCourseIds": ["calc2"]
+        }
+      ]
+    },
+    {
+      "name": "Ivan Allen College of Liberal Arts",
+      "majors": [
+        {
+          "id": "economics",
+          "name": "Economics",
+          "requiredCourseIds": ["calc2"]
+        },
+        {
+          "id": "global-economics-modern-languages",
+          "name": "Global Economics & Modern Languages",
+          "requiredCourseIds": ["calc2"]
+        },
+        {
+          "id": "history-technology-society",
+          "name": "History, Technology & Society",
+          "requiredCourseIds": ["labSciElective"]
+        },
+        {
+          "id": "international-affairs",
+          "name": "International Affairs",
+          "requiredCourseIds": ["labSciElective"]
+        },
+        {
+          "id": "literature-media-communication",
+          "name": "Literature, Media & Communication",
+          "requiredCourseIds": ["labSciElective"]
+        },
+        {
+          "id": "public-policy",
+          "name": "Public Policy",
+          "requiredCourseIds": ["calc2"]
+        },
+        {
+          "id": "science-technology-culture",
+          "name": "Science, Technology & Culture",
+          "requiredCourseIds": ["labSciElective"]
+        },
+        {
+          "id": "urban-planning-spatial-analytics",
+          "name": "Urban Planning & Spatial Analytics",
+          "requiredCourseIds": []
+        }
+      ]
+    }
+  ]
+}
