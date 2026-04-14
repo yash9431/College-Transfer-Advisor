@@ -5,40 +5,46 @@
     "major": "Mechanical Engineering",
     "location": "Atlanta, GA",
     "website": "https://www.gatech.edu",
+    "sourceUrl": "https://admission.gatech.edu/transfer/course-requirements-major",
     "minCompletedCredits": 30,
     "acceptInProgress": false,
-    "minGPA": 3.0,
+    "minGPA": 3.3,
     "noEnglishRequirement": true,
     "englishRequirement": {
       "toefl": { "min": 0 },
       "ielts": { "min": 0 },
       "duolingo": { "min": 0 },
       "compositionWaiver": false,
-      "note": "Georgia Tech does not require an English proficiency test for transfer applicants."
+      "note": "Georgia Tech does not require an English proficiency test for transfer applicants. All majors do require English Composition 1101 and 1102 equivalents."
     },
     "requiredCourses": [
       {
         "id": "calc1",
-        "name": "Calculus 1",
-        "description": "Single-variable calculus, differentiation and integration"
+        "name": "Calculus I",
+        "description": "Required for all GT majors. Equivalent to MATH 1551 at Georgia Tech."
       },
       {
         "id": "calc2",
-        "name": "Calculus 2",
-        "description": "Integration techniques, sequences and series"
+        "name": "Calculus II",
+        "description": "Required for Mechanical Engineering. Equivalent to MATH 1552 at Georgia Tech."
+      },
+      {
+        "id": "chem1",
+        "name": "Chemistry I + Lab",
+        "description": "Required for Mechanical Engineering. Must include both lecture and lab components. Equivalent to CHEM 1211K at Georgia Tech."
       },
       {
         "id": "physics1",
-        "name": "Physics 1",
-        "description": "Classical mechanics, kinematics, and dynamics"
+        "name": "Physics 1 (Calculus-based)",
+        "description": "First course of a two-course physics sequence required for ME. Must include both lecture and lab components. Equivalent to PHYS 2211 at Georgia Tech."
       },
       {
         "id": "physics2",
-        "name": "Physics 2",
-        "description": "Electricity, magnetism, and waves"
+        "name": "Physics 2 (Calculus-based)",
+        "description": "Second course of the two-course physics sequence required for ME. Must include both lecture and lab components. Equivalent to PHYS 2212 at Georgia Tech."
       }
     ],
-    "notes": "Highly competitive. A GPA of 3.3+ is strongly recommended. No English proficiency test required for transfer applicants."
+    "notes": "Highly competitive. A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. No English proficiency test required for transfer applicants. Source: admission.gatech.edu/transfer/course-requirements-major"
   },
   {
     "id": "uiuc-me",
@@ -46,9 +52,10 @@
     "major": "Mechanical Engineering",
     "location": "Champaign, IL",
     "website": "https://illinois.edu",
+    "sourceUrl": "https://transferhandbook.illinois.edu/eng/mechanical-engineering/",
     "minCompletedCredits": 24,
-    "acceptInProgress": true,
-    "minGPA": 2.75,
+    "acceptInProgress": false,
+    "minGPA": 3.0,
     "noEnglishRequirement": false,
     "englishRequirement": {
       "toefl": { "min": 5.0, "note": "New scale — exams taken on or after Jan 21, 2026." },
@@ -61,26 +68,41 @@
     "requiredCourses": [
       {
         "id": "calc1",
-        "name": "Calculus 1",
-        "description": "Single-variable calculus, differentiation and integration"
+        "name": "Calculus I",
+        "description": "Equivalent to MATH 220 or MATH 221 at UIUC."
       },
       {
         "id": "calc2",
-        "name": "Calculus 2",
-        "description": "Integration techniques, sequences and series"
+        "name": "Calculus II",
+        "description": "Equivalent to MATH 231 at UIUC."
+      },
+      {
+        "id": "calc3",
+        "name": "Calculus III",
+        "description": "Equivalent to MATH 241 at UIUC. Required before applying."
       },
       {
         "id": "physics1",
-        "name": "Physics 1",
-        "description": "Classical mechanics, kinematics, and dynamics"
+        "name": "Physics 1 — University Physics: Mechanics",
+        "description": "Equivalent to PHYS 211 at UIUC."
       },
       {
         "id": "physics2",
-        "name": "Physics 2",
-        "description": "Electricity, magnetism, and waves"
+        "name": "Physics 2 — University Physics: E&M",
+        "description": "Equivalent to PHYS 212 at UIUC. (Electricity & Magnetism)"
+      },
+      {
+        "id": "chem1",
+        "name": "General Chemistry I + Lab",
+        "description": "Equivalent to CHEM 102 + CHEM 103 at UIUC. AP Chemistry awards lecture credit only — lab must be completed separately."
+      },
+      {
+        "id": "computing",
+        "name": "Computing / Programming Course",
+        "description": "One of: CS 101 (Intro Computing), CS 124 (Intro to CS I), SE 101 (Engineering Graphics & Design), or ME 170 (Computer-Aided Design) at UIUC."
       }
     ],
-    "notes": "In-progress courses are accepted at time of application. Final admission contingent on course completion."
+    "notes": "All required courses must be completed BEFORE the application term — in-progress courses are NOT accepted at time of application. A B or better (3.0/4.0) is required in each required/technical course. Average admitted GPA is above 3.5. Source: transferhandbook.illinois.edu/eng/mechanical-engineering/"
   },
   {
     "id": "purdue-me",
@@ -88,39 +110,50 @@
     "major": "Mechanical Engineering",
     "location": "West Lafayette, IN",
     "website": "https://www.purdue.edu",
-    "minCompletedCredits": 12,
-    "acceptInProgress": true,
-    "minGPA": 2.5,
+    "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/",
+    "minCompletedCredits": 24,
+    "acceptInProgress": false,
+    "minGPA": 3.0,
     "noEnglishRequirement": false,
     "englishRequirement": {
       "toefl": { "min": 80 },
       "ielts": { "min": 6.5 },
       "duolingo": { "min": 105 },
-      "compositionWaiver": true,
-      "note": "English proficiency may be demonstrated by completing college English courses at a US institution."
+      "compositionWaiver": false,
+      "note": "English composition or speech is required as a pre-transfer course (not just a test waiver). International students must also meet TOEFL 80+, IELTS 6.5+, or Duolingo 105+."
     },
     "requiredCourses": [
       {
         "id": "calc1",
-        "name": "Calculus 1",
-        "description": "Single-variable calculus, differentiation and integration"
+        "name": "Calculus I",
+        "description": "Equivalent to MA 16100 or MA 16500 at Purdue."
       },
       {
         "id": "calc2",
-        "name": "Calculus 2",
-        "description": "Integration techniques, sequences and series"
+        "name": "Calculus II",
+        "description": "Equivalent to MA 16200 or MA 16600 at Purdue."
+      },
+      {
+        "id": "chem1",
+        "name": "Calculus-based Chemistry",
+        "description": "Equivalent to CHEM 11510/11520/11530 at Purdue."
       },
       {
         "id": "physics1",
-        "name": "Physics 1",
-        "description": "Classical mechanics, kinematics, and dynamics"
+        "name": "Calculus-based Physics I",
+        "description": "Equivalent to PHYS 17200 at Purdue."
       },
       {
-        "id": "physics2",
-        "name": "Physics 2",
-        "description": "Electricity, magnetism, and waves"
+        "id": "advancedScience",
+        "name": "Advanced Math, Chemistry, or Physics",
+        "description": "One advanced course in math, chemistry, or physics. Some programs have specific requirements — refer to Purdue's Additional Notes for ME."
+      },
+      {
+        "id": "englishComp",
+        "name": "English Composition or Speech",
+        "description": "A college-level English composition or speech course. Required as pre-transfer coursework at Purdue. Must be completed (not in progress) at time of application."
       }
     ],
-    "notes": "Purdue accepts transfer applicants with as few as 12 credit hours. A strong foundation in math and science is emphasized."
+    "notes": "All required courses must be completed and cannot be in progress at time of application. Minimum 3.0 GPA. Source: admissions.purdue.edu"
   }
 ]

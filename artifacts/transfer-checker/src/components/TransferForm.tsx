@@ -22,13 +22,26 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import type { StudentProfile, CourseRecord, CourseStatus, EnglishTestType } from "@/lib/eligibility";
 
-const COURSE_IDS = ["calc1", "calc2", "physics1", "physics2"] as const;
+const COURSE_IDS = ["calc1", "calc2", "calc3", "physics1", "physics2", "chem1", "computing", "advancedScience", "englishComp"] as const;
 const COURSE_LABELS: Record<string, string> = {
-  calc1: "Calculus 1",
-  calc2: "Calculus 2",
-  physics1: "Physics 1",
-  physics2: "Physics 2",
+  calc1: "Calculus I",
+  calc2: "Calculus II",
+  calc3: "Calculus III",
+  physics1: "Physics 1 (Calculus-based)",
+  physics2: "Physics 2 (Calculus-based)",
+  chem1: "Chemistry I + Lab",
+  computing: "Computing / Programming",
+  advancedScience: "Advanced Math / Science Elective",
+  englishComp: "English Composition or Speech",
 };
+const COURSE_DESCRIPTIONS: Record<string, string> = {
+  calc3: "Required by UIUC (MATH 241)",
+  computing: "Required by UIUC — CS 101, CS 124, SE 101, or ME 170",
+  advancedScience: "Required by Purdue — advanced math, chem, or physics course",
+  englishComp: "Required by Purdue as pre-transfer coursework",
+};
+
+const courseStatusEnum = z.enum(["completed", "in-progress", "not-taken"]);
 
 const formSchema = z.object({
   completedCredits: z.coerce.number().min(0, "Must be 0 or more").max(300, "Enter a realistic number"),
@@ -39,10 +52,15 @@ const formSchema = z.object({
   completedEnglishComp1: z.enum(["yes", "no"]),
   completedEnglishComp2: z.enum(["yes", "no"]),
   intendedMajor: z.string().min(1, "Please select a major"),
-  calc1: z.enum(["completed", "in-progress", "not-taken"]),
-  calc2: z.enum(["completed", "in-progress", "not-taken"]),
-  physics1: z.enum(["completed", "in-progress", "not-taken"]),
-  physics2: z.enum(["completed", "in-progress", "not-taken"]),
+  calc1: courseStatusEnum,
+  calc2: courseStatusEnum,
+  calc3: courseStatusEnum,
+  physics1: courseStatusEnum,
+  physics2: courseStatusEnum,
+  chem1: courseStatusEnum,
+  computing: courseStatusEnum,
+  advancedScience: courseStatusEnum,
+  englishComp: courseStatusEnum,
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -67,8 +85,13 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       intendedMajor: "Mechanical Engineering",
       calc1: "not-taken",
       calc2: "not-taken",
+      calc3: "not-taken",
       physics1: "not-taken",
       physics2: "not-taken",
+      chem1: "not-taken",
+      computing: "not-taken",
+      advancedScience: "not-taken",
+      englishComp: "not-taken",
     },
   });
 
@@ -326,7 +349,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
           <div>
             <h3 className="text-base font-medium text-foreground mb-1">Required Courses</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Mark each course as completed, in progress, or not yet taken.
+              Mark each course as completed, in progress, or not yet taken. Different universities require different courses — mark all that apply to your situation.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {COURSE_IDS.map((courseId) => (
@@ -349,6 +372,9 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                           <SelectItem value="not-taken">Not Taken</SelectItem>
                         </SelectContent>
                       </Select>
+                      {COURSE_DESCRIPTIONS[courseId] && (
+                        <FormDescription className="text-xs">{COURSE_DESCRIPTIONS[courseId]}</FormDescription>
+                      )}
                       <FormMessage />
                     </FormItem>
                   )}

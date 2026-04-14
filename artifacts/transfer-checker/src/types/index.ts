@@ -30,6 +30,7 @@ export interface University {
   major: string;
   location: string;
   website: string;
+  sourceUrl?: string;
   minCompletedCredits: number;
   acceptInProgress: boolean;
   minGPA: number;
