@@ -2,7 +2,8 @@ import { useState } from "react";
 import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
 import purdueMajorsData from "@/data/purdue-majors.json";
-import type { University, GtMajorsData, UiucMajorsData, PurdueMajorsData } from "@/types";
+import utaustinMajorsData from "@/data/utaustin-majors.json";
+import type { University, GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData } from "@/types";
 import { TransferForm } from "@/components/TransferForm";
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { evaluateAll } from "@/lib/eligibility";
@@ -11,6 +12,7 @@ import type { StudentProfile, EligibilityResult } from "@/lib/eligibility";
 const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
 const purdueData = purdueMajorsData as unknown as PurdueMajorsData;
+const utaustinData = utaustinMajorsData as unknown as UtAustinMajorsData;
 
 const COURSE_NAMES: Record<string, string> = {
   calc1: "Calculus I",
@@ -88,6 +90,16 @@ const COURSE_DESCRIPTIONS_PURDUE: Record<string, string> = {
   advancedScience: "One advanced course in math (Calc III/above), chemistry (beyond Chem I), or physics (beyond Physics I). Must be a full course, not a lab section only.",
 };
 
+const COURSE_DESCRIPTIONS_UTAUSTIN: Record<string, string> = {
+  calc1: "Required for all UT Austin Cockrell majors. Equivalent to M 408C or M 408K at UT Austin.",
+  calc2: "Equivalent to M 408D, M 408L, or M 408M (TCCN: MATH 2415) at UT Austin.",
+  physics1: "Equivalent to PHY 303K + lab (103M or 105M) at UT Austin. Must include both lecture and lab.",
+  chem1: "Equivalent to CH 301 at UT Austin (TCCN: CHEM 1411).",
+  chem2: "Equivalent to CH 302 + lab (102M) at UT Austin. Required for Materials Science Engineering.",
+  bio1: "Equivalent to BIO 311C at UT Austin (TCCN: BIOL 1406). Required for Biomedical Engineering.",
+  computing: "Equivalent to CS 303E or CS 312 at UT Austin. Required for ECE, ME, and Computational Engineering.",
+};
+
 function buildGtUniversity(majorId: string): University {
   const allMajors = gtData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
@@ -153,25 +165,47 @@ function buildPurdueUniversity(majorId: string): University {
   } as University;
 }
 
+function buildUtAustinUniversity(majorId: string): University {
+  const allMajors = utaustinData.colleges.flatMap((c) => c.majors);
+  const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
+  const base = utaustinData.base;
+
+  const allCourseIds = ["calc1", ...major.requiredCourseIds];
+  const requiredCourses = allCourseIds.map((id) => ({
+    id,
+    name: COURSE_NAMES[id] ?? id,
+    description: COURSE_DESCRIPTIONS_UTAUSTIN[id] ?? "",
+  }));
+
+  return {
+    ...base,
+    id: `utaustin-${major.id}`,
+    major: major.name,
+    requiredCourses,
+    sourceUrl: major.sourceUrl ?? base.sourceUrl,
+    notes: base.notes + (major.note ? ` Note: ${major.note}` : ""),
+  } as University;
+}
+
 export default function Home() {
   const [results, setResults] = useState<EligibilityResult[] | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [gtMajorId, setGtMajorId] = useState("mechanical-engineering");
   const [uiucMajorId, setUiucMajorId] = useState("mechanical-engineering");
   const [purdueMajorId, setPurdueMajorId] = useState("mechanical-engineering");
+  const [utaustinMajorId, setUtAustinMajorId] = useState("mechanical-engineering");
 
-  function handleSubmit(profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string }) {
-    const selectedGtId = profile.gtMajorId;
-    const selectedUiucId = profile.uiucMajorId;
-    const selectedPurdueId = profile.purdueMajorId;
-    setGtMajorId(selectedGtId);
-    setUiucMajorId(selectedUiucId);
-    setPurdueMajorId(selectedPurdueId);
+  function handleSubmit(profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string; utaustinMajorId: string }) {
+    setGtMajorId(profile.gtMajorId);
+    setUiucMajorId(profile.uiucMajorId);
+    setPurdueMajorId(profile.purdueMajorId);
+    setUtAustinMajorId(profile.utaustinMajorId);
 
-    const gtUniversity = buildGtUniversity(selectedGtId);
-    const uiucUniversity = buildUiucUniversity(selectedUiucId);
-    const purdueUniversity = buildPurdueUniversity(selectedPurdueId);
-    const allUniversities = [gtUniversity, uiucUniversity, purdueUniversity];
+    const gtUniversity = buildGtUniversity(profile.gtMajorId);
+    const uiucUniversity = buildUiucUniversity(profile.uiucMajorId);
+    const purdueUniversity = buildPurdueUniversity(profile.purdueMajorId);
+    const utaustinUniversity = buildUtAustinUniversity(profile.utaustinMajorId);
+    const allUniversities = [gtUniversity, uiucUniversity, purdueUniversity, utaustinUniversity];
     const evaluated = evaluateAll(profile, allUniversities);
     setResults(evaluated);
     setSubmitted(true);
@@ -186,10 +220,12 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  const gtUniversityForDisplay = buildGtUniversity(gtMajorId);
-  const uiucUniversityForDisplay = buildUiucUniversity(uiucMajorId);
-  const purdueUniversityForDisplay = buildPurdueUniversity(purdueMajorId);
-  const allUniversitiesForDisplay = [gtUniversityForDisplay, uiucUniversityForDisplay, purdueUniversityForDisplay];
+  const allUniversitiesForDisplay = [
+    buildGtUniversity(gtMajorId),
+    buildUiucUniversity(uiucMajorId),
+    buildPurdueUniversity(purdueMajorId),
+    buildUtAustinUniversity(utaustinMajorId),
+  ];
 
   return (
     <main className="min-h-screen bg-background">
@@ -199,7 +235,7 @@ export default function Home() {
             US College Transfer Eligibility Checker
           </h1>
           <p className="mt-2 text-primary-foreground/80 text-base">
-            Check eligibility for Georgia Tech, UIUC, and Purdue — any major, based on official university requirements.
+            Check eligibility for Georgia Tech, UIUC, Purdue, and UT Austin — any major, based on official university requirements.
           </p>
         </div>
       </header>
@@ -220,12 +256,14 @@ export default function Home() {
         <p>
           Requirements are based on officially published information and may change. Always verify directly with each university's admissions office.
         </p>
-        <p className="mt-1 space-x-2">
+        <p className="mt-1 flex flex-wrap justify-center gap-x-2 gap-y-1">
           <a href="https://admission.gatech.edu/transfer/course-requirements-major" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GT source (Sept 2025)</a>
           <span>·</span>
           <a href="https://transferhandbook.illinois.edu/eng/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UIUC source</a>
           <span>·</span>
           <a href="https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Purdue source</a>
+          <span>·</span>
+          <a href="https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UT Austin source</a>
         </p>
       </footer>
     </main>

@@ -62,6 +62,14 @@ function checkEnglish(
     return { met: true, isConditional: false, reason: "English Composition 1 & 2 completed — English test waived." };
   }
 
+  if (testType === "Duolingo" && req.duolingoAccepted === false) {
+    return {
+      met: false,
+      isConditional: false,
+      reason: `Duolingo is not accepted by ${university.name}. Only TOEFL iBT and IELTS Academic are accepted.`,
+    };
+  }
+
   if (testType === "TOEFL") {
     if (toeflIsLegacy && req.toeflLegacy) {
       const legacy = req.toeflLegacy;
@@ -111,11 +119,12 @@ function checkEnglish(
     const toeflNote = req.toeflLegacy
       ? `TOEFL 5.0+ (new scale) or ${req.toeflLegacy.min}+ (old scale, all sections ${req.toeflLegacy.subscoreMin}+)`
       : `TOEFL ${req.toefl.min}+`;
+    const duolingoNote = req.duolingoAccepted === false ? "" : `, or Duolingo ${req.duolingo.min}+`;
     const compNote = req.compositionWaiver ? " or completing English Composition 1 & 2" : "";
     return {
       met: false,
       isConditional: false,
-      reason: `No English test provided. Required: ${toeflNote}, IELTS ${req.ielts.min}+, or Duolingo ${req.duolingo.min}+${compNote}.`,
+      reason: `No English test provided. Required: ${toeflNote}, IELTS ${req.ielts.min}+${duolingoNote}${compNote}.`,
     };
   }
 

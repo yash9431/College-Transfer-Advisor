@@ -25,12 +25,14 @@ import { Separator } from "@/components/ui/separator";
 import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
 import purdueMajorsData from "@/data/purdue-majors.json";
+import utaustinMajorsData from "@/data/utaustin-majors.json";
 import type { StudentProfile, CourseRecord, CourseStatus, EnglishTestType } from "@/lib/eligibility";
-import type { GtMajorsData, UiucMajorsData, PurdueMajorsData } from "@/types";
+import type { GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData } from "@/types";
 
 const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
 const purdueData = purdueMajorsData as unknown as PurdueMajorsData;
+const utaustinData = utaustinMajorsData as unknown as UtAustinMajorsData;
 
 const COURSE_IDS = [
   "calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures",
@@ -111,6 +113,7 @@ const formSchema = z.object({
   gtMajorId: z.string().min(1, "Please select a Georgia Tech major"),
   uiucMajorId: z.string().min(1, "Please select a UIUC major"),
   purdueMajorId: z.string().min(1, "Please select a Purdue major"),
+  utaustinMajorId: z.string().min(1, "Please select a UT Austin major"),
   calc1: courseStatusEnum,
   calc2: courseStatusEnum,
   calc3: courseStatusEnum,
@@ -139,7 +142,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface TransferFormProps {
-  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string }) => void;
+  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string; utaustinMajorId: string }) => void;
   onReset: () => void;
   hasResults: boolean;
 }
@@ -158,6 +161,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       gtMajorId: "mechanical-engineering",
       uiucMajorId: "mechanical-engineering",
       purdueMajorId: "mechanical-engineering",
+      utaustinMajorId: "mechanical-engineering",
       calc1: "not-taken",
       calc2: "not-taken",
       calc3: "not-taken",
@@ -205,6 +209,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       gtMajorId: values.gtMajorId,
       uiucMajorId: values.uiucMajorId,
       purdueMajorId: values.purdueMajorId,
+      utaustinMajorId: values.utaustinMajorId,
       courses,
     };
     onSubmit(profile);
@@ -309,6 +314,42 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                     </FormControl>
                     <SelectContent>
                       {purdueData.colleges.map((college) => (
+                        <SelectGroup key={college.name}>
+                          <SelectLabel>{college.name}</SelectLabel>
+                          {college.majors.map((major) => (
+                            <SelectItem key={major.id} value={major.id}>
+                              {major.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Separator />
+
+          {/* UT Austin Major */}
+          <div>
+            <h3 className="text-base font-medium text-foreground mb-4">UT Austin — Intended Major</h3>
+            <FormField
+              control={form.control}
+              name="utaustinMajorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Target Major at UT Austin (Cockrell School of Engineering)</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger data-testid="select-utaustin-major">
+                        <SelectValue placeholder="Select a major" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {utaustinData.colleges.map((college) => (
                         <SelectGroup key={college.name}>
                           <SelectLabel>{college.name}</SelectLabel>
                           {college.majors.map((major) => (

@@ -14,6 +14,7 @@ export interface EnglishRequirement {
   toeflLegacy?: ToeflLegacyThreshold;
   ielts: EnglishTestThreshold;
   duolingo: EnglishTestThreshold;
+  duolingoAccepted?: boolean;
   compositionWaiver: boolean;
   note: string;
 }
@@ -90,4 +91,22 @@ export interface PurdueCollege {
 export interface PurdueMajorsData {
   base: Omit<University, "major" | "requiredCourses">;
   colleges: PurdueCollege[];
+}
+
+export interface UtAustinMajor {
+  id: string;
+  name: string;
+  requiredCourseIds: string[];
+  note?: string;
+  sourceUrl?: string;
+}
+
+export interface UtAustinCollege {
+  name: string;
+  majors: UtAustinMajor[];
+}
+
+export interface UtAustinMajorsData {
+  base: Omit<University, "major" | "requiredCourses">;
+  colleges: UtAustinCollege[];
 }
