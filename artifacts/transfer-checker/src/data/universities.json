@@ -7,7 +7,7 @@
     "website": "https://www.gatech.edu",
     "sourceUrl": "https://admission.gatech.edu/transfer/course-requirements-major",
     "minCompletedCredits": 30,
-    "acceptInProgress": false,
+    "acceptInProgress": true,
     "minGPA": 3.3,
     "noEnglishRequirement": true,
     "englishRequirement": {
@@ -34,7 +34,7 @@
         "description": "Required for Mechanical Engineering. Must include both lecture and lab components. Equivalent to PHYS 2211 at Georgia Tech."
       }
     ],
-    "notes": "Highly competitive. A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. No English proficiency test required for transfer applicants. Source: admission.gatech.edu/transfer/course-requirements-major"
+    "notes": "Highly competitive. A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. In-progress courses are accepted at time of application. No English proficiency test required for transfer applicants. Source: admission.gatech.edu/transfer/course-requirements-major"
   },
   {
     "id": "uiuc-me",
