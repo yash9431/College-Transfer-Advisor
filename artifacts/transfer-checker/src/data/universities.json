@@ -29,19 +29,9 @@
         "description": "Required for Mechanical Engineering. Equivalent to MATH 1552 at Georgia Tech."
       },
       {
-        "id": "chem1",
-        "name": "Chemistry I + Lab",
-        "description": "Required for Mechanical Engineering. Must include both lecture and lab components. Equivalent to CHEM 1211K at Georgia Tech."
-      },
-      {
         "id": "physics1",
         "name": "Physics 1 (Calculus-based)",
-        "description": "First course of a two-course physics sequence required for ME. Must include both lecture and lab components. Equivalent to PHYS 2211 at Georgia Tech."
-      },
-      {
-        "id": "physics2",
-        "name": "Physics 2 (Calculus-based)",
-        "description": "Second course of the two-course physics sequence required for ME. Must include both lecture and lab components. Equivalent to PHYS 2212 at Georgia Tech."
+        "description": "Required for Mechanical Engineering. Must include both lecture and lab components. Equivalent to PHYS 2211 at Georgia Tech."
       }
     ],
     "notes": "Highly competitive. A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. No English proficiency test required for transfer applicants. Source: admission.gatech.edu/transfer/course-requirements-major"
@@ -54,7 +44,7 @@
     "website": "https://illinois.edu",
     "sourceUrl": "https://transferhandbook.illinois.edu/eng/mechanical-engineering/",
     "minCompletedCredits": 24,
-    "acceptInProgress": false,
+    "acceptInProgress": true,
     "minGPA": 3.0,
     "noEnglishRequirement": false,
     "englishRequirement": {
@@ -102,7 +92,7 @@
         "description": "One of: CS 101 (Intro Computing), CS 124 (Intro to CS I), SE 101 (Engineering Graphics & Design), or ME 170 (Computer-Aided Design) at UIUC."
       }
     ],
-    "notes": "All required courses must be completed BEFORE the application term — in-progress courses are NOT accepted at time of application. A B or better (3.0/4.0) is required in each required/technical course. Average admitted GPA is above 3.5. Source: transferhandbook.illinois.edu/eng/mechanical-engineering/"
+    "notes": "In-progress courses are accepted at time of application. A B or better (3.0/4.0) is required in each required/technical course. Average admitted GPA is above 3.5. Source: transferhandbook.illinois.edu/eng/mechanical-engineering/"
   },
   {
     "id": "purdue-me",
