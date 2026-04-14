@@ -1,16 +1,16 @@
 import { useState } from "react";
-import universitiesData from "@/data/universities.json";
 import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
-import type { University, GtMajorsData, UiucMajorsData } from "@/types";
+import purdueMajorsData from "@/data/purdue-majors.json";
+import type { University, GtMajorsData, UiucMajorsData, PurdueMajorsData } from "@/types";
 import { TransferForm } from "@/components/TransferForm";
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { evaluateAll } from "@/lib/eligibility";
 import type { StudentProfile, EligibilityResult } from "@/lib/eligibility";
 
-const universities = universitiesData as University[];
 const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
+const purdueData = purdueMajorsData as unknown as PurdueMajorsData;
 
 const COURSE_NAMES: Record<string, string> = {
   calc1: "Calculus I",
@@ -31,6 +31,8 @@ const COURSE_NAMES: Record<string, string> = {
   computing: "Computing / Programming",
   ece110: "Introduction to Electronics (ECE 110)",
   ece120: "Introduction to Computing for ECE (ECE 120)",
+  engrGraphics: "Engineering Problem Solving (ENGR 13100)",
+  engrDesign: "Engineering Projects & Design (ENGR 13200)",
   labSciElective: "Lab Science Elective",
   advancedScience: "Advanced Math / Science Elective",
   englishComp: "English Composition or Speech",
@@ -72,6 +74,20 @@ const COURSE_DESCRIPTIONS_UIUC: Record<string, string> = {
   ece120: "Equivalent to ECE 120 (Introduction to Computing) at UIUC.",
 };
 
+const COURSE_DESCRIPTIONS_PURDUE: Record<string, string> = {
+  calc1: "Required for all Purdue engineering majors. Equivalent to MA 16100 or MA 16500 at Purdue.",
+  calc2: "Equivalent to MA 16200 or MA 16600 at Purdue.",
+  calc3: "Equivalent to MA 26100 at Purdue. Note: Linear Algebra (MA 26500) may substitute for Calc III.",
+  chem1: "Equivalent to CHM 11500 at Purdue.",
+  chem2: "Equivalent to CHM 11610/11620/11630 at Purdue. Required specifically as the science selective for Environmental & Ecological Engineering.",
+  physics1: "Equivalent to PHYS 17200 at Purdue.",
+  physics2: "Equivalent to PHYS 27200 at Purdue.",
+  computing: "Equivalent to CS 15900 (computer programming) at Purdue.",
+  engrGraphics: "Equivalent to ENGR 13100 at Purdue — Introduction to Engineering and Problem Solving. Required for all Purdue engineering majors.",
+  engrDesign: "Equivalent to ENGR 13200 at Purdue — Engineering Projects and Design. Required for all Purdue engineering majors.",
+  advancedScience: "One advanced course in math (Calc III/above), chemistry (beyond Chem I), or physics (beyond Physics I). Must be a full course, not a lab section only.",
+};
+
 function buildGtUniversity(majorId: string): University {
   const allMajors = gtData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
@@ -105,15 +121,35 @@ function buildUiucUniversity(majorId: string): University {
     description: COURSE_DESCRIPTIONS_UIUC[id] ?? "",
   }));
 
-  const sourceLink = major.sourceUrl ?? base.sourceUrl ?? "https://transferhandbook.illinois.edu/";
-
   return {
     ...base,
     id: `uiuc-${major.id}`,
     major: major.name,
     requiredCourses,
-    sourceUrl: sourceLink,
+    sourceUrl: major.sourceUrl ?? base.sourceUrl ?? "https://transferhandbook.illinois.edu/",
     notes: base.notes,
+  } as University;
+}
+
+function buildPurdueUniversity(majorId: string): University {
+  const allMajors = purdueData.colleges.flatMap((c) => c.majors);
+  const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
+  const base = purdueData.base;
+
+  const allCourseIds = ["calc1", ...major.requiredCourseIds];
+  const requiredCourses = allCourseIds.map((id) => ({
+    id,
+    name: COURSE_NAMES[id] ?? id,
+    description: COURSE_DESCRIPTIONS_PURDUE[id] ?? "",
+  }));
+
+  return {
+    ...base,
+    id: `purdue-${major.id}`,
+    major: major.name,
+    requiredCourses,
+    sourceUrl: major.sourceUrl ?? base.sourceUrl,
+    notes: base.notes + (major.note ? ` Note: ${major.note}` : ""),
   } as University;
 }
 
@@ -122,16 +158,20 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [gtMajorId, setGtMajorId] = useState("mechanical-engineering");
   const [uiucMajorId, setUiucMajorId] = useState("mechanical-engineering");
+  const [purdueMajorId, setPurdueMajorId] = useState("mechanical-engineering");
 
-  function handleSubmit(profile: StudentProfile & { gtMajorId: string; uiucMajorId: string }) {
+  function handleSubmit(profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string }) {
     const selectedGtId = profile.gtMajorId;
     const selectedUiucId = profile.uiucMajorId;
+    const selectedPurdueId = profile.purdueMajorId;
     setGtMajorId(selectedGtId);
     setUiucMajorId(selectedUiucId);
+    setPurdueMajorId(selectedPurdueId);
 
     const gtUniversity = buildGtUniversity(selectedGtId);
     const uiucUniversity = buildUiucUniversity(selectedUiucId);
-    const allUniversities = [gtUniversity, uiucUniversity, ...universities];
+    const purdueUniversity = buildPurdueUniversity(selectedPurdueId);
+    const allUniversities = [gtUniversity, uiucUniversity, purdueUniversity];
     const evaluated = evaluateAll(profile, allUniversities);
     setResults(evaluated);
     setSubmitted(true);
@@ -148,7 +188,8 @@ export default function Home() {
 
   const gtUniversityForDisplay = buildGtUniversity(gtMajorId);
   const uiucUniversityForDisplay = buildUiucUniversity(uiucMajorId);
-  const allUniversitiesForDisplay = [gtUniversityForDisplay, uiucUniversityForDisplay, ...universities];
+  const purdueUniversityForDisplay = buildPurdueUniversity(purdueMajorId);
+  const allUniversitiesForDisplay = [gtUniversityForDisplay, uiucUniversityForDisplay, purdueUniversityForDisplay];
 
   return (
     <main className="min-h-screen bg-background">
@@ -158,7 +199,7 @@ export default function Home() {
             US College Transfer Eligibility Checker
           </h1>
           <p className="mt-2 text-primary-foreground/80 text-base">
-            Check eligibility for Georgia Tech (any major), UIUC (any Grainger Engineering major), and Purdue ME.
+            Check eligibility for Georgia Tech, UIUC, and Purdue — any major, based on official university requirements.
           </p>
         </div>
       </header>
@@ -184,7 +225,7 @@ export default function Home() {
           <span>·</span>
           <a href="https://transferhandbook.illinois.edu/eng/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UIUC source</a>
           <span>·</span>
-          <a href="https://admissions.purdue.edu/become-student/transfer/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Purdue source</a>
+          <a href="https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Purdue source</a>
         </p>
       </footer>
     </main>

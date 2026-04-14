@@ -73,3 +73,21 @@ export interface UiucMajorsData {
   base: Omit<University, "major" | "requiredCourses">;
   colleges: UiucCollege[];
 }
+
+export interface PurdueMajor {
+  id: string;
+  name: string;
+  requiredCourseIds: string[];
+  note?: string;
+  sourceUrl?: string;
+}
+
+export interface PurdueCollege {
+  name: string;
+  majors: PurdueMajor[];
+}
+
+export interface PurdueMajorsData {
+  base: Omit<University, "major" | "requiredCourses">;
+  colleges: PurdueCollege[];
+}

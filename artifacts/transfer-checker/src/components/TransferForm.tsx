@@ -24,11 +24,13 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
+import purdueMajorsData from "@/data/purdue-majors.json";
 import type { StudentProfile, CourseRecord, CourseStatus, EnglishTestType } from "@/lib/eligibility";
-import type { GtMajorsData, UiucMajorsData } from "@/types";
+import type { GtMajorsData, UiucMajorsData, PurdueMajorsData } from "@/types";
 
 const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
+const purdueData = purdueMajorsData as unknown as PurdueMajorsData;
 
 const COURSE_IDS = [
   "calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures",
@@ -36,6 +38,7 @@ const COURSE_IDS = [
   "chem1", "chem2",
   "bio1", "bio2", "molecularBio",
   "compSci1", "compSci2", "computing", "ece110", "ece120",
+  "engrGraphics", "engrDesign",
   "labSciElective", "advancedScience", "englishComp",
 ] as const;
 
@@ -45,6 +48,7 @@ const COURSE_GROUPS: { label: string; ids: string[] }[] = [
   { label: "Chemistry", ids: ["chem1", "chem2"] },
   { label: "Biology / Life Sciences", ids: ["bio1", "bio2", "molecularBio"] },
   { label: "Computing / Electronics", ids: ["compSci1", "compSci2", "computing", "ece110", "ece120"] },
+  { label: "Engineering Fundamentals (Purdue)", ids: ["engrGraphics", "engrDesign"] },
   { label: "Other / Electives", ids: ["labSciElective", "advancedScience", "englishComp"] },
 ];
 
@@ -67,6 +71,8 @@ const COURSE_LABELS: Record<string, string> = {
   computing: "Computing / Programming",
   ece110: "Introduction to Electronics (ECE 110)",
   ece120: "Introduction to Computing for ECE (ECE 120)",
+  engrGraphics: "Engineering Problem Solving (ENGR 13100)",
+  engrDesign: "Engineering Projects & Design (ENGR 13200)",
   labSciElective: "Lab Science Elective",
   advancedScience: "Advanced Math / Science Elective",
   englishComp: "English Composition or Speech",
@@ -85,9 +91,11 @@ const COURSE_DESCRIPTIONS: Record<string, string> = {
   computing: "Required by UIUC ME, AE, CE, IE, Physics, SE&D, etc. Equiv. CS 101, CS 124, SE 101, or ME 170 at UIUC.",
   ece110: "Required by UIUC EE and Computer Engineering. Equiv. ECE 110 (Introduction to Electronics) at UIUC.",
   ece120: "Required by UIUC EE and Computer Engineering alongside ECE 110. Equiv. ECE 120 (Intro to Computing) at UIUC.",
+  engrGraphics: "Required by ALL Purdue engineering majors. Equiv. ENGR 13100 at Purdue — intro to engineering problem-solving and design methods. Many schools offer an equivalent intro engineering course.",
+  engrDesign: "Required by ALL Purdue engineering majors. Equiv. ENGR 13200 at Purdue — engineering projects and design process. Many schools offer an equivalent intro engineering design course.",
   labSciElective: "Required by GT (Design/Liberal Arts majors) — any one lab science course with lecture and lab.",
-  advancedScience: "Required by Purdue ME — one advanced math, chemistry, or physics course.",
-  englishComp: "Required by Purdue as pre-transfer coursework. Must be completed (not in progress).",
+  advancedScience: "Required by most Purdue engineering majors — one advanced course in math, chemistry, or physics beyond Calc II and Physics I.",
+  englishComp: "Recommended by Purdue (to help reach 24-credit minimum) but NOT required for admission. Does not waive the English test requirement for international students.",
 };
 
 const courseStatusEnum = z.enum(["completed", "in-progress", "not-taken"]);
@@ -102,6 +110,7 @@ const formSchema = z.object({
   completedEnglishComp2: z.enum(["yes", "no"]),
   gtMajorId: z.string().min(1, "Please select a Georgia Tech major"),
   uiucMajorId: z.string().min(1, "Please select a UIUC major"),
+  purdueMajorId: z.string().min(1, "Please select a Purdue major"),
   calc1: courseStatusEnum,
   calc2: courseStatusEnum,
   calc3: courseStatusEnum,
@@ -120,6 +129,8 @@ const formSchema = z.object({
   computing: courseStatusEnum,
   ece110: courseStatusEnum,
   ece120: courseStatusEnum,
+  engrGraphics: courseStatusEnum,
+  engrDesign: courseStatusEnum,
   labSciElective: courseStatusEnum,
   advancedScience: courseStatusEnum,
   englishComp: courseStatusEnum,
@@ -128,7 +139,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface TransferFormProps {
-  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string }) => void;
+  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string }) => void;
   onReset: () => void;
   hasResults: boolean;
 }
@@ -146,6 +157,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       completedEnglishComp2: "no",
       gtMajorId: "mechanical-engineering",
       uiucMajorId: "mechanical-engineering",
+      purdueMajorId: "mechanical-engineering",
       calc1: "not-taken",
       calc2: "not-taken",
       calc3: "not-taken",
@@ -164,6 +176,8 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       computing: "not-taken",
       ece110: "not-taken",
       ece120: "not-taken",
+      engrGraphics: "not-taken",
+      engrDesign: "not-taken",
       labSciElective: "not-taken",
       advancedScience: "not-taken",
       englishComp: "not-taken",
@@ -190,6 +204,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       intendedMajor: values.gtMajorId,
       gtMajorId: values.gtMajorId,
       uiucMajorId: values.uiucMajorId,
+      purdueMajorId: values.purdueMajorId,
       courses,
     };
     onSubmit(profile);
@@ -258,6 +273,42 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                     </FormControl>
                     <SelectContent>
                       {uiucData.colleges.map((college) => (
+                        <SelectGroup key={college.name}>
+                          <SelectLabel>{college.name}</SelectLabel>
+                          {college.majors.map((major) => (
+                            <SelectItem key={major.id} value={major.id}>
+                              {major.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Separator />
+
+          {/* Purdue Major */}
+          <div>
+            <h3 className="text-base font-medium text-foreground mb-4">Purdue University — Intended Major</h3>
+            <FormField
+              control={form.control}
+              name="purdueMajorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Target Major at Purdue</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger data-testid="select-purdue-major">
+                        <SelectValue placeholder="Select a major" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {purdueData.colleges.map((college) => (
                         <SelectGroup key={college.name}>
                           <SelectLabel>{college.name}</SelectLabel>
                           {college.majors.map((major) => (

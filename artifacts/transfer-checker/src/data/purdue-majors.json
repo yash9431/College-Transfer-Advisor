@@ -1,0 +1,114 @@
+{
+  "base": {
+    "id": "purdue",
+    "name": "Purdue University",
+    "location": "West Lafayette, IN",
+    "website": "https://www.purdue.edu",
+    "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/",
+    "minCompletedCredits": 24,
+    "acceptInProgress": true,
+    "minGPA": 3.0,
+    "noEnglishRequirement": false,
+    "englishRequirement": {
+      "toefl": { "min": 80 },
+      "ielts": { "min": 6.5 },
+      "duolingo": { "min": 105 },
+      "compositionWaiver": false,
+      "note": "English test (TOEFL 80+, IELTS 6.5+, or Duolingo 105+) required for international students. English Composition is recommended to reach 24 credits but does NOT waive the English test requirement."
+    },
+    "notes": "All engineering programs require minimum 3.0 GPA and completion of 9 core first-year engineering courses. Transfer applicants from outside pathway/articulation programs are reviewed on a space-available basis. In-progress courses are accepted, but final grades may be required before an admissions decision. Source: admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+  },
+  "colleges": [
+    {
+      "name": "College of Engineering",
+      "majors": [
+        {
+          "id": "aeronautical-astronautical-engineering",
+          "name": "Aeronautical & Astronautical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "RESTRICTED — open to articulation pathway programs and regional campus transfers only. Outside transfer applicants are not admitted directly.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "biomedical-engineering",
+          "name": "Biomedical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "Science selective must be one of: Chemistry II (CHM 11610/11620/11630), CS 15900, CS 18000, or CS 17600.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "chemical-engineering",
+          "name": "Chemical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "civil-engineering",
+          "name": "Civil Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "computer-engineering",
+          "name": "Computer Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "Chemistry I is NOT required — another physics or math course may substitute. Physics II is already listed as required and satisfies this substitution.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "electrical-engineering",
+          "name": "Electrical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "Chemistry I is NOT required — another physics or math course may substitute. Physics II is already listed as required and satisfies this substitution.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "environmental-ecological-engineering",
+          "name": "Environmental & Ecological Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "chem2"],
+          "note": "Science selective MUST be Chemistry II (CHM 11610/11620/11630). General advanced science/math/physics is not accepted for this major.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "industrial-engineering",
+          "name": "Industrial Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "materials-engineering",
+          "name": "Materials Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "mechanical-engineering",
+          "name": "Mechanical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "RESTRICTED at West Lafayette — open to articulation pathway programs and regional campus transfers only. The Indianapolis campus is open to all qualified transfer applicants.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "motorsports-engineering",
+          "name": "Motorsports Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "RESTRICTED — open to articulation pathway programs and regional campus transfers only.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "nuclear-engineering",
+          "name": "Nuclear Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        },
+        {
+          "id": "interdisciplinary-engineering",
+          "name": "Interdisciplinary Engineering (IDES)",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "physics1", "physics2", "computing", "engrGraphics", "engrDesign", "advancedScience"],
+          "note": "ENGR 13100 and ENGR 13200 (Engineering Problem Solving and Engineering Projects) are specifically required and cannot be waived. Must also submit a one-page statement of interest.",
+          "sourceUrl": "https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/"
+        }
+      ]
+    }
+  ]
+}
