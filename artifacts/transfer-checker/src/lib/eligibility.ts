@@ -189,10 +189,16 @@ export function evaluateEligibility(
   const missingRequirements: string[] = [];
   const conditionalReasons: string[] = [];
 
-  const creditsMet = student.completedCredits >= university.minCompletedCredits;
+  const effectiveCredits = university.acceptInProgress
+    ? student.completedCredits + student.inProgressCredits
+    : student.completedCredits;
+  const creditsMet = effectiveCredits >= university.minCompletedCredits;
   if (!creditsMet) {
+    const creditsNote = university.acceptInProgress
+      ? `${effectiveCredits} completed + in-progress`
+      : `${student.completedCredits} completed`;
     missingRequirements.push(
-      `Minimum ${university.minCompletedCredits} completed credits required (you have ${student.completedCredits}).`
+      `Minimum ${university.minCompletedCredits} credits required (you have ${creditsNote}).`
     );
   }
 
