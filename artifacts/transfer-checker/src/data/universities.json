@@ -29,9 +29,14 @@
         "description": "Required for Mechanical Engineering. Equivalent to MATH 1552 at Georgia Tech."
       },
       {
+        "id": "chem1",
+        "name": "Chemistry I (lecture only)",
+        "description": "Chemistry I lecture is required for Mechanical Engineering. Lab is NOT required. Equivalent to CHEM 1211 at Georgia Tech."
+      },
+      {
         "id": "physics1",
         "name": "Physics 1 (Calculus-based)",
-        "description": "Required for Mechanical Engineering. Must include both lecture and lab components. Equivalent to PHYS 2211 at Georgia Tech."
+        "description": "Required for Mechanical Engineering. Equivalent to PHYS 2211 at Georgia Tech."
       }
     ],
     "notes": "Highly competitive. A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. In-progress courses are accepted at time of application. No English proficiency test required for transfer applicants. Source: admission.gatech.edu/transfer/course-requirements-major"

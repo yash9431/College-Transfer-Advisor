@@ -29,7 +29,7 @@ const COURSE_LABELS: Record<string, string> = {
   calc3: "Calculus III",
   physics1: "Physics 1 (Calculus-based)",
   physics2: "Physics 2 (Calculus-based)",
-  chem1: "Chemistry I + Lab",
+  chem1: "General Chemistry I",
   computing: "Computing / Programming",
   advancedScience: "Advanced Math / Science Elective",
   englishComp: "English Composition or Speech",
