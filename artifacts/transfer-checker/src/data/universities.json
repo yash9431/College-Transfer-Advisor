@@ -51,11 +51,12 @@
     "minGPA": 2.75,
     "noEnglishRequirement": false,
     "englishRequirement": {
-      "toefl": { "min": 5.0, "note": "New scale (exams on/after Jan 21, 2026). Exams before Jan 21, 2026 required a minimum of 100." },
+      "toefl": { "min": 5.0, "note": "New scale — exams taken on or after Jan 21, 2026." },
+      "toeflLegacy": { "min": 100, "subscoreMin": 20, "note": "Old scale — exams taken before Jan 21, 2026. All section scores must be 20+." },
       "ielts": { "min": 7.5 },
       "duolingo": { "min": 130 },
       "compositionWaiver": false,
-      "note": "English proficiency cannot be waived via English Composition courses alone. Accepted paths: TOEFL 5.0+ (new scale) / 100+ (old scale), IELTS 7.5+, Duolingo 130+, or completing two years of continuous full-time study (12+ credit hours/semester) at a U.S. regionally accredited institution."
+      "note": "English proficiency cannot be waived via English Composition courses alone. Accepted paths: TOEFL 5.0+ (new scale, on/after Jan 21 2026) or 100+ (old scale, before Jan 21 2026), IELTS 7.5+, Duolingo 130+, or completing two years of continuous full-time study (12+ credit hours/semester) at a U.S. regionally accredited institution."
     },
     "requiredCourses": [
       {

@@ -14,6 +14,7 @@ export interface StudentProfile {
   inProgressCredits: number;
   englishTestType: EnglishTestType;
   englishTestScore: number;
+  toeflIsLegacy: boolean;
   completedEnglishComp1: boolean;
   completedEnglishComp2: boolean;
   courses: CourseRecord[];
@@ -47,6 +48,7 @@ function checkEnglish(
   university: University,
   testType: EnglishTestType,
   score: number,
+  toeflIsLegacy: boolean,
   comp1: boolean,
   comp2: boolean
 ): { met: boolean; isConditional: boolean; reason: string } {
@@ -60,9 +62,36 @@ function checkEnglish(
     return { met: true, isConditional: false, reason: "English Composition 1 & 2 completed — English test waived." };
   }
 
-  if (testType === "TOEFL" && score >= req.toefl.min) {
-    return { met: true, isConditional: false, reason: `TOEFL score of ${score} meets the minimum of ${req.toefl.min}.` };
+  if (testType === "TOEFL") {
+    if (toeflIsLegacy && req.toeflLegacy) {
+      const legacy = req.toeflLegacy;
+      if (score >= legacy.min) {
+        return {
+          met: true,
+          isConditional: false,
+          reason: `TOEFL score of ${score} meets the legacy minimum of ${legacy.min} (exams before Jan 21, 2026). Note: all section scores must also be ${legacy.subscoreMin}+.`,
+        };
+      }
+      return {
+        met: false,
+        isConditional: false,
+        reason: `TOEFL score of ${score} does not meet the legacy minimum of ${legacy.min} (for exams before Jan 21, 2026). All section scores must also be ${legacy.subscoreMin}+.`,
+      };
+    }
+    if (score >= req.toefl.min) {
+      return {
+        met: true,
+        isConditional: false,
+        reason: `TOEFL score of ${score} meets the minimum of ${req.toefl.min} (new scale, exams on/after Jan 21, 2026).`,
+      };
+    }
+    return {
+      met: false,
+      isConditional: false,
+      reason: `TOEFL score of ${score} does not meet the minimum of ${req.toefl.min} (new scale, exams on/after Jan 21, 2026).`,
+    };
   }
+
   if (testType === "IELTS" && score >= req.ielts.min) {
     return { met: true, isConditional: false, reason: `IELTS score of ${score} meets the minimum of ${req.ielts.min}.` };
   }
@@ -79,18 +108,18 @@ function checkEnglish(
   }
 
   if (testType === "None") {
-    const compNote = req.compositionWaiver
-      ? " or completing English Composition 1 & 2"
-      : "";
+    const toeflNote = req.toeflLegacy
+      ? `TOEFL 5.0+ (new scale) or ${req.toeflLegacy.min}+ (old scale, all sections ${req.toeflLegacy.subscoreMin}+)`
+      : `TOEFL ${req.toefl.min}+`;
+    const compNote = req.compositionWaiver ? " or completing English Composition 1 & 2" : "";
     return {
       met: false,
       isConditional: false,
-      reason: `No English test provided. Required: TOEFL ${req.toefl.min}+, IELTS ${req.ielts.min}+, or Duolingo ${req.duolingo.min}+${compNote}.`,
+      reason: `No English test provided. Required: ${toeflNote}, IELTS ${req.ielts.min}+, or Duolingo ${req.duolingo.min}+${compNote}.`,
     };
   }
 
   const minScores: Record<string, number> = {
-    TOEFL: req.toefl.min,
     IELTS: req.ielts.min,
     Duolingo: req.duolingo.min,
   };
@@ -171,6 +200,7 @@ export function evaluateEligibility(
     university,
     student.englishTestType,
     student.englishTestScore,
+    student.toeflIsLegacy,
     student.completedEnglishComp1,
     student.completedEnglishComp2
   );

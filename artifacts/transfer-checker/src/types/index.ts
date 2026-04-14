@@ -3,8 +3,15 @@ export interface EnglishTestThreshold {
   note?: string;
 }
 
+export interface ToeflLegacyThreshold {
+  min: number;
+  subscoreMin: number;
+  note?: string;
+}
+
 export interface EnglishRequirement {
   toefl: EnglishTestThreshold;
+  toeflLegacy?: ToeflLegacyThreshold;
   ielts: EnglishTestThreshold;
   duolingo: EnglishTestThreshold;
   compositionWaiver: boolean;

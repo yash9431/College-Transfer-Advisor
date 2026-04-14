@@ -35,6 +35,7 @@ const formSchema = z.object({
   inProgressCredits: z.coerce.number().min(0, "Must be 0 or more").max(100, "Enter a realistic number"),
   englishTestType: z.enum(["TOEFL", "IELTS", "Duolingo", "None"]),
   englishTestScore: z.coerce.number().min(0).max(160),
+  toeflDate: z.enum(["legacy", "new"]).optional(),
   completedEnglishComp1: z.enum(["yes", "no"]),
   completedEnglishComp2: z.enum(["yes", "no"]),
   intendedMajor: z.string().min(1, "Please select a major"),
@@ -60,6 +61,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       inProgressCredits: 0,
       englishTestType: "None",
       englishTestScore: 0,
+      toeflDate: "new",
       completedEnglishComp1: "no",
       completedEnglishComp2: "no",
       intendedMajor: "Mechanical Engineering",
@@ -71,6 +73,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
   });
 
   const testType = form.watch("englishTestType");
+  const toeflDate = form.watch("toeflDate");
 
   function handleSubmit(values: FormValues) {
     const courses: CourseRecord[] = COURSE_IDS.map((id) => ({
@@ -83,6 +86,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       inProgressCredits: values.inProgressCredits,
       englishTestType: values.englishTestType as EnglishTestType,
       englishTestScore: values.englishTestScore,
+      toeflIsLegacy: values.toeflDate === "legacy",
       completedEnglishComp1: values.completedEnglishComp1 === "yes",
       completedEnglishComp2: values.completedEnglishComp2 === "yes",
       intendedMajor: values.intendedMajor,
@@ -185,15 +189,20 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        {testType === "TOEFL" && "TOEFL Score (0–120)"}
+                        {testType === "TOEFL" && toeflDate === "legacy" && "TOEFL Score (0–120, old scale)"}
+                        {testType === "TOEFL" && toeflDate !== "legacy" && "TOEFL Score (new scale, 0–12)"}
                         {testType === "IELTS" && "IELTS Score (0–9.0)"}
                         {testType === "Duolingo" && "Duolingo Score (0–160)"}
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
-                          step={testType === "IELTS" ? "0.5" : "1"}
-                          placeholder={testType === "IELTS" ? "e.g. 7.0" : "e.g. 100"}
+                          step={testType === "IELTS" ? "0.5" : testType === "TOEFL" && toeflDate !== "legacy" ? "0.5" : "1"}
+                          placeholder={
+                            testType === "IELTS" ? "e.g. 7.5" :
+                            testType === "TOEFL" && toeflDate === "legacy" ? "e.g. 100" :
+                            testType === "TOEFL" ? "e.g. 5.0" : "e.g. 130"
+                          }
                           data-testid="input-english-score"
                           {...field}
                         />
@@ -204,6 +213,35 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                 />
               )}
             </div>
+
+            {testType === "TOEFL" && (
+              <div className="mt-4">
+                <FormField
+                  control={form.control}
+                  name="toeflDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>TOEFL Test Date</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger data-testid="select-toefl-date">
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="new">On or after January 21, 2026 (new scale)</SelectItem>
+                          <SelectItem value="legacy">Before January 21, 2026 (old scale, 0–120)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        ETS changed the TOEFL scoring system on January 21, 2026. Select which scale your score is on.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <FormField
