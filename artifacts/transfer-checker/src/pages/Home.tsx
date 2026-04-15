@@ -105,16 +105,16 @@ const COURSE_DESCRIPTIONS_UTAUSTIN: Record<string, string> = {
 };
 
 const COURSE_DESCRIPTIONS_UWMADISON: Record<string, string> = {
-  calc1: "Required for all UW-Madison CoE majors. Equivalent to MATH 221 at UW-Madison.",
-  calc2: "Equivalent to MATH 222 at UW-Madison. Minimum grade: C.",
-  calc3: "Equivalent to MATH 234 (Calculus — Functions of Several Variables) at UW-Madison. Required for AMEP, BME, Chemical Engineering, Computer Engineering, Industrial/Systems Engineering, and Nuclear Engineering & Eng Physics.",
-  physics1: "Equivalent to PHYSICS 201 or PHYSICS 207 at UW-Madison. Minimum grade: C.",
-  physics2: "Equivalent to PHYSICS 202 or PHYSICS 208 at UW-Madison. Required for AMEP, BME, Materials Science & Engineering, and Nuclear Engineering & Eng Physics.",
-  chem1: "Equivalent to CHEM 103 (General Chemistry I) or CHEM 109 (Advanced General Chemistry) at UW-Madison. Minimum grade: C.",
-  chem2: "Equivalent to CHEM 104 (General Chemistry II) at UW-Madison. Required for BME, Chemical Engineering, and Materials Science & Engineering.",
-  orgChem: "Equivalent to CHEM 343 (Organic Chemistry I) at UW-Madison. Required specifically for Chemical Engineering.",
-  compSci1: "Equivalent to COMP SCI 200 or COMP SCI 300 at UW-Madison. Required for Computer Engineering, Electrical Engineering, and Industrial & Systems Engineering.",
-  statics: "Equivalent to EMA 201 (Engineering Mechanics — Statics) at UW-Madison. Minimum grade: C required. Required for Civil/Environmental, Mechanical, Engineering Mechanics, and Geological Engineering.",
+  calc1: "[Progression Requirement] Equivalent to MATH 221 at UW-Madison. Completing before transfer enables pre-transfer progression approval.",
+  calc2: "[Progression Requirement] Equivalent to MATH 222 at UW-Madison. Minimum grade C. Core requirement for all CoE programs.",
+  calc3: "[Progression Requirement] Equivalent to MATH 234 (Multivariable Calculus) at UW-Madison. Must be completed before transfer OR within first 2 semesters at UW-Madison. This is NOT an admission prerequisite.",
+  physics1: "[Progression Requirement] Equivalent to PHYSICS 201 or 207 at UW-Madison. Minimum grade C. Core requirement for all CoE programs.",
+  physics2: "[Progression Requirement] Equivalent to PHYSICS 202 or 208 at UW-Madison. Required for AMEP, BME, Materials Science & Engineering, and Nuclear Engineering & Eng Physics. NOT an admission prerequisite.",
+  chem1: "[Progression Requirement] Equivalent to CHEM 103 or CHEM 109 at UW-Madison. Minimum grade C. Core requirement for most CoE programs.",
+  chem2: "[Progression Requirement] Equivalent to CHEM 104 at UW-Madison. Required for BME, Chemical Engineering, and Materials Science & Engineering. NOT an admission prerequisite.",
+  orgChem: "[Progression Requirement] Equivalent to CHEM 343 (Organic Chemistry I) at UW-Madison. Only required for Chemical Engineering. NOT an admission prerequisite.",
+  compSci1: "[Progression Requirement] Equivalent to COMP SCI 200 or 300 at UW-Madison. Required for Computer Engineering, Electrical Engineering, and Industrial & Systems Engineering. NOT an admission prerequisite.",
+  statics: "[Progression Requirement] Equivalent to EMA 201 (Engineering Mechanics — Statics) at UW-Madison. Minimum grade C. Required for Civil/Environmental, Mechanical, Engineering Mechanics, and Geological Engineering. NOT an admission prerequisite.",
 };
 
 function buildGtUniversity(majorId: string): University {

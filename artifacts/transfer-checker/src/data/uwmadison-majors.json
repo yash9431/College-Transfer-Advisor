@@ -15,9 +15,9 @@
       "duolingo": { "min": 115, "note": "Duolingo English Test 115+ accepted. Search 'Undergraduate' → 'University of Wisconsin–Madison' when submitting." },
       "singleCompWaiver": true,
       "compositionWaiver": false,
-      "note": "TOEFL iBT 80+, IELTS Academic 6.5+, or Duolingo 115+ required for international students. Waiver: if you successfully completed a college-level English composition course at an accredited U.S. institution (not a U.S. branch campus abroad), no English test is required. Scores must not be older than two years at time of application. IB HL English, AP English, ACT, SAT, Cambridge, and PTE cannot waive this requirement."
+      "note": "TOEFL iBT 80+, IELTS Academic 6.5+, or Duolingo 115+ required for international students. Waiver: if you successfully completed a college-level English composition course at an accredited U.S. institution (not a U.S. branch campus abroad), no English test is required. Scores must not be older than two years at time of application."
     },
-    "notes": "College of Engineering — 13 undergraduate programs. Minimum 3.0 GPA, no grade below C (2.0). Must have ≤80 total transfer credits. Students already holding a bachelor's degree are NOT eligible. In-progress courses ARE accepted; progression requirements may be met before or within first two semesters after transfer. Both Fall (deadline Feb 1 priority / Mar 1 final) and Spring (deadline Oct 1) admission available. Second-choice major outside CoE required on application. Source: engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+    "notes": "ADMISSION is holistic — no specific course list is required for admission. Minimum 3.0 term GPA, no grade below C, 24+ semester credits (excluding AP/test), ≤80 total transfer credits. Must list a second-choice major outside CoE. Both Fall (deadline Feb 1 priority / Mar 1 final) and Spring (deadline Oct 1) admission available. PROGRESSION (staying in your major): After admission you must meet Progression Requirements — either approved BEFORE transfer (submit supplemental by June 1 for fall) or within first 2 semesters at UW-Madison. The courses listed below are Progression Requirements. Completing them before transfer = much stronger application and guaranteed advancement in your major. Source: engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
   },
   "colleges": [
     {
@@ -27,91 +27,91 @@
           "id": "applied-mathematics-engineering-physics",
           "name": "Applied Mathematics, Engineering & Physics (AMEP)",
           "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2"],
-          "note": "AMEP is administered by the College of Letters & Science — apply to UW-Madison and declare AMEP internally. Required: MATH 221, 222, 234 with ≥2.75 GPA in those three courses. Requires both semesters of introductory physics.",
+          "note": "PROGRESSION courses: Calc II (MATH 222), Calc III (MATH 234), Physics I, Physics II. AMEP is administered by the College of Letters & Science — declare internally after admission to UW-Madison. MATH 221/222/234 required with ≥2.75 GPA in those three. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "biological-systems-engineering",
           "name": "Biological Systems Engineering",
           "requiredCourseIds": ["calc2", "chem1", "physics1"],
-          "note": "Three tracks: Machinery Systems, Natural Resources & Environment, Food & Bioprocess. No additional prerequisites beyond core requirements.",
+          "note": "PROGRESSION courses: Calc II, Chemistry I, Physics I. Three tracks: Machinery Systems, Natural Resources & Environment, Food & Bioprocess. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "biomedical-engineering",
           "name": "Biomedical Engineering",
           "requiredCourseIds": ["calc2", "calc3", "chem1", "chem2", "physics1", "physics2"],
-          "note": "Competitive program. Aim for 3.5+ GPA in technical coursework. Requires MATH 234 (Calc III), PHYSICS 202/208 (Physics II), and CHEM 104 (Chem II, if CHEM 103 was taken).",
+          "note": "PROGRESSION courses: Calc III (MATH 234), Physics II (PHYS 202/208), Chemistry II (CHEM 104, if CHEM 103 was taken). Competitive program — aim for 3.5+ GPA in technical courses. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "chemical-engineering",
           "name": "Chemical Engineering",
           "requiredCourseIds": ["calc2", "calc3", "chem1", "chem2", "orgChem", "physics1"],
-          "note": "Requires MATH 234 (Calc III), CHEM 104 (if CHEM 103 taken), and CHEM 343 (Organic Chemistry I). Competitive program.",
+          "note": "PROGRESSION courses: Calc III (MATH 234), Chemistry II (CHEM 104, if CHEM 103 taken), Organic Chemistry I (CHEM 343). Competitive program. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "civil-environmental-engineering",
           "name": "Civil & Environmental Engineering",
           "requiredCourseIds": ["calc2", "chem1", "physics1", "statics"],
-          "note": "EMA 201 (Statics) required. Students may pursue Civil Engineering or Environmental Engineering track after admission.",
+          "note": "PROGRESSION courses: Engineering Statics (EMA 201). Students may pursue Civil or Environmental Engineering track after admission. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "computer-engineering",
           "name": "Computer Engineering",
           "requiredCourseIds": ["calc2", "calc3", "physics1", "compSci1"],
-          "note": "Requires CS 200 or CS 300 (introductory programming) and MATH 234 or MATH 340 (Linear Algebra). MATH 375/376 sequence may also fulfill the Calc III requirement.",
+          "note": "PROGRESSION courses: Calc III (MATH 234 or MATH 340 Linear Algebra), CS I (COMP SCI 200 or 300). MATH 375/376 sequence may also fulfill the Calc III requirement. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "electrical-engineering",
           "name": "Electrical Engineering",
           "requiredCourseIds": ["calc2", "physics1", "compSci1"],
-          "note": "Requires CS 200 or CS 300 (introductory programming). MATH 375/376 sequence may substitute for Calc III.",
+          "note": "PROGRESSION courses: CS I (COMP SCI 200 or 300). MATH 375/376 sequence may substitute for Calc III. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "engineering-mechanics",
           "name": "Engineering Mechanics",
           "requiredCourseIds": ["calc2", "physics1", "statics"],
-          "note": "EMA 201 (Statics) required. Program focuses on solid mechanics, fluid mechanics, and thermodynamics.",
+          "note": "PROGRESSION courses: Engineering Statics (EMA 201). Program focuses on solid mechanics, fluid mechanics, and thermodynamics. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "geological-engineering",
           "name": "Geological Engineering",
           "requiredCourseIds": ["calc2", "chem1", "physics1", "statics"],
-          "note": "EMA 201 (Statics) required. Combines geology and engineering for applications in subsurface construction, natural hazards, and groundwater.",
+          "note": "PROGRESSION courses: Engineering Statics (EMA 201). Combines geology and engineering for subsurface construction, natural hazards, and groundwater applications. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "industrial-systems-engineering",
           "name": "Industrial & Systems Engineering",
           "requiredCourseIds": ["calc2", "calc3", "physics1", "compSci1"],
-          "note": "Requires MATH 234 (Calc III) and CS 200 or CS 300 (introductory programming).",
+          "note": "PROGRESSION courses: Calc III (MATH 234), CS I (COMP SCI 200 or 300). These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "materials-science-engineering",
           "name": "Materials Science & Engineering",
           "requiredCourseIds": ["calc2", "chem1", "chem2", "physics1", "physics2"],
-          "note": "Requires CHEM 104 (Chem II, if CHEM 103 taken) and PHYSICS 202/208 (Physics II).",
+          "note": "PROGRESSION courses: Chemistry II (CHEM 104, if CHEM 103 taken), Physics II (PHYS 202/208). These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "mechanical-engineering",
           "name": "Mechanical Engineering",
           "requiredCourseIds": ["calc2", "chem1", "physics1", "statics"],
-          "note": "EMA 201 (Statics) required. One of the most competitive CoE programs — 3.5+ GPA in technical courses strongly recommended. Minimum grade of C required in Statics, Dynamics, and all core ME courses.",
+          "note": "PROGRESSION courses: Engineering Statics (EMA 201). One of the most competitive CoE programs — 3.5+ GPA strongly recommended. Minimum grade of C required in Statics and all core ME courses. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         },
         {
           "id": "nuclear-engineering-engineering-physics",
           "name": "Nuclear Engineering & Engineering Physics",
           "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2"],
-          "note": "Requires MATH 234 (Calc III) and PHYSICS 202/208 (Physics II). Program covers nuclear science, reactor design, radiation applications, and plasma physics.",
+          "note": "PROGRESSION courses: Calc III (MATH 234), Physics II (PHYS 202/208). Covers nuclear science, reactor design, radiation applications, and plasma physics. These are NOT admission prerequisites; completing them before transfer enables progression approval before arrival.",
           "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
         }
       ]
