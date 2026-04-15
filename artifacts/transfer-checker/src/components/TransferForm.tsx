@@ -26,20 +26,23 @@ import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
 import purdueMajorsData from "@/data/purdue-majors.json";
 import utaustinMajorsData from "@/data/utaustin-majors.json";
+import uwmadisonMajorsData from "@/data/uwmadison-majors.json";
 import type { StudentProfile, CourseRecord, CourseStatus, EnglishTestType } from "@/lib/eligibility";
-import type { GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData } from "@/types";
+import type { GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData, UWMadisonMajorsData } from "@/types";
 
 const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
 const purdueData = purdueMajorsData as unknown as PurdueMajorsData;
 const utaustinData = utaustinMajorsData as unknown as UtAustinMajorsData;
+const uwmadisonData = uwmadisonMajorsData as unknown as UWMadisonMajorsData;
 
 const COURSE_IDS = [
   "calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures",
   "physics1", "physics2",
-  "chem1", "chem2",
+  "chem1", "chem2", "orgChem",
   "bio1", "bio2", "molecularBio",
   "compSci1", "compSci2", "computing", "ece110", "ece120",
+  "statics",
   "engrGraphics", "engrDesign",
   "labSciElective", "advancedScience", "englishComp",
 ] as const;
@@ -47,17 +50,17 @@ const COURSE_IDS = [
 const COURSE_GROUPS: { label: string; ids: string[] }[] = [
   { label: "Mathematics", ids: ["calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures"] },
   { label: "Physics", ids: ["physics1", "physics2"] },
-  { label: "Chemistry", ids: ["chem1", "chem2"] },
+  { label: "Chemistry", ids: ["chem1", "chem2", "orgChem"] },
   { label: "Biology / Life Sciences", ids: ["bio1", "bio2", "molecularBio"] },
   { label: "Computing / Electronics", ids: ["compSci1", "compSci2", "computing", "ece110", "ece120"] },
-  { label: "Engineering Fundamentals (Purdue)", ids: ["engrGraphics", "engrDesign"] },
+  { label: "Engineering Fundamentals", ids: ["statics", "engrGraphics", "engrDesign"] },
   { label: "Other / Electives", ids: ["labSciElective", "advancedScience", "englishComp"] },
 ];
 
 const COURSE_LABELS: Record<string, string> = {
   calc1: "Calculus I",
   calc2: "Calculus II",
-  calc3: "Calculus III",
+  calc3: "Calculus III / Multivariable Calculus",
   diffEq: "Differential Equations",
   linAlg: "Linear Algebra",
   discreteStructures: "Discrete Structures",
@@ -65,14 +68,16 @@ const COURSE_LABELS: Record<string, string> = {
   physics2: "Physics 2 (Calculus-based)",
   chem1: "General Chemistry I",
   chem2: "General Chemistry II + Lab",
+  orgChem: "Organic Chemistry I",
   bio1: "Biology I + Lab",
   bio2: "Biology II + Lab",
   molecularBio: "Molecular & Cellular Biology",
-  compSci1: "Computer Science I",
+  compSci1: "Computer Science I (Intro Programming)",
   compSci2: "Computer Science II",
   computing: "Computing / Programming",
   ece110: "Introduction to Electronics (ECE 110)",
   ece120: "Introduction to Computing for ECE (ECE 120)",
+  statics: "Engineering Statics (Mechanics of Rigid Bodies)",
   engrGraphics: "Engineering Problem Solving (ENGR 13100)",
   engrDesign: "Engineering Projects & Design (ENGR 13200)",
   labSciElective: "Lab Science Elective",
@@ -93,11 +98,13 @@ const COURSE_DESCRIPTIONS: Record<string, string> = {
   computing: "Required by UIUC ME, AE, CE, IE, Physics, SE&D, etc. Equiv. CS 101, CS 124, SE 101, or ME 170 at UIUC.",
   ece110: "Required by UIUC EE and Computer Engineering. Equiv. ECE 110 (Introduction to Electronics) at UIUC.",
   ece120: "Required by UIUC EE and Computer Engineering alongside ECE 110. Equiv. ECE 120 (Intro to Computing) at UIUC.",
+  orgChem: "Required by UW-Madison Chemical Engineering. Equiv. CHEM 343 (Organic Chemistry I) at UW-Madison.",
+  statics: "Required by UW-Madison Civil/Environmental, Mechanical, Engineering Mechanics, and Geological Engineering. Equiv. EMA 201 (Statics) at UW-Madison. Grade of C or better required.",
   engrGraphics: "Required by ALL Purdue engineering majors. Equiv. ENGR 13100 at Purdue — intro to engineering problem-solving and design methods. Many schools offer an equivalent intro engineering course.",
   engrDesign: "Required by ALL Purdue engineering majors. Equiv. ENGR 13200 at Purdue — engineering projects and design process. Many schools offer an equivalent intro engineering design course.",
   labSciElective: "Required by GT (Design/Liberal Arts majors) — any one lab science course with lecture and lab.",
   advancedScience: "Required by most Purdue engineering majors — one advanced course in math, chemistry, or physics beyond Calc II and Physics I.",
-  englishComp: "Recommended by Purdue (to help reach 24-credit minimum) but NOT required for admission. Does not waive the English test requirement for international students.",
+  englishComp: "Recommended by Purdue (to help reach 24-credit minimum). For UW-Madison: completing a college-level English composition course at a U.S. institution waives the English proficiency test requirement.",
 };
 
 const courseStatusEnum = z.enum(["completed", "in-progress", "not-taken"]);
@@ -114,6 +121,7 @@ const formSchema = z.object({
   uiucMajorId: z.string().min(1, "Please select a UIUC major"),
   purdueMajorId: z.string().min(1, "Please select a Purdue major"),
   utaustinMajorId: z.string().min(1, "Please select a UT Austin major"),
+  uwmadisonMajorId: z.string().min(1, "Please select a UW-Madison major"),
   calc1: courseStatusEnum,
   calc2: courseStatusEnum,
   calc3: courseStatusEnum,
@@ -124,6 +132,7 @@ const formSchema = z.object({
   physics2: courseStatusEnum,
   chem1: courseStatusEnum,
   chem2: courseStatusEnum,
+  orgChem: courseStatusEnum,
   bio1: courseStatusEnum,
   bio2: courseStatusEnum,
   molecularBio: courseStatusEnum,
@@ -132,6 +141,7 @@ const formSchema = z.object({
   computing: courseStatusEnum,
   ece110: courseStatusEnum,
   ece120: courseStatusEnum,
+  statics: courseStatusEnum,
   engrGraphics: courseStatusEnum,
   engrDesign: courseStatusEnum,
   labSciElective: courseStatusEnum,
@@ -142,7 +152,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface TransferFormProps {
-  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string; utaustinMajorId: string }) => void;
+  onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string; utaustinMajorId: string; uwmadisonMajorId: string }) => void;
   onReset: () => void;
   hasResults: boolean;
 }
@@ -162,6 +172,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       uiucMajorId: "mechanical-engineering",
       purdueMajorId: "mechanical-engineering",
       utaustinMajorId: "mechanical-engineering",
+      uwmadisonMajorId: "mechanical-engineering",
       calc1: "not-taken",
       calc2: "not-taken",
       calc3: "not-taken",
@@ -180,6 +191,8 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       computing: "not-taken",
       ece110: "not-taken",
       ece120: "not-taken",
+      orgChem: "not-taken",
+      statics: "not-taken",
       engrGraphics: "not-taken",
       engrDesign: "not-taken",
       labSciElective: "not-taken",
@@ -210,6 +223,7 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
       uiucMajorId: values.uiucMajorId,
       purdueMajorId: values.purdueMajorId,
       utaustinMajorId: values.utaustinMajorId,
+      uwmadisonMajorId: values.uwmadisonMajorId,
       courses,
     };
     onSubmit(profile);
@@ -350,6 +364,42 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                     </FormControl>
                     <SelectContent>
                       {utaustinData.colleges.map((college) => (
+                        <SelectGroup key={college.name}>
+                          <SelectLabel>{college.name}</SelectLabel>
+                          {college.majors.map((major) => (
+                            <SelectItem key={major.id} value={major.id}>
+                              {major.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Separator />
+
+          {/* UW-Madison Major */}
+          <div>
+            <h3 className="text-base font-medium text-foreground mb-4">UW-Madison — Intended Major</h3>
+            <FormField
+              control={form.control}
+              name="uwmadisonMajorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Target Major at UW-Madison (College of Engineering)</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger data-testid="select-uwmadison-major">
+                        <SelectValue placeholder="Select a major" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {uwmadisonData.colleges.map((college) => (
                         <SelectGroup key={college.name}>
                           <SelectLabel>{college.name}</SelectLabel>
                           {college.majors.map((major) => (

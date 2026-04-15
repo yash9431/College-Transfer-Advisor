@@ -3,7 +3,8 @@ import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
 import purdueMajorsData from "@/data/purdue-majors.json";
 import utaustinMajorsData from "@/data/utaustin-majors.json";
-import type { University, GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData } from "@/types";
+import uwmadisonMajorsData from "@/data/uwmadison-majors.json";
+import type { University, GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData, UWMadisonMajorsData } from "@/types";
 import { TransferForm } from "@/components/TransferForm";
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { evaluateAll } from "@/lib/eligibility";
@@ -13,11 +14,12 @@ const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
 const purdueData = purdueMajorsData as unknown as PurdueMajorsData;
 const utaustinData = utaustinMajorsData as unknown as UtAustinMajorsData;
+const uwmadisonData = uwmadisonMajorsData as unknown as UWMadisonMajorsData;
 
 const COURSE_NAMES: Record<string, string> = {
   calc1: "Calculus I",
   calc2: "Calculus II",
-  calc3: "Calculus III",
+  calc3: "Calculus III / Multivariable Calculus",
   diffEq: "Differential Equations",
   linAlg: "Linear Algebra",
   discreteStructures: "Discrete Structures",
@@ -25,14 +27,16 @@ const COURSE_NAMES: Record<string, string> = {
   physics2: "Physics 2 (Calculus-based)",
   chem1: "General Chemistry I",
   chem2: "General Chemistry II + Lab",
+  orgChem: "Organic Chemistry I",
   bio1: "Biology I + Lab",
   bio2: "Biology II + Lab",
   molecularBio: "Molecular & Cellular Biology",
-  compSci1: "Computer Science I",
+  compSci1: "Computer Science I (Intro Programming)",
   compSci2: "Computer Science II",
   computing: "Computing / Programming",
   ece110: "Introduction to Electronics (ECE 110)",
   ece120: "Introduction to Computing for ECE (ECE 120)",
+  statics: "Engineering Statics (Mechanics of Rigid Bodies)",
   engrGraphics: "Engineering Problem Solving (ENGR 13100)",
   engrDesign: "Engineering Projects & Design (ENGR 13200)",
   labSciElective: "Lab Science Elective",
@@ -100,18 +104,29 @@ const COURSE_DESCRIPTIONS_UTAUSTIN: Record<string, string> = {
   computing: "Equivalent to CS 303E or CS 312 at UT Austin. Required for ECE, ME, and Computational Engineering.",
 };
 
+const COURSE_DESCRIPTIONS_UWMADISON: Record<string, string> = {
+  calc1: "Required for all UW-Madison CoE majors. Equivalent to MATH 221 at UW-Madison.",
+  calc2: "Equivalent to MATH 222 at UW-Madison. Minimum grade: C.",
+  calc3: "Equivalent to MATH 234 (Calculus — Functions of Several Variables) at UW-Madison. Required for AMEP, BME, Chemical Engineering, Computer Engineering, Industrial/Systems Engineering, and Nuclear Engineering & Eng Physics.",
+  physics1: "Equivalent to PHYSICS 201 or PHYSICS 207 at UW-Madison. Minimum grade: C.",
+  physics2: "Equivalent to PHYSICS 202 or PHYSICS 208 at UW-Madison. Required for AMEP, BME, Materials Science & Engineering, and Nuclear Engineering & Eng Physics.",
+  chem1: "Equivalent to CHEM 103 (General Chemistry I) or CHEM 109 (Advanced General Chemistry) at UW-Madison. Minimum grade: C.",
+  chem2: "Equivalent to CHEM 104 (General Chemistry II) at UW-Madison. Required for BME, Chemical Engineering, and Materials Science & Engineering.",
+  orgChem: "Equivalent to CHEM 343 (Organic Chemistry I) at UW-Madison. Required specifically for Chemical Engineering.",
+  compSci1: "Equivalent to COMP SCI 200 or COMP SCI 300 at UW-Madison. Required for Computer Engineering, Electrical Engineering, and Industrial & Systems Engineering.",
+  statics: "Equivalent to EMA 201 (Engineering Mechanics — Statics) at UW-Madison. Minimum grade: C required. Required for Civil/Environmental, Mechanical, Engineering Mechanics, and Geological Engineering.",
+};
+
 function buildGtUniversity(majorId: string): University {
   const allMajors = gtData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
   const base = gtData.base;
-
   const allCourseIds = ["calc1", ...major.requiredCourseIds];
   const requiredCourses = allCourseIds.map((id) => ({
     id,
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_GT[id] ?? "",
   }));
-
   return {
     ...base,
     id: `gatech-${major.id}`,
@@ -125,14 +140,12 @@ function buildUiucUniversity(majorId: string): University {
   const allMajors = uiucData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
   const base = uiucData.base;
-
   const allCourseIds = ["calc1", ...major.requiredCourseIds];
   const requiredCourses = allCourseIds.map((id) => ({
     id,
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_UIUC[id] ?? "",
   }));
-
   return {
     ...base,
     id: `uiuc-${major.id}`,
@@ -147,14 +160,12 @@ function buildPurdueUniversity(majorId: string): University {
   const allMajors = purdueData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
   const base = purdueData.base;
-
   const allCourseIds = ["calc1", ...major.requiredCourseIds];
   const requiredCourses = allCourseIds.map((id) => ({
     id,
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_PURDUE[id] ?? "",
   }));
-
   return {
     ...base,
     id: `purdue-${major.id}`,
@@ -169,17 +180,35 @@ function buildUtAustinUniversity(majorId: string): University {
   const allMajors = utaustinData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
   const base = utaustinData.base;
-
   const allCourseIds = ["calc1", ...major.requiredCourseIds];
   const requiredCourses = allCourseIds.map((id) => ({
     id,
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_UTAUSTIN[id] ?? "",
   }));
-
   return {
     ...base,
     id: `utaustin-${major.id}`,
+    major: major.name,
+    requiredCourses,
+    sourceUrl: major.sourceUrl ?? base.sourceUrl,
+    notes: base.notes + (major.note ? ` Note: ${major.note}` : ""),
+  } as University;
+}
+
+function buildUWMadisonUniversity(majorId: string): University {
+  const allMajors = uwmadisonData.colleges.flatMap((c) => c.majors);
+  const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
+  const base = uwmadisonData.base;
+  const allCourseIds = ["calc1", ...major.requiredCourseIds];
+  const requiredCourses = allCourseIds.map((id) => ({
+    id,
+    name: COURSE_NAMES[id] ?? id,
+    description: COURSE_DESCRIPTIONS_UWMADISON[id] ?? "",
+  }));
+  return {
+    ...base,
+    id: `uwmadison-${major.id}`,
     major: major.name,
     requiredCourses,
     sourceUrl: major.sourceUrl ?? base.sourceUrl,
@@ -194,18 +223,30 @@ export default function Home() {
   const [uiucMajorId, setUiucMajorId] = useState("mechanical-engineering");
   const [purdueMajorId, setPurdueMajorId] = useState("mechanical-engineering");
   const [utaustinMajorId, setUtAustinMajorId] = useState("mechanical-engineering");
+  const [uwmadisonMajorId, setUWMadisonMajorId] = useState("mechanical-engineering");
 
-  function handleSubmit(profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string; utaustinMajorId: string }) {
+  function handleSubmit(
+    profile: StudentProfile & {
+      gtMajorId: string;
+      uiucMajorId: string;
+      purdueMajorId: string;
+      utaustinMajorId: string;
+      uwmadisonMajorId: string;
+    }
+  ) {
     setGtMajorId(profile.gtMajorId);
     setUiucMajorId(profile.uiucMajorId);
     setPurdueMajorId(profile.purdueMajorId);
     setUtAustinMajorId(profile.utaustinMajorId);
+    setUWMadisonMajorId(profile.uwmadisonMajorId);
 
-    const gtUniversity = buildGtUniversity(profile.gtMajorId);
-    const uiucUniversity = buildUiucUniversity(profile.uiucMajorId);
-    const purdueUniversity = buildPurdueUniversity(profile.purdueMajorId);
-    const utaustinUniversity = buildUtAustinUniversity(profile.utaustinMajorId);
-    const allUniversities = [gtUniversity, uiucUniversity, purdueUniversity, utaustinUniversity];
+    const allUniversities = [
+      buildGtUniversity(profile.gtMajorId),
+      buildUiucUniversity(profile.uiucMajorId),
+      buildPurdueUniversity(profile.purdueMajorId),
+      buildUtAustinUniversity(profile.utaustinMajorId),
+      buildUWMadisonUniversity(profile.uwmadisonMajorId),
+    ];
     const evaluated = evaluateAll(profile, allUniversities);
     setResults(evaluated);
     setSubmitted(true);
@@ -225,6 +266,7 @@ export default function Home() {
     buildUiucUniversity(uiucMajorId),
     buildPurdueUniversity(purdueMajorId),
     buildUtAustinUniversity(utaustinMajorId),
+    buildUWMadisonUniversity(uwmadisonMajorId),
   ];
 
   return (
@@ -235,7 +277,7 @@ export default function Home() {
             US College Transfer Eligibility Checker
           </h1>
           <p className="mt-2 text-primary-foreground/80 text-base">
-            Check eligibility for Georgia Tech, UIUC, Purdue, and UT Austin — any major, based on official university requirements.
+            Check eligibility for Georgia Tech, UIUC, Purdue, UT Austin, and UW-Madison — any major, based on official university requirements.
           </p>
         </div>
       </header>
@@ -264,6 +306,8 @@ export default function Home() {
           <a href="https://admissions.purdue.edu/become-student/transfer/engineering-transfer-criteria/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Purdue source</a>
           <span>·</span>
           <a href="https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UT Austin source</a>
+          <span>·</span>
+          <a href="https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UW-Madison source</a>
         </p>
       </footer>
     </main>

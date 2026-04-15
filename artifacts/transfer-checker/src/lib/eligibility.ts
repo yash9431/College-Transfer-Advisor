@@ -58,6 +58,10 @@ function checkEnglish(
 
   const req = university.englishRequirement;
 
+  if (req.singleCompWaiver && comp1) {
+    return { met: true, isConditional: false, reason: "College-level English Composition completed at a U.S. institution — English test waived." };
+  }
+
   if (req.compositionWaiver && comp1 && comp2) {
     return { met: true, isConditional: false, reason: "English Composition 1 & 2 completed — English test waived." };
   }

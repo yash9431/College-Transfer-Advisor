@@ -16,6 +16,7 @@ export interface EnglishRequirement {
   duolingo: EnglishTestThreshold;
   duolingoAccepted?: boolean;
   compositionWaiver: boolean;
+  singleCompWaiver?: boolean;
   note: string;
 }
 
@@ -109,4 +110,22 @@ export interface UtAustinCollege {
 export interface UtAustinMajorsData {
   base: Omit<University, "major" | "requiredCourses">;
   colleges: UtAustinCollege[];
+}
+
+export interface UWMadisonMajor {
+  id: string;
+  name: string;
+  requiredCourseIds: string[];
+  note?: string;
+  sourceUrl?: string;
+}
+
+export interface UWMadisonCollege {
+  name: string;
+  majors: UWMadisonMajor[];
+}
+
+export interface UWMadisonMajorsData {
+  base: Omit<University, "major" | "requiredCourses">;
+  colleges: UWMadisonCollege[];
 }

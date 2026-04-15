@@ -1,0 +1,120 @@
+{
+  "base": {
+    "id": "uwmadison",
+    "name": "UW-Madison",
+    "location": "Madison, WI",
+    "website": "https://www.wisc.edu",
+    "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/",
+    "minCompletedCredits": 24,
+    "acceptInProgress": true,
+    "minGPA": 3.0,
+    "noEnglishRequirement": false,
+    "englishRequirement": {
+      "toefl": { "min": 80, "note": "TOEFL iBT 80+ required. Institution code 1846. 'MyBest' scores and TOEFL iTP are NOT accepted. iBT Special Home Edition is accepted." },
+      "ielts": { "min": 6.5, "note": "IELTS Academic or IELTS Indicator accepted. IELTS General Training is NOT accepted." },
+      "duolingo": { "min": 115, "note": "Duolingo English Test 115+ accepted. Search 'Undergraduate' → 'University of Wisconsin–Madison' when submitting." },
+      "singleCompWaiver": true,
+      "compositionWaiver": false,
+      "note": "TOEFL iBT 80+, IELTS Academic 6.5+, or Duolingo 115+ required for international students. Waiver: if you successfully completed a college-level English composition course at an accredited U.S. institution (not a U.S. branch campus abroad), no English test is required. Scores must not be older than two years at time of application. IB HL English, AP English, ACT, SAT, Cambridge, and PTE cannot waive this requirement."
+    },
+    "notes": "College of Engineering — 13 undergraduate programs. Minimum 3.0 GPA, no grade below C (2.0). Must have ≤80 total transfer credits. Students already holding a bachelor's degree are NOT eligible. In-progress courses ARE accepted; progression requirements may be met before or within first two semesters after transfer. Both Fall (deadline Feb 1 priority / Mar 1 final) and Spring (deadline Oct 1) admission available. Second-choice major outside CoE required on application. Source: engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+  },
+  "colleges": [
+    {
+      "name": "College of Engineering",
+      "majors": [
+        {
+          "id": "applied-mathematics-engineering-physics",
+          "name": "Applied Mathematics, Engineering & Physics (AMEP)",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2"],
+          "note": "AMEP is administered by the College of Letters & Science — apply to UW-Madison and declare AMEP internally. Required: MATH 221, 222, 234 with ≥2.75 GPA in those three courses. Requires both semesters of introductory physics.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "biological-systems-engineering",
+          "name": "Biological Systems Engineering",
+          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "note": "Three tracks: Machinery Systems, Natural Resources & Environment, Food & Bioprocess. No additional prerequisites beyond core requirements.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "biomedical-engineering",
+          "name": "Biomedical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "chem2", "physics1", "physics2"],
+          "note": "Competitive program. Aim for 3.5+ GPA in technical coursework. Requires MATH 234 (Calc III), PHYSICS 202/208 (Physics II), and CHEM 104 (Chem II, if CHEM 103 was taken).",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "chemical-engineering",
+          "name": "Chemical Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "chem1", "chem2", "orgChem", "physics1"],
+          "note": "Requires MATH 234 (Calc III), CHEM 104 (if CHEM 103 taken), and CHEM 343 (Organic Chemistry I). Competitive program.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "civil-environmental-engineering",
+          "name": "Civil & Environmental Engineering",
+          "requiredCourseIds": ["calc2", "chem1", "physics1", "statics"],
+          "note": "EMA 201 (Statics) required. Students may pursue Civil Engineering or Environmental Engineering track after admission.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "computer-engineering",
+          "name": "Computer Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "compSci1"],
+          "note": "Requires CS 200 or CS 300 (introductory programming) and MATH 234 or MATH 340 (Linear Algebra). MATH 375/376 sequence may also fulfill the Calc III requirement.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "electrical-engineering",
+          "name": "Electrical Engineering",
+          "requiredCourseIds": ["calc2", "physics1", "compSci1"],
+          "note": "Requires CS 200 or CS 300 (introductory programming). MATH 375/376 sequence may substitute for Calc III.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "engineering-mechanics",
+          "name": "Engineering Mechanics",
+          "requiredCourseIds": ["calc2", "physics1", "statics"],
+          "note": "EMA 201 (Statics) required. Program focuses on solid mechanics, fluid mechanics, and thermodynamics.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "geological-engineering",
+          "name": "Geological Engineering",
+          "requiredCourseIds": ["calc2", "chem1", "physics1", "statics"],
+          "note": "EMA 201 (Statics) required. Combines geology and engineering for applications in subsurface construction, natural hazards, and groundwater.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "industrial-systems-engineering",
+          "name": "Industrial & Systems Engineering",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "compSci1"],
+          "note": "Requires MATH 234 (Calc III) and CS 200 or CS 300 (introductory programming).",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "materials-science-engineering",
+          "name": "Materials Science & Engineering",
+          "requiredCourseIds": ["calc2", "chem1", "chem2", "physics1", "physics2"],
+          "note": "Requires CHEM 104 (Chem II, if CHEM 103 taken) and PHYSICS 202/208 (Physics II).",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "mechanical-engineering",
+          "name": "Mechanical Engineering",
+          "requiredCourseIds": ["calc2", "chem1", "physics1", "statics"],
+          "note": "EMA 201 (Statics) required. One of the most competitive CoE programs — 3.5+ GPA in technical courses strongly recommended. Minimum grade of C required in Statics, Dynamics, and all core ME courses.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        },
+        {
+          "id": "nuclear-engineering-engineering-physics",
+          "name": "Nuclear Engineering & Engineering Physics",
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2"],
+          "note": "Requires MATH 234 (Calc III) and PHYSICS 202/208 (Physics II). Program covers nuclear science, reactor design, radiation applications, and plasma physics.",
+          "sourceUrl": "https://engineering.wisc.edu/admissions/undergraduate/transfer-from-off-campus/"
+        }
+      ]
+    }
+  ]
+}

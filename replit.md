@@ -34,15 +34,21 @@ See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and pa
 - **Preview path**: `/`
 - **Stack**: React, TypeScript, Tailwind CSS, shadcn/ui, wouter, react-hook-form, zod
 - **Key files**:
-  - `src/data/universities.json` — static university requirement data (Georgia Tech, UIUC, Purdue — Mechanical Engineering)
-  - `src/types/index.ts` — TypeScript interfaces for `University`, `EnglishRequirement`, `RequiredCourse`
-  - `src/lib/eligibility.ts` — eligibility evaluation logic (credits, English, courses)
-  - `src/pages/Home.tsx` — main page with form and results
-  - `src/components/TransferForm.tsx` — student profile input form
+  - `src/data/gt-majors.json` — Georgia Tech (~35 majors, all colleges)
+  - `src/data/uiuc-majors.json` — UIUC Grainger Engineering (20 majors)
+  - `src/data/purdue-majors.json` — Purdue College of Engineering (13 majors)
+  - `src/data/utaustin-majors.json` — UT Austin Cockrell School (12 majors)
+  - `src/data/uwmadison-majors.json` — UW-Madison College of Engineering (13 majors)
+  - `src/types/index.ts` — TypeScript interfaces for all universities + `EnglishRequirement` (incl. `duolingoAccepted`, `singleCompWaiver`)
+  - `src/lib/eligibility.ts` — eligibility evaluation logic (credits, English test, courses, composition waivers)
+  - `src/pages/Home.tsx` — main page; builds University objects per selected major, runs evaluateAll()
+  - `src/components/TransferForm.tsx` — 5-school major dropdowns + course statuses + English proficiency form
   - `src/components/ResultsPanel.tsx` — results list wrapper
   - `src/components/ResultCard.tsx` — per-university result card with status badge
+- **Universities supported**: Georgia Tech, UIUC, Purdue, UT Austin, UW-Madison
+- **Course IDs**: calc1-3, diffEq, linAlg, discreteStructures, physics1-2, chem1-2, orgChem, bio1-2, molecularBio, compSci1-2, computing, ece110, ece120, statics, engrGraphics, engrDesign, labSciElective, advancedScience, englishComp
+- **English logic**: TOEFL (new/legacy), IELTS, Duolingo; `duolingoAccepted:false` (UT Austin); `singleCompWaiver` (UW-Madison); `compositionWaiver` (GT)
 - **Features**:
-  - Collects: completed/in-progress credits, English test (TOEFL/IELTS/Duolingo), Composition 1 & 2 completion, intended major, 4 required course statuses
   - Evaluates eligibility as: Eligible / Conditionally Eligible / Not Eligible
   - Shows missing requirements and conditional reasons per university
   - Expandable result cards with course-by-course breakdown
