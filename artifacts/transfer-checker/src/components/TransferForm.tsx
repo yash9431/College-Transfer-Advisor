@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -123,6 +124,7 @@ const courseStatusEnum = z.enum(["completed", "in-progress", "not-taken"]);
 const formSchema = z.object({
   completedCredits: z.coerce.number().min(0).max(300),
   inProgressCredits: z.coerce.number().min(0).max(200),
+  gpa: z.coerce.number().min(0).max(4.0),
   englishTestType: z.enum(["TOEFL", "IELTS", "Duolingo", "None"]),
   englishTestScore: z.coerce.number().min(0).max(160),
   toeflDate: z.enum(["legacy", "new"]).optional(),
@@ -164,20 +166,22 @@ const formSchema = z.object({
   englishComp: courseStatusEnum,
 });
 
-type FormValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
 interface TransferFormProps {
   onSubmit: (profile: StudentProfile & { gtMajorId: string; uiucMajorId: string; purdueMajorId: string; utaustinMajorId: string; uwmadisonMajorId: string }) => void;
   onReset: () => void;
   hasResults: boolean;
+  onValuesChange?: (values: FormValues) => void;
 }
 
-export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProps) {
+export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: TransferFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       completedCredits: 0,
       inProgressCredits: 0,
+      gpa: 0,
       englishTestType: "None",
       englishTestScore: 0,
       toeflDate: "new",
@@ -222,6 +226,15 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
 
   const testType = form.watch("englishTestType");
   const toeflDate = form.watch("toeflDate");
+
+  useEffect(() => {
+    if (!onValuesChange) return;
+    const subscription = form.watch((values) => {
+      onValuesChange(values as FormValues);
+    });
+    onValuesChange(form.getValues());
+    return () => subscription.unsubscribe();
+  }, [form, onValuesChange]);
 
   function handleSubmit(values: FormValues) {
     const courses: CourseRecord[] = COURSE_IDS.map((id) => ({
@@ -438,10 +451,10 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
 
           <Separator />
 
-          {/* Credits Section */}
+          {/* Credits & GPA Section */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">Credit Hours</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <h3 className="text-base font-medium text-foreground mb-4">학점 및 GPA</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="completedCredits"
@@ -466,6 +479,28 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
                       <Input type="number" min={0} placeholder="e.g. 15" data-testid="input-inprogress-credits" {...field} />
                     </FormControl>
                     <FormDescription>Credits you're currently taking.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="gpa"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>누적 GPA (0.0 – 4.0)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min={0}
+                        max={4.0}
+                        step={0.01}
+                        placeholder="e.g. 3.7"
+                        data-testid="input-gpa"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>지원 가능성 점수에 반영됩니다.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

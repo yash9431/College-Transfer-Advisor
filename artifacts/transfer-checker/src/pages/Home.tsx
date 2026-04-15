@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
 import purdueMajorsData from "@/data/purdue-majors.json";
@@ -6,9 +6,12 @@ import utaustinMajorsData from "@/data/utaustin-majors.json";
 import uwmadisonMajorsData from "@/data/uwmadison-majors.json";
 import type { University, GtMajorsData, UiucMajorsData, PurdueMajorsData, UtAustinMajorsData, UWMadisonMajorsData } from "@/types";
 import { TransferForm } from "@/components/TransferForm";
+import type { FormValues } from "@/components/TransferForm";
 import { ResultsPanel } from "@/components/ResultsPanel";
+import { ScorePanel } from "@/components/ScorePanel";
 import { evaluateAll } from "@/lib/eligibility";
-import type { StudentProfile, EligibilityResult } from "@/lib/eligibility";
+import type { StudentProfile, EligibilityResult, CourseRecord } from "@/lib/eligibility";
+import type { ScoringInput } from "@/lib/scoreCalculator";
 
 const gtData = gtMajorsData as unknown as GtMajorsData;
 const uiucData = uiucMajorsData as unknown as UiucMajorsData;
@@ -241,14 +244,54 @@ function buildUWMadisonUniversity(majorId: string): University {
   } as University;
 }
 
+function formValuesToScoringInput(values: FormValues): ScoringInput {
+  const courseIds = [
+    "calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures",
+    "physics1", "physics1Lab", "physics2", "physics2Lab",
+    "chem1", "chem1Lab", "chem2", "chem2Lab", "orgChem",
+    "bio1", "bio2", "molecularBio",
+    "compSci1", "compSci2", "computing", "ece110", "ece120",
+    "statics", "engrGraphics", "engrDesign",
+    "labSciElective", "advancedScience", "englishComp",
+  ] as const;
+
+  const courses: CourseRecord[] = courseIds.map((id) => ({
+    id,
+    status: ((values[id] as string) ?? "not-taken") as CourseRecord["status"],
+  }));
+
+  return {
+    gpa: Number(values.gpa) || 0,
+    completedCredits: Number(values.completedCredits) || 0,
+    inProgressCredits: Number(values.inProgressCredits) || 0,
+    courses,
+    englishTestType: values.englishTestType as ScoringInput["englishTestType"],
+    englishTestScore: Number(values.englishTestScore) || 0,
+    toeflIsLegacy: values.toeflDate === "legacy",
+    completedEnglishComp1: values.completedEnglishComp1 === "yes",
+    completedEnglishComp2: values.completedEnglishComp2 === "yes",
+  };
+}
+
 export default function Home() {
   const [results, setResults] = useState<EligibilityResult[] | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [activeTab, setActiveTab] = useState<"eligibility" | "score">("score");
   const [gtMajorId, setGtMajorId] = useState("mechanical-engineering");
   const [uiucMajorId, setUiucMajorId] = useState("mechanical-engineering");
   const [purdueMajorId, setPurdueMajorId] = useState("mechanical-engineering");
   const [utaustinMajorId, setUtAustinMajorId] = useState("mechanical-engineering");
   const [uwmadisonMajorId, setUWMadisonMajorId] = useState("mechanical-engineering");
+  const [liveValues, setLiveValues] = useState<FormValues | null>(null);
+
+  const handleValuesChange = useCallback((values: FormValues) => {
+    setLiveValues(values);
+    setGtMajorId(values.gtMajorId || "mechanical-engineering");
+    setUiucMajorId(values.uiucMajorId || "mechanical-engineering");
+    setPurdueMajorId(values.purdueMajorId || "mechanical-engineering");
+    setUtAustinMajorId(values.utaustinMajorId || "mechanical-engineering");
+    setUWMadisonMajorId(values.uwmadisonMajorId || "mechanical-engineering");
+  }, []);
 
   function handleSubmit(
     profile: StudentProfile & {
@@ -259,12 +302,6 @@ export default function Home() {
       uwmadisonMajorId: string;
     }
   ) {
-    setGtMajorId(profile.gtMajorId);
-    setUiucMajorId(profile.uiucMajorId);
-    setPurdueMajorId(profile.purdueMajorId);
-    setUtAustinMajorId(profile.utaustinMajorId);
-    setUWMadisonMajorId(profile.uwmadisonMajorId);
-
     const allUniversities = [
       buildGtUniversity(profile.gtMajorId),
       buildUiucUniversity(profile.uiucMajorId),
@@ -275,8 +312,9 @@ export default function Home() {
     const evaluated = evaluateAll(profile, allUniversities);
     setResults(evaluated);
     setSubmitted(true);
+    setActiveTab("eligibility");
     setTimeout(() => {
-      document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("results-section")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   }
 
@@ -294,6 +332,8 @@ export default function Home() {
     buildUWMadisonUniversity(uwmadisonMajorId),
   ];
 
+  const scoringInput = liveValues ? formValuesToScoringInput(liveValues) : null;
+
   return (
     <main className="min-h-screen bg-background">
       <header className="bg-primary text-primary-foreground py-10 px-4 shadow-md">
@@ -309,22 +349,82 @@ export default function Home() {
 
       <div className="max-w-3xl mx-auto px-4 py-10">
         <section aria-label="Transfer Application Form">
-          <TransferForm onSubmit={handleSubmit} onReset={handleReset} hasResults={submitted} />
+          <TransferForm
+            onSubmit={handleSubmit}
+            onReset={handleReset}
+            hasResults={submitted}
+            onValuesChange={handleValuesChange}
+          />
         </section>
-
-        {results && (
-          <section id="results" className="mt-10" aria-label="Eligibility Results">
-            <ResultsPanel results={results} universities={allUniversitiesForDisplay} />
-          </section>
-        )}
       </div>
 
-      <footer className="border-t border-border mt-16 py-6 text-center text-sm text-muted-foreground px-4">
+      {/* Results Section */}
+      <div id="results-section" className="border-t border-border bg-muted/30">
+        <div className="max-w-6xl mx-auto px-4 py-10">
+
+          {/* Tab Bar */}
+          <div className="flex gap-1 mb-8 border-b border-border">
+            <button
+              onClick={() => setActiveTab("score")}
+              data-testid="tab-score"
+              className={`px-5 py-2.5 text-sm font-medium rounded-t-lg border border-b-0 transition-colors -mb-px ${
+                activeTab === "score"
+                  ? "bg-background border-border text-foreground"
+                  : "bg-transparent border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              📊 지원 가능성 계산기
+            </button>
+            <button
+              onClick={() => setActiveTab("eligibility")}
+              data-testid="tab-eligibility"
+              className={`px-5 py-2.5 text-sm font-medium rounded-t-lg border border-b-0 transition-colors -mb-px ${
+                activeTab === "eligibility"
+                  ? "bg-background border-border text-foreground"
+                  : "bg-transparent border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              ✅ 편입 자격 상세 확인
+              {submitted && (
+                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold bg-primary text-primary-foreground rounded-full">
+                  {results?.length ?? 0}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Score Tab */}
+          {activeTab === "score" && scoringInput && (
+            <section aria-label="지원 가능성 계산기">
+              <ScorePanel universities={allUniversitiesForDisplay} input={scoringInput} />
+            </section>
+          )}
+
+          {/* Eligibility Tab */}
+          {activeTab === "eligibility" && (
+            <section aria-label="편입 자격 상세 결과">
+              {submitted && results ? (
+                <ResultsPanel results={results} universities={allUniversitiesForDisplay} />
+              ) : (
+                <div className="text-center py-20 text-muted-foreground">
+                  <p className="text-4xl mb-4">📋</p>
+                  <p className="text-base font-medium">아직 자격 확인 결과가 없습니다.</p>
+                  <p className="text-sm mt-1">
+                    위 폼을 작성한 뒤 <span className="font-semibold text-foreground">Check My Eligibility</span> 버튼을 누르면 상세 결과가 여기에 표시됩니다.
+                  </p>
+                </div>
+              )}
+            </section>
+          )}
+        </div>
+      </div>
+
+      <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground px-4">
         <p>
           Requirements are based on officially published information and may change. Always verify directly with each university's admissions office.
         </p>
         <p className="mt-1 flex flex-wrap justify-center gap-x-2 gap-y-1">
-          <a href="https://admission.gatech.edu/transfer/course-requirements-major" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GT source (Sept 2025)</a>
+          <a href="https://admission.gatech.edu/transfer/course-requirements-major" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GT source (Oct 2025)</a>
           <span>·</span>
           <a href="https://transferhandbook.illinois.edu/eng/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">UIUC source</a>
           <span>·</span>
