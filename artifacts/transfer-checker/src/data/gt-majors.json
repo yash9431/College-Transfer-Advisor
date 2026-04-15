@@ -16,7 +16,7 @@
       "compositionWaiver": false,
       "note": "No English proficiency test required for transfer applicants. All majors require English Composition 1101 and 1102 equivalents."
     },
-    "notes": "A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. All majors universally require English Comp I/II and Calculus I (MATH 1551). In-progress courses are accepted. Source: admission.gatech.edu/transfer/course-requirements-major (Oct 2025 official chart)"
+    "notes": "A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. All majors universally require English Comp I/II and Calculus I (MATH 1551). Chemistry and Physics must include both lecture AND lab components. In-progress courses are accepted. Source: admission.gatech.edu/transfer/course-requirements-major (Oct 2025 official chart)"
   },
   "colleges": [
     {
@@ -25,43 +25,43 @@
         {
           "id": "aerospace-engineering",
           "name": "Aerospace Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "biomedical-engineering",
           "name": "Biomedical Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "physics1", "bio1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab", "bio1"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "compSci1"]
         },
         {
           "id": "chemical-biomolecular-engineering",
           "name": "Chemical & Biomolecular Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "chem2", "physics1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "chem2", "chem2Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "compSci1"]
         },
         {
           "id": "civil-engineering",
           "name": "Civil Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "computer-engineering",
           "name": "Computer Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "compSci1", "compSci2"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "compSci1", "compSci2"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics1", "physics2"]
         },
         {
           "id": "electrical-engineering",
           "name": "Electrical Engineering",
-          "requiredCourseIds": ["calc2", "physics1"],
+          "requiredCourseIds": ["calc2", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "environmental-engineering",
           "name": "Environmental Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
@@ -73,19 +73,19 @@
         {
           "id": "materials-science-engineering",
           "name": "Materials Science & Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "mechanical-engineering",
           "name": "Mechanical Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "nuclear-radiological-engineering",
           "name": "Nuclear & Radiological Engineering",
-          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"],
           "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         }
       ]
@@ -120,7 +120,7 @@
         {
           "id": "biochemistry",
           "name": "Biochemistry",
-          "requiredCourseIds": ["calc2", "chem1", "chem2"]
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "chem2", "chem2Lab"]
         },
         {
           "id": "biology",
@@ -130,7 +130,7 @@
         {
           "id": "chemistry",
           "name": "Chemistry",
-          "requiredCourseIds": ["calc2", "chem1", "chem2"]
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "chem2", "chem2Lab"]
         },
         {
           "id": "discrete-mathematics",
@@ -140,17 +140,17 @@
         {
           "id": "earth-atmospheric-sciences",
           "name": "Earth & Atmospheric Sciences",
-          "requiredCourseIds": ["calc2", "chem1"]
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab"]
         },
         {
           "id": "neuroscience",
           "name": "Neuroscience",
-          "requiredCourseIds": ["calc2", "chem1"]
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab"]
         },
         {
           "id": "physics",
           "name": "Physics",
-          "requiredCourseIds": ["calc2", "chem1", "physics1"]
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab", "physics1", "physics1Lab"]
         },
         {
           "id": "psychology",
@@ -161,7 +161,7 @@
         {
           "id": "solid-earth-planetary-sciences",
           "name": "Solid Earth & Planetary Sciences",
-          "requiredCourseIds": ["calc2", "chem1"]
+          "requiredCourseIds": ["calc2", "chem1", "chem1Lab"]
         }
       ]
     },
@@ -188,7 +188,7 @@
         {
           "id": "music-technology",
           "name": "Music Technology",
-          "requiredCourseIds": ["calc2", "physics1"]
+          "requiredCourseIds": ["calc2", "physics1", "physics1Lab"]
         }
       ]
     },
