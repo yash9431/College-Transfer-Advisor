@@ -638,9 +638,16 @@ export function TransferForm({ onSubmit, onReset, hasResults }: TransferFormProp
             </div>
           </div>
 
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            <p className="font-semibold mb-1">이 앱은 참고용입니다</p>
+            <p className="leading-relaxed">
+              결과는 공개된 공식 요건을 기반으로 한 가이드입니다. 실제 지원 전에 반드시 각 학교의 공식 편입 홈페이지를 직접 방문해 최신 요건을 확인하고, 궁금한 점은 입학처에 문의하세요.
+            </p>
+          </div>
+
           <div className="flex gap-3 pt-2">
             <Button type="submit" data-testid="button-check-eligibility" className="flex-1 sm:flex-none">
-              Check Eligibility
+              Check My Eligibility
             </Button>
             {hasResults && (
               <Button type="button" variant="outline" onClick={onReset} data-testid="button-reset">
