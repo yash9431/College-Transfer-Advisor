@@ -39,6 +39,7 @@ export interface University {
   noEnglishRequirement: boolean;
   englishRequirement: EnglishRequirement;
   requiredCourses: RequiredCourse[];
+  recommendedCourses?: RequiredCourse[];
   notes: string;
 }
 
@@ -46,6 +47,7 @@ export interface GtMajor {
   id: string;
   name: string;
   requiredCourseIds: string[];
+  recommendedCourseIds?: string[];
   note?: string;
 }
 
@@ -55,7 +57,7 @@ export interface GtCollege {
 }
 
 export interface GtMajorsData {
-  base: Omit<University, "major" | "requiredCourses">;
+  base: Omit<University, "major" | "requiredCourses" | "recommendedCourses">;
   colleges: GtCollege[];
 }
 
@@ -72,7 +74,7 @@ export interface UiucCollege {
 }
 
 export interface UiucMajorsData {
-  base: Omit<University, "major" | "requiredCourses">;
+  base: Omit<University, "major" | "requiredCourses" | "recommendedCourses">;
   colleges: UiucCollege[];
 }
 
@@ -90,7 +92,7 @@ export interface PurdueCollege {
 }
 
 export interface PurdueMajorsData {
-  base: Omit<University, "major" | "requiredCourses">;
+  base: Omit<University, "major" | "requiredCourses" | "recommendedCourses">;
   colleges: PurdueCollege[];
 }
 
@@ -108,7 +110,7 @@ export interface UtAustinCollege {
 }
 
 export interface UtAustinMajorsData {
-  base: Omit<University, "major" | "requiredCourses">;
+  base: Omit<University, "major" | "requiredCourses" | "recommendedCourses">;
   colleges: UtAustinCollege[];
 }
 
@@ -126,6 +128,6 @@ export interface UWMadisonCollege {
 }
 
 export interface UWMadisonMajorsData {
-  base: Omit<University, "major" | "requiredCourses">;
+  base: Omit<University, "major" | "requiredCourses" | "recommendedCourses">;
   colleges: UWMadisonCollege[];
 }

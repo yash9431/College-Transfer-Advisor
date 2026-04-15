@@ -25,57 +25,67 @@
         {
           "id": "aerospace-engineering",
           "name": "Aerospace Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "biomedical-engineering",
           "name": "Biomedical Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2", "bio1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1", "bio1"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "chemical-biomolecular-engineering",
           "name": "Chemical & Biomolecular Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1", "chem2"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "civil-engineering",
           "name": "Civil Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "chem1"],
+          "recommendedCourseIds": ["physics2", "compSci1"]
         },
         {
           "id": "computer-engineering",
           "name": "Computer Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1", "compSci2"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "compSci1", "compSci2", "labSciElective"]
         },
         {
           "id": "electrical-engineering",
           "name": "Electrical Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1", "compSci2"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "labSciElective"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "environmental-engineering",
           "name": "Environmental Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1", "chem2"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "chem1"],
+          "recommendedCourseIds": ["physics2", "compSci1"]
         },
         {
           "id": "industrial-engineering",
           "name": "Industrial Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "compSci1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "labSciElective"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "materials-science-engineering",
           "name": "Materials Science & Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "mechanical-engineering",
           "name": "Mechanical Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "compSci1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "labSciElective"],
+          "recommendedCourseIds": ["compSci1"]
         },
         {
           "id": "nuclear-radiological-engineering",
           "name": "Nuclear & Radiological Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2", "chem1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1"],
+          "recommendedCourseIds": ["compSci1"]
         }
       ]
     },
@@ -85,12 +95,15 @@
         {
           "id": "computer-science",
           "name": "Computer Science",
-          "requiredCourseIds": ["calc2", "compSci1", "compSci2"]
+          "requiredCourseIds": ["calc2", "linAlg", "compSci1", "compSci2", "labSciElective"],
+          "recommendedCourseIds": ["calc3"],
+          "note": "Computer Science is the only GT major not eligible for the Conditional Admission pathway."
         },
         {
           "id": "computational-media",
           "name": "Computational Media",
-          "requiredCourseIds": ["calc2", "compSci1", "compSci2"]
+          "requiredCourseIds": ["calc2", "linAlg", "compSci1", "compSci2", "labSciElective"],
+          "recommendedCourseIds": ["calc3"]
         }
       ]
     },
@@ -100,17 +113,18 @@
         {
           "id": "applied-mathematics",
           "name": "Applied Mathematics",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "linAlg", "compSci1"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "labSciElective"],
+          "recommendedCourseIds": ["physics2"]
         },
         {
           "id": "biochemistry",
           "name": "Biochemistry",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "chem2", "bio1"]
+          "requiredCourseIds": ["calc2", "physics1", "chem1", "chem2", "bio1", "bio2"]
         },
         {
           "id": "biology",
           "name": "Biology",
-          "requiredCourseIds": ["calc2", "chem1", "bio1", "bio2"]
+          "requiredCourseIds": ["calc2", "physics1", "chem1", "bio1", "bio2"]
         },
         {
           "id": "chemistry",
@@ -125,27 +139,28 @@
         {
           "id": "earth-atmospheric-sciences",
           "name": "Earth & Atmospheric Sciences",
-          "requiredCourseIds": ["calc2", "physics1", "physics2", "chem1"]
+          "requiredCourseIds": ["calc2", "physics1", "chem1", "labSciElective"]
         },
         {
           "id": "neuroscience",
           "name": "Neuroscience",
-          "requiredCourseIds": ["calc2", "chem1", "bio1", "bio2"]
+          "requiredCourseIds": ["calc2", "physics1", "chem1", "bio1", "bio2"]
         },
         {
           "id": "physics",
           "name": "Physics",
-          "requiredCourseIds": ["calc2", "calc3", "diffEq", "physics1", "physics2"]
+          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2"]
         },
         {
           "id": "psychology",
           "name": "Psychology",
-          "requiredCourseIds": ["calc2", "labSciElective"]
+          "requiredCourseIds": ["calc2", "labSciElective"],
+          "note": "Two lab science electives are recommended for a competitive application."
         },
         {
           "id": "solid-earth-planetary-sciences",
           "name": "Solid Earth & Planetary Sciences",
-          "requiredCourseIds": ["calc2", "physics1", "physics2", "chem1"]
+          "requiredCourseIds": ["calc2", "physics1", "chem1", "labSciElective"]
         }
       ]
     },

@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle, AlertCircle, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { CheckCircle2, XCircle, AlertCircle, ChevronDown, ChevronUp, ExternalLink, Star } from "lucide-react";
 import { useState } from "react";
 import type { EligibilityResult } from "@/lib/eligibility";
 import type { University } from "@/types";
@@ -37,6 +37,7 @@ export function ResultCard({ result, university }: ResultCardProps) {
 
   const allMissing = result.missingRequirements;
   const allConditional = result.conditionalReasons;
+  const hasRecommended = result.recommendedCourseResults && result.recommendedCourseResults.length > 0;
 
   return (
     <div
@@ -90,10 +91,10 @@ export function ResultCard({ result, university }: ResultCardProps) {
             {result.explanation}
           </p>
 
-          {/* Course Status */}
+          {/* Required Courses */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Required Courses
+              필수 이수 과목 (Required)
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {result.courseResults.map((course) => (
@@ -117,6 +118,41 @@ export function ResultCard({ result, university }: ResultCardProps) {
               ))}
             </div>
           </div>
+
+          {/* Recommended Courses (GT only for now) */}
+          {hasRecommended && (
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-1">
+                권장 이수 과목 (Recommended)
+              </h4>
+              <p className="text-xs text-muted-foreground mb-2">
+                지원 자격 요건은 아니지만, 경쟁력 있는 지원자는 이 과목들도 이수합니다.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {result.recommendedCourseResults.map((course) => (
+                  <div
+                    key={course.courseId}
+                    className="flex items-start gap-2 text-sm"
+                    data-testid={`rec-course-status-${result.universityId}-${course.courseId}`}
+                  >
+                    {course.met ? (
+                      <Star className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0 fill-purple-500" />
+                    ) : (
+                      <Star className="w-4 h-4 text-purple-300 mt-0.5 flex-shrink-0" />
+                    )}
+                    <span>
+                      <span className={`font-medium ${course.met ? "text-foreground" : "text-muted-foreground"}`}>
+                        {course.courseName}
+                      </span>
+                      {course.isInProgress && (
+                        <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">(in progress)</span>
+                      )}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Missing Requirements */}
           {allMissing.length > 0 && (

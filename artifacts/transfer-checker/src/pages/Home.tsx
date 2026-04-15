@@ -49,7 +49,7 @@ const COURSE_DESCRIPTIONS_GT: Record<string, string> = {
   calc2: "Equivalent to MATH 1552 at Georgia Tech.",
   calc3: "Equivalent to MATH 2551 at Georgia Tech.",
   diffEq: "Equivalent to MATH 2552 at Georgia Tech.",
-  linAlg: "Equivalent to MATH 1554 at Georgia Tech.",
+  linAlg: "Equivalent to MATH 1554 at Georgia Tech. Required for all College of Engineering and most Science majors.",
   physics1: "Equivalent to PHYS 2211 at Georgia Tech. Must include lecture and lab.",
   physics2: "Equivalent to PHYS 2212 at Georgia Tech. Must include lecture and lab.",
   chem1: "Equivalent to CHEM 1211 at Georgia Tech. Lecture only.",
@@ -59,6 +59,12 @@ const COURSE_DESCRIPTIONS_GT: Record<string, string> = {
   compSci1: "Equivalent to CS 1301 at Georgia Tech.",
   compSci2: "Equivalent to CS 1331 at Georgia Tech.",
   labSciElective: "Any one lab science course (biology, chemistry, calculus-based physics, earth & atmospheric, or environmental sciences). Must include lecture and lab.",
+};
+
+const COURSE_DESCRIPTIONS_GT_REC: Record<string, string> = {
+  calc3: "[Recommended] Equivalent to MATH 2551 at Georgia Tech. Competitive applicants will have completed Multivariable Calculus.",
+  physics2: "[Recommended] Equivalent to PHYS 2212 at Georgia Tech. Strongly recommended for competitive applicants.",
+  compSci1: "[Recommended] Equivalent to CS 1301 (Computing for Engineers) at Georgia Tech. Not required but strongly recommended for competitive applicants in engineering majors.",
 };
 
 const COURSE_DESCRIPTIONS_UIUC: Record<string, string> = {
@@ -96,8 +102,10 @@ const COURSE_DESCRIPTIONS_PURDUE: Record<string, string> = {
 
 const COURSE_DESCRIPTIONS_UTAUSTIN: Record<string, string> = {
   calc1: "Required for all UT Austin Cockrell majors. Equivalent to M 408C or M 408K at UT Austin.",
-  calc2: "Equivalent to M 408D, M 408L, or M 408M (TCCN: MATH 2415) at UT Austin.",
+  calc2: "Equivalent to M 408L or M 408S at UT Austin.",
+  calc3: "Equivalent to M 408M or M 408D at UT Austin (TCCN: MATH 2415). Required for all Cockrell majors.",
   physics1: "Equivalent to PHY 303K + lab (103M or 105M) at UT Austin. Must include both lecture and lab.",
+  physics2: "Equivalent to PHY 303L + lab (103N or 105N) at UT Austin. Required for all Cockrell majors.",
   chem1: "Equivalent to CH 301 at UT Austin (TCCN: CHEM 1411).",
   chem2: "Equivalent to CH 302 + lab (102M) at UT Austin. Required for Materials Science Engineering.",
   bio1: "Equivalent to BIO 311C at UT Austin (TCCN: BIOL 1406). Required for Biomedical Engineering.",
@@ -127,11 +135,17 @@ function buildGtUniversity(majorId: string): University {
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_GT[id] ?? "",
   }));
+  const recommendedCourses = (major.recommendedCourseIds ?? []).map((id) => ({
+    id,
+    name: COURSE_NAMES[id] ?? id,
+    description: COURSE_DESCRIPTIONS_GT_REC[id] ?? COURSE_DESCRIPTIONS_GT[id] ?? "",
+  }));
   return {
     ...base,
     id: `gatech-${major.id}`,
     major: major.name,
     requiredCourses,
+    recommendedCourses,
     notes: base.notes + (major.note ? ` Note: ${major.note}` : ""),
   } as University;
 }

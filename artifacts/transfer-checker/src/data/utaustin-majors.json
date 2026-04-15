@@ -26,77 +26,77 @@
         {
           "id": "aerospace-engineering",
           "name": "Aerospace Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "architectural-engineering",
           "name": "Architectural Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "biomedical-engineering",
           "name": "Biomedical Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "bio1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1", "bio1"],
           "note": "One of the most competitive majors at Cockrell. Competitive applicants typically have a near-perfect GPA in technical courses.",
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "chemical-engineering",
           "name": "Chemical Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "civil-engineering",
           "name": "Civil Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "computational-engineering",
           "name": "Computational Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "computing"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "computing"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "electrical-computer-engineering",
           "name": "Electrical & Computer Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "computing"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "computing"],
           "note": "Extremely competitive. No chemistry required for admission. A maximum of 25 semester credit hours in EE/CE transfer courses may be counted toward the ECE degree. Linear Algebra and Differential Equations are also expected for competitive applicants.",
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "environmental-engineering",
           "name": "Environmental Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "geosystems-engineering-hydrogeology",
           "name": "Geosystems Engineering & Hydrogeology",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "note": "Joint program with the Jackson School of Geosciences. Geosystems applicants must select this as their first-choice major. Geology coursework is strongly recommended.",
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "materials-science-engineering",
           "name": "Materials Science Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "chem2"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1", "chem2"],
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "mechanical-engineering",
           "name": "Mechanical Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "computing"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "note": "Moderately competitive. Nuclear & Radiation Engineering concentration is offered within ME — apply as ME if interested in NRE.",
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         },
         {
           "id": "petroleum-engineering",
           "name": "Petroleum Engineering",
-          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1"],
           "note": "Geology coursework is strongly recommended for competitive applicants.",
           "sourceUrl": "https://cockrell.utexas.edu/admissions/undergraduate/external-transfer/"
         }

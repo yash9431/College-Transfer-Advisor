@@ -39,6 +39,7 @@ export interface EligibilityResult {
   creditsMet: boolean;
   englishMet: boolean;
   courseResults: CourseEligibilityResult[];
+  recommendedCourseResults: CourseEligibilityResult[];
   missingRequirements: string[];
   conditionalReasons: string[];
   explanation: string;
@@ -243,6 +244,10 @@ export function evaluateEligibility(
     }
   }
 
+  const recommendedCourseResults: CourseEligibilityResult[] = (university.recommendedCourses ?? []).map((course) => {
+    return checkCourse(course.id, course.name, student.courses, true);
+  });
+
   let status: EligibilityStatus;
   let explanation: string;
 
@@ -265,6 +270,7 @@ export function evaluateEligibility(
     creditsMet,
     englishMet: englishCheck.met,
     courseResults,
+    recommendedCourseResults,
     missingRequirements,
     conditionalReasons,
     explanation,
