@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import gtMajorsData from "@/data/gt-majors.json";
 import uiucMajorsData from "@/data/uiuc-majors.json";
 import purdueMajorsData from "@/data/purdue-majors.json";
@@ -274,6 +275,7 @@ function formValuesToScoringInput(values: FormValues): ScoringInput {
 }
 
 export default function Home() {
+  const { lang, setLang, t } = useLanguage();
   const [results, setResults] = useState<EligibilityResult[] | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [activeTab, setActiveTab] = useState<"eligibility" | "score">("score");
@@ -336,14 +338,41 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background">
-      <header className="bg-primary text-primary-foreground py-10 px-4 shadow-md">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold tracking-tight" data-testid="text-app-title">
-            US College Transfer Eligibility Checker
-          </h1>
-          <p className="mt-2 text-primary-foreground/80 text-base">
-            Check eligibility for Georgia Tech, UIUC, Purdue, UT Austin, and UW-Madison — any major, based on official university requirements.
-          </p>
+      <header className="bg-primary text-primary-foreground py-8 px-4 shadow-md">
+        <div className="max-w-3xl mx-auto flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight" data-testid="text-app-title">
+              {t("appTitle")}
+            </h1>
+            <p className="mt-2 text-primary-foreground/80 text-sm">
+              {t("appSubtitle")}
+            </p>
+          </div>
+          {/* Language Toggle */}
+          <div className="shrink-0 flex items-center mt-1 bg-primary-foreground/10 rounded-lg p-0.5 gap-0.5">
+            <button
+              onClick={() => setLang("ko")}
+              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                lang === "ko"
+                  ? "bg-primary-foreground text-primary"
+                  : "text-primary-foreground/70 hover:text-primary-foreground"
+              }`}
+              aria-label="한국어로 변경"
+            >
+              한국어
+            </button>
+            <button
+              onClick={() => setLang("en")}
+              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                lang === "en"
+                  ? "bg-primary-foreground text-primary"
+                  : "text-primary-foreground/70 hover:text-primary-foreground"
+              }`}
+              aria-label="Switch to English"
+            >
+              English
+            </button>
+          </div>
         </div>
       </header>
 
@@ -373,7 +402,7 @@ export default function Home() {
                   : "bg-transparent border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
-              📊 지원 가능성 계산기
+              📊 {t("tabScore")}
             </button>
             <button
               onClick={() => setActiveTab("eligibility")}
@@ -384,7 +413,7 @@ export default function Home() {
                   : "bg-transparent border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
-              ✅ 편입 자격 상세 확인
+              ✅ {t("tabEligibility")}
               {submitted && (
                 <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold bg-primary text-primary-foreground rounded-full">
                   {results?.length ?? 0}
@@ -408,10 +437,8 @@ export default function Home() {
               ) : (
                 <div className="text-center py-20 text-muted-foreground">
                   <p className="text-4xl mb-4">📋</p>
-                  <p className="text-base font-medium">아직 자격 확인 결과가 없습니다.</p>
-                  <p className="text-sm mt-1">
-                    위 폼을 작성한 뒤 <span className="font-semibold text-foreground">Check My Eligibility</span> 버튼을 누르면 상세 결과가 여기에 표시됩니다.
-                  </p>
+                  <p className="text-base font-medium">{t("emptyResultTitle")}</p>
+                  <p className="text-sm mt-1">{t("emptyResultDesc")}</p>
                 </div>
               )}
             </section>
@@ -420,9 +447,7 @@ export default function Home() {
       </div>
 
       <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground px-4">
-        <p>
-          Requirements are based on officially published information and may change. Always verify directly with each university's admissions office.
-        </p>
+        <p>{t("footerDisclaimer")}</p>
         <p className="mt-1 flex flex-wrap justify-center gap-x-2 gap-y-1">
           <a href="https://admission.gatech.edu/transfer/course-requirements-major" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GT source (Oct 2025)</a>
           <span>·</span>

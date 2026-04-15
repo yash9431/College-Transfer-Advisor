@@ -10,13 +10,22 @@ const T = {
     en: "Georgia Tech, UIUC, Purdue, UT Austin, UW-Madison — based on official transfer requirements by major",
   },
 
-  tabScore: { ko: "📊 지원 가능성 계산기", en: "📊 Score Calculator" },
-  tabEligibility: { ko: "✅ 편입 자격 상세 확인", en: "✅ Detailed Eligibility Check" },
+  tabScore: { ko: "지원 가능성 계산기", en: "Score Calculator" },
+  tabEligibility: { ko: "편입 자격 상세 확인", en: "Detailed Eligibility Check" },
 
   emptyTitle: { ko: "아직 자격 확인 결과가 없습니다.", en: "No eligibility results yet." },
   emptyBody: {
     ko: '위 폼을 작성한 뒤 "편입 자격 확인하기" 버튼을 누르면 상세 결과가 여기에 표시됩니다.',
     en: 'Fill in the form above and click "Check My Eligibility" to see detailed results here.',
+  },
+  emptyResultTitle: { ko: "아직 자격 확인 결과가 없습니다.", en: "No eligibility results yet." },
+  emptyResultDesc: {
+    ko: '위 폼을 작성한 뒤 "편입 자격 확인하기" 버튼을 누르면 상세 결과가 여기에 표시됩니다.',
+    en: 'Fill in the form above and click "Check My Eligibility" to see detailed results here.',
+  },
+  footerDisclaimer: {
+    ko: "요건은 공식 발표 정보를 기반으로 하며 변경될 수 있습니다. 항상 각 대학 입학처에서 직접 확인하세요.",
+    en: "Requirements are based on officially published information and may change. Always verify directly with each university's admissions office.",
   },
 
   formTitle: { ko: "나의 학업 프로필", en: "Your Academic Profile" },

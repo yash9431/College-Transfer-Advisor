@@ -530,12 +530,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                   name="englishTestScore"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {testType === "TOEFL" && toeflDate === "legacy" && "TOEFL Score (0–120, old scale)"}
-                        {testType === "TOEFL" && toeflDate !== "legacy" && "TOEFL Score (new scale, 0–12)"}
-                        {testType === "IELTS" && "IELTS Score (0–9.0)"}
-                        {testType === "Duolingo" && "Duolingo Score (0–160)"}
-                      </FormLabel>
+                      <FormLabel>{t("labelTestScore")}</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -563,7 +558,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                   name="toeflDate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>TOEFL Test Date</FormLabel>
+                      <FormLabel>{t("labelToeflScale")}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger data-testid="select-toefl-date">
@@ -571,13 +566,11 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="new">On or after January 21, 2026 (new scale)</SelectItem>
-                          <SelectItem value="legacy">Before January 21, 2026 (old scale, 0–120)</SelectItem>
+                          <SelectItem value="new">{t("optToeflNew")}</SelectItem>
+                          <SelectItem value="legacy">{t("optToeflLegacy")}</SelectItem>
                         </SelectContent>
                       </Select>
-                      <FormDescription>
-                        ETS changed the TOEFL scoring system on January 21, 2026.
-                      </FormDescription>
+                      <FormDescription>{t("toeflScaleNote")}</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -591,7 +584,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                 name="completedEnglishComp1"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Completed English Composition 1?</FormLabel>
+                    <FormLabel>{t("labelComp1")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger data-testid="select-comp1">
@@ -599,8 +592,8 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="yes">Yes</SelectItem>
-                        <SelectItem value="no">No</SelectItem>
+                        <SelectItem value="yes">{t("optYes")}</SelectItem>
+                        <SelectItem value="no">{t("optNo")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -612,7 +605,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                 name="completedEnglishComp2"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Completed English Composition 2?</FormLabel>
+                    <FormLabel>{t("labelComp2")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger data-testid="select-comp2">
@@ -620,8 +613,8 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="yes">Yes</SelectItem>
-                        <SelectItem value="no">No</SelectItem>
+                        <SelectItem value="yes">{t("optYes")}</SelectItem>
+                        <SelectItem value="no">{t("optNo")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -635,14 +628,12 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* Courses Section — grouped by category */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-1">Courses Completed</h3>
-            <p className="text-sm text-muted-foreground mb-5">
-              Mark each course as completed, in progress, or not yet taken. Different universities and majors require different courses.
-            </p>
+            <h3 className="text-base font-medium text-foreground mb-1">{t("sectionCourses")}</h3>
+            <p className="text-sm text-muted-foreground mb-5">{t("descCourses")}</p>
             <div className="space-y-6">
               {COURSE_GROUPS.map((group) => (
-                <div key={group.label}>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">{group.label}</p>
+                <div key={group.labelKey}>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">{t(group.labelKey)}</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {group.ids.map((courseId) => (
                       <FormField
@@ -659,9 +650,9 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                <SelectItem value="completed">Completed</SelectItem>
-                                <SelectItem value="in-progress">In Progress</SelectItem>
-                                <SelectItem value="not-taken">Not Taken</SelectItem>
+                                <SelectItem value="completed">{t("statusCompleted")}</SelectItem>
+                                <SelectItem value="in-progress">{t("statusInProgress")}</SelectItem>
+                                <SelectItem value="not-taken">{t("statusNotTaken")}</SelectItem>
                               </SelectContent>
                             </Select>
                             {COURSE_DESCRIPTIONS[courseId] && (
@@ -679,19 +670,17 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
           </div>
 
           <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            <p className="font-semibold mb-1">이 앱은 참고용입니다</p>
-            <p className="leading-relaxed">
-              결과는 공개된 공식 요건을 기반으로 한 가이드입니다. 실제 지원 전에 반드시 각 학교의 공식 편입 홈페이지를 직접 방문해 최신 요건을 확인하고, 궁금한 점은 입학처에 문의하세요.
-            </p>
+            <p className="font-semibold mb-1">{t("formDisclaimer")}</p>
+            <p className="leading-relaxed">{t("formDisclaimerBody")}</p>
           </div>
 
           <div className="flex gap-3 pt-2">
             <Button type="submit" data-testid="button-check-eligibility" className="flex-1 sm:flex-none">
-              Check My Eligibility
+              {t("btnCheck")}
             </Button>
             {hasResults && (
               <Button type="button" variant="outline" onClick={onReset} data-testid="button-reset">
-                Reset
+                {t("btnReset")}
               </Button>
             )}
           </div>
