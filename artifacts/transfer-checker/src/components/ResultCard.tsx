@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { EligibilityResult } from "@/lib/eligibility";
 import type { University } from "@/types";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ResultCardProps {
   result: EligibilityResult;
@@ -30,8 +31,15 @@ const statusConfig = {
   },
 };
 
+const STATUS_LABELS = {
+  "Eligible": { ko: "자격 충족", en: "Eligible" },
+  "Conditionally Eligible": { ko: "조건부 자격 충족", en: "Conditionally Eligible" },
+  "Not Eligible": { ko: "자격 미달", en: "Not Eligible" },
+};
+
 export function ResultCard({ result, university }: ResultCardProps) {
   const [expanded, setExpanded] = useState(true);
+  const { lang, t } = useLanguage();
   const config = statusConfig[result.status];
   const StatusIcon = config.icon;
 
@@ -39,12 +47,13 @@ export function ResultCard({ result, university }: ResultCardProps) {
   const allConditional = result.conditionalReasons;
   const hasRecommended = result.recommendedCourseResults && result.recommendedCourseResults.length > 0;
 
+  const statusLabel = STATUS_LABELS[result.status][lang];
+
   return (
     <div
       className={`bg-card border border-border rounded-xl shadow-sm border-l-4 ${config.borderClass} overflow-hidden`}
       data-testid={`card-result-${result.universityId}`}
     >
-      {/* Header */}
       <div className="px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <StatusIcon className={`w-6 h-6 flex-shrink-0 ${config.iconClass}`} aria-hidden="true" />
@@ -66,13 +75,13 @@ export function ResultCard({ result, university }: ResultCardProps) {
             className={`text-xs border font-medium px-2.5 py-0.5 ${config.badgeClass}`}
             data-testid={`badge-status-${result.universityId}`}
           >
-            {result.status}
+            {statusLabel}
           </Badge>
           <button
             onClick={() => setExpanded((e) => !e)}
             className="text-muted-foreground hover:text-foreground transition-colors"
             aria-expanded={expanded}
-            aria-label={expanded ? "Collapse details" : "Expand details"}
+            aria-label={expanded ? t("collapseDetails") : t("expandDetails")}
             data-testid={`button-toggle-${result.universityId}`}
           >
             {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -80,10 +89,8 @@ export function ResultCard({ result, university }: ResultCardProps) {
         </div>
       </div>
 
-      {/* Expandable Details */}
       {expanded && (
         <div className="px-6 pb-5 space-y-5 border-t border-border pt-4">
-          {/* Explanation */}
           <p
             className="text-sm text-foreground/80 leading-relaxed"
             data-testid={`text-explanation-${result.universityId}`}
@@ -91,14 +98,13 @@ export function ResultCard({ result, university }: ResultCardProps) {
             {result.explanation}
           </p>
 
-          {/* Required Courses */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              필수 이수 과목 (Required)
+              {t("requiredCourses")}
             </h4>
             {result.courseResults.length === 0 ? (
               <p className="text-sm text-muted-foreground italic">
-                입학 심사는 홀리스틱 전형 — 지정된 필수 과목 없음 (No specific course prerequisites required for admission)
+                {t("noCoursePrereqs")}
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -116,7 +122,7 @@ export function ResultCard({ result, university }: ResultCardProps) {
                     <span>
                       <span className="font-medium text-foreground">{course.courseName}</span>
                       {course.isInProgress && (
-                        <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">(in progress)</span>
+                        <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">({t("inProgressBadge")})</span>
                       )}
                     </span>
                   </div>
@@ -125,25 +131,24 @@ export function ResultCard({ result, university }: ResultCardProps) {
             )}
           </div>
 
-          {/* Recommended / Progression Courses */}
           {hasRecommended && (
             <div>
               {result.universityId.startsWith("uwmadison") ? (
                 <>
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">
-                    이수 권장 — Progression Requirements
+                    {t("progressionReqTitle")}
                   </h4>
                   <p className="text-xs text-muted-foreground mb-2">
-                    입학 필수 요건은 아니지만, 전공 이수 자격(Progression)을 위해 전학 전 또는 첫 2학기 내 완료해야 합니다.
+                    {t("progressionReqDesc")}
                   </p>
                 </>
               ) : (
                 <>
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-1">
-                    권장 이수 과목 (Recommended)
+                    {t("recommendedTitle")}
                   </h4>
                   <p className="text-xs text-muted-foreground mb-2">
-                    지원 자격 요건은 아니지만, 경쟁력 있는 지원자는 이 과목들도 이수합니다.
+                    {t("recommendedDesc")}
                   </p>
                 </>
               )}
@@ -164,7 +169,7 @@ export function ResultCard({ result, university }: ResultCardProps) {
                         {course.courseName}
                       </span>
                       {course.isInProgress && (
-                        <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">(in progress)</span>
+                        <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">({t("inProgressBadge")})</span>
                       )}
                     </span>
                   </div>
@@ -173,11 +178,10 @@ export function ResultCard({ result, university }: ResultCardProps) {
             </div>
           )}
 
-          {/* Missing Requirements */}
           {allMissing.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-wide text-red-600 dark:text-red-400 mb-2">
-                Missing Requirements
+                {t("missingReqs")}
               </h4>
               <ul className="space-y-1.5">
                 {allMissing.map((item, i) => (
@@ -194,11 +198,10 @@ export function ResultCard({ result, university }: ResultCardProps) {
             </div>
           )}
 
-          {/* Conditional Notes */}
           {allConditional.length > 0 && (
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-wide text-yellow-600 dark:text-yellow-400 mb-2">
-                Conditions to Resolve
+                {t("conditionsTitle")}
               </h4>
               <ul className="space-y-1.5">
                 {allConditional.map((item, i) => (
@@ -215,15 +218,13 @@ export function ResultCard({ result, university }: ResultCardProps) {
             </div>
           )}
 
-          {/* University Notes */}
           {university.notes && (
             <div className="bg-muted/50 rounded-lg p-3 text-xs text-muted-foreground">
-              <span className="font-medium text-foreground">Note: </span>
+              <span className="font-medium text-foreground">{t("noteLabel")}</span>
               {university.notes}
             </div>
           )}
 
-          {/* Link to university */}
           <a
             href={university.website}
             target="_blank"
@@ -231,7 +232,7 @@ export function ResultCard({ result, university }: ResultCardProps) {
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
             data-testid={`link-university-${result.universityId}`}
           >
-            Visit {result.universityName} Admissions
+            {t("visitAdmissions")} — {result.universityName}
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>

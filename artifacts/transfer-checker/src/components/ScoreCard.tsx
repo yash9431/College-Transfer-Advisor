@@ -1,4 +1,5 @@
 import type { ScoreResult, CategoryScore } from "@/lib/scoreCalculator";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ScoreCardProps {
   result: ScoreResult;
@@ -16,11 +17,7 @@ function getScoreColor(ratio: number) {
   return "bg-red-400";
 }
 
-interface CategoryRowProps {
-  cat: CategoryScore;
-}
-
-function CategoryRow({ cat }: CategoryRowProps) {
+function CategoryRow({ cat }: { cat: CategoryScore }) {
   const ratio = cat.max > 0 ? cat.score / cat.max : 0;
   return (
     <div className="space-y-1">
@@ -42,6 +39,7 @@ function CategoryRow({ cat }: CategoryRowProps) {
 }
 
 export function ScoreCard({ result }: ScoreCardProps) {
+  const { t } = useLanguage();
   const styles = getVerdictStyles(result.verdictColor);
   const totalRatio = result.totalScore / 100;
 
@@ -58,7 +56,6 @@ export function ScoreCard({ result }: ScoreCardProps) {
 
   return (
     <div className={`rounded-xl border bg-card shadow-sm overflow-hidden ${styles.border}`}>
-      {/* Header */}
       <div className="px-4 pt-4 pb-3 border-b border-border">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
@@ -74,12 +71,11 @@ export function ScoreCard({ result }: ScoreCardProps) {
           </span>
         </div>
 
-        {/* Total Score */}
         <div className="mt-3 flex items-end gap-2">
           <span className="text-3xl font-bold tabular-nums text-foreground leading-none">
             {result.totalScore}
           </span>
-          <span className="text-sm text-muted-foreground mb-0.5">/ 100점</span>
+          <span className="text-sm text-muted-foreground mb-0.5">/ 100{t("scorePts")}</span>
         </div>
         <div className="mt-2 h-2 w-full rounded-full bg-muted overflow-hidden">
           <div
@@ -89,9 +85,8 @@ export function ScoreCard({ result }: ScoreCardProps) {
         </div>
       </div>
 
-      {/* Category Breakdown */}
       <div className="px-4 py-3 space-y-3 border-b border-border">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">점수 항목</p>
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{t("scoreBreakdown")}</p>
         <CategoryRow cat={result.categories.courses} />
         <CategoryRow cat={result.categories.gpa} />
         <CategoryRow cat={result.categories.recommended} />
@@ -99,10 +94,9 @@ export function ScoreCard({ result }: ScoreCardProps) {
         <CategoryRow cat={result.categories.credits} />
       </div>
 
-      {/* Missing Required */}
       {result.missingRequired.length > 0 && (
         <div className="px-4 py-3 border-b border-border bg-red-50">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-red-600 mb-1.5">미충족 필수 과목</p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-red-600 mb-1.5">{t("missingRequired")}</p>
           <ul className="space-y-0.5">
             {result.missingRequired.map((item) => (
               <li key={item} className="flex items-start gap-1.5 text-xs text-red-700">
@@ -114,10 +108,9 @@ export function ScoreCard({ result }: ScoreCardProps) {
         </div>
       )}
 
-      {/* Suggestions */}
       {result.suggestions.length > 0 && (
         <div className="px-4 py-3 bg-blue-50">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-600 mb-1.5">개선 제안</p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-600 mb-1.5">{t("suggestions")}</p>
           <ul className="space-y-0.5">
             {result.suggestions.map((s) => (
               <li key={s} className="flex items-start gap-1.5 text-xs text-blue-700">
@@ -131,7 +124,7 @@ export function ScoreCard({ result }: ScoreCardProps) {
 
       {result.missingRequired.length === 0 && result.suggestions.length === 0 && (
         <div className="px-4 py-3 bg-green-50">
-          <p className="text-xs text-green-700 font-medium">모든 주요 요건 충족 — 지원 검토 가능</p>
+          <p className="text-xs text-green-700 font-medium">{t("allMet")}</p>
         </div>
       )}
     </div>

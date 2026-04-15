@@ -1,6 +1,7 @@
 import type { EligibilityResult } from "@/lib/eligibility";
 import type { University } from "@/types";
 import { ResultCard } from "@/components/ResultCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ResultsPanelProps {
   results: EligibilityResult[];
@@ -31,14 +32,14 @@ const OFFICIAL_LINKS: Record<string, { label: string; admissionsUrl: string }> =
 };
 
 export function ResultsPanel({ results, universities }: ResultsPanelProps) {
+  const { t } = useLanguage();
+
   return (
     <div>
       <h2 className="text-xl font-semibold text-foreground mb-1" data-testid="text-results-heading">
-        Eligibility Results
+        {t("resultsTitle")}
       </h2>
-      <p className="text-sm text-muted-foreground mb-6">
-        Results are based on the information you provided. Requirements are approximations — confirm with each school.
-      </p>
+      <p className="text-sm text-muted-foreground mb-6">{t("resultsSubtitle")}</p>
       <div className="space-y-5">
         {results.map((result) => {
           const university = universities.find((u) => u.id === result.universityId);
@@ -52,12 +53,9 @@ export function ResultsPanel({ results, universities }: ResultsPanelProps) {
         })}
       </div>
 
-      {/* Official links callout */}
       <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 px-5 py-4" data-testid="official-links-callout">
-        <p className="text-sm font-semibold text-blue-900 mb-1">다음 단계: 공식 홈페이지에서 직접 확인하고 지원하세요</p>
-        <p className="text-sm text-blue-800 mb-4 leading-relaxed">
-          이 결과는 참고용입니다. 요건은 매년 바뀔 수 있으므로, 지원 전 반드시 각 학교 공식 편입 페이지에서 최신 정보를 확인하고 궁금한 점은 입학처에 직접 문의하세요.
-        </p>
+        <p className="text-sm font-semibold text-blue-900 mb-1">{t("nextStepsTitle")}</p>
+        <p className="text-sm text-blue-800 mb-4 leading-relaxed">{t("nextStepsBody")}</p>
         <ul className="space-y-2">
           {Object.entries(OFFICIAL_LINKS).map(([key, info]) => (
             <li key={key}>

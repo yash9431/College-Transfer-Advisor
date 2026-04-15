@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useLanguage } from "@/contexts/LanguageContext";
+import type { TranslationKey } from "@/lib/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -48,14 +50,14 @@ const COURSE_IDS = [
   "labSciElective", "advancedScience", "englishComp",
 ] as const;
 
-const COURSE_GROUPS: { label: string; ids: string[] }[] = [
-  { label: "Mathematics", ids: ["calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures"] },
-  { label: "Physics", ids: ["physics1", "physics1Lab", "physics2", "physics2Lab"] },
-  { label: "Chemistry", ids: ["chem1", "chem1Lab", "chem2", "chem2Lab", "orgChem"] },
-  { label: "Biology / Life Sciences", ids: ["bio1", "bio2", "molecularBio"] },
-  { label: "Computing / Electronics", ids: ["compSci1", "compSci2", "computing", "ece110", "ece120"] },
-  { label: "Engineering Fundamentals", ids: ["statics", "engrGraphics", "engrDesign"] },
-  { label: "Other / Electives", ids: ["labSciElective", "advancedScience", "englishComp"] },
+const COURSE_GROUPS: { labelKey: TranslationKey; ids: string[] }[] = [
+  { labelKey: "groupMath", ids: ["calc1", "calc2", "calc3", "diffEq", "linAlg", "discreteStructures"] },
+  { labelKey: "groupPhysics", ids: ["physics1", "physics1Lab", "physics2", "physics2Lab"] },
+  { labelKey: "groupChem", ids: ["chem1", "chem1Lab", "chem2", "chem2Lab", "orgChem"] },
+  { labelKey: "groupBio", ids: ["bio1", "bio2", "molecularBio"] },
+  { labelKey: "groupComputing", ids: ["compSci1", "compSci2", "computing", "ece110", "ece120"] },
+  { labelKey: "groupEngrFund", ids: ["statics", "engrGraphics", "engrDesign"] },
+  { labelKey: "groupOther", ids: ["labSciElective", "advancedScience", "englishComp"] },
 ];
 
 const COURSE_LABELS: Record<string, string> = {
@@ -176,6 +178,7 @@ interface TransferFormProps {
 }
 
 export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: TransferFormProps) {
+  const { t } = useLanguage();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -263,23 +266,21 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
   return (
     <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
-      <h2 className="text-xl font-semibold text-foreground mb-1">Your Academic Profile</h2>
-      <p className="text-sm text-muted-foreground mb-6">
-        Fill in your information to check your transfer eligibility.
-      </p>
+      <h2 className="text-xl font-semibold text-foreground mb-1">{t("formTitle")}</h2>
+      <p className="text-sm text-muted-foreground mb-6">{t("formSubtitle")}</p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8" data-testid="form-transfer">
 
           {/* Georgia Tech Major */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">Georgia Tech — Intended Major</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionGtMajor")}</h3>
             <FormField
               control={form.control}
               name="gtMajorId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Target Major at Georgia Tech</FormLabel>
+                  <FormLabel>{t("labelGtMajor")}</FormLabel>
                   <FormControl>
                     <select
                       data-testid="select-gt-major"
@@ -306,13 +307,13 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* UIUC Major */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">UIUC — Intended Major</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionUiucMajor")}</h3>
             <FormField
               control={form.control}
               name="uiucMajorId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Target Major at UIUC</FormLabel>
+                  <FormLabel>{t("labelUiucMajor")}</FormLabel>
                   <FormControl>
                     <select
                       data-testid="select-uiuc-major"
@@ -339,13 +340,13 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* Purdue Major */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">Purdue University — Intended Major</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionPurdueMajor")}</h3>
             <FormField
               control={form.control}
               name="purdueMajorId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Target Major at Purdue</FormLabel>
+                  <FormLabel>{t("labelPurdueMajor")}</FormLabel>
                   <FormControl>
                     <select
                       data-testid="select-purdue-major"
@@ -372,13 +373,13 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* UT Austin Major */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">UT Austin — Intended Major</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionUtaustinMajor")}</h3>
             <FormField
               control={form.control}
               name="utaustinMajorId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Target Major at UT Austin (Cockrell School of Engineering)</FormLabel>
+                  <FormLabel>{t("labelUtaustinMajor")}</FormLabel>
                   <FormControl>
                     <select
                       data-testid="select-utaustin-major"
@@ -405,13 +406,13 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* UW-Madison Major */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">UW-Madison — Intended Major</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionUwmadisonMajor")}</h3>
             <FormField
               control={form.control}
               name="uwmadisonMajorId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Target Major at UW-Madison (College of Engineering)</FormLabel>
+                  <FormLabel>{t("labelUwmadisonMajor")}</FormLabel>
                   <FormControl>
                     <select
                       data-testid="select-uwmadison-major"
@@ -438,18 +439,18 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* Credits & GPA Section */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">학점 및 GPA</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionCreditsGpa")}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="completedCredits"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Completed Credits</FormLabel>
+                    <FormLabel>{t("labelCompletedCredits")}</FormLabel>
                     <FormControl>
                       <Input type="number" min={0} placeholder="e.g. 45" data-testid="input-completed-credits" {...field} />
                     </FormControl>
-                    <FormDescription>Credits you've already finished.</FormDescription>
+                    <FormDescription>{t("descCompletedCredits")}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -459,11 +460,11 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                 name="inProgressCredits"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>In-Progress Credits</FormLabel>
+                    <FormLabel>{t("labelInProgressCredits")}</FormLabel>
                     <FormControl>
                       <Input type="number" min={0} placeholder="e.g. 15" data-testid="input-inprogress-credits" {...field} />
                     </FormControl>
-                    <FormDescription>Credits you're currently taking.</FormDescription>
+                    <FormDescription>{t("descInProgressCredits")}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -473,7 +474,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                 name="gpa"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>누적 GPA (0.0 – 4.0)</FormLabel>
+                    <FormLabel>{t("labelGpa")}</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -485,7 +486,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>지원 가능성 점수에 반영됩니다.</FormDescription>
+                    <FormDescription>{t("descGpa")}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -497,14 +498,14 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
 
           {/* English Section */}
           <div>
-            <h3 className="text-base font-medium text-foreground mb-4">English Proficiency</h3>
+            <h3 className="text-base font-medium text-foreground mb-4">{t("sectionEnglish")}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="englishTestType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>English Test Type</FormLabel>
+                    <FormLabel>{t("labelTestType")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger data-testid="select-english-test-type">
@@ -515,7 +516,7 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
                         <SelectItem value="TOEFL">TOEFL</SelectItem>
                         <SelectItem value="IELTS">IELTS</SelectItem>
                         <SelectItem value="Duolingo">Duolingo</SelectItem>
-                        <SelectItem value="None">None / N/A</SelectItem>
+                        <SelectItem value="None">{t("optNone")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
