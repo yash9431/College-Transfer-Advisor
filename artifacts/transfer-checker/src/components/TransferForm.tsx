@@ -280,25 +280,22 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Target Major at Georgia Tech</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger data-testid="select-gt-major">
-                        <SelectValue placeholder="Select a major" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <select
+                      data-testid="select-gt-major"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
                       {gtData.colleges.map((college) => (
-                        <SelectGroup key={college.name}>
-                          <SelectLabel>{college.name}</SelectLabel>
+                        <optgroup key={college.name} label={college.name}>
                           {college.majors.map((major) => (
-                            <SelectItem key={major.id} value={major.id}>
-                              {major.name}
-                            </SelectItem>
+                            <option key={major.id} value={major.id}>{major.name}</option>
                           ))}
-                        </SelectGroup>
+                        </optgroup>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -316,25 +313,22 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Target Major at UIUC</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger data-testid="select-uiuc-major">
-                        <SelectValue placeholder="Select a major" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <select
+                      data-testid="select-uiuc-major"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
                       {uiucData.colleges.map((college) => (
-                        <SelectGroup key={college.name}>
-                          <SelectLabel>{college.name}</SelectLabel>
+                        <optgroup key={college.name} label={college.name}>
                           {college.majors.map((major) => (
-                            <SelectItem key={major.id} value={major.id}>
-                              {major.name}
-                            </SelectItem>
+                            <option key={major.id} value={major.id}>{major.name}</option>
                           ))}
-                        </SelectGroup>
+                        </optgroup>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -352,25 +346,22 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Target Major at Purdue</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger data-testid="select-purdue-major">
-                        <SelectValue placeholder="Select a major" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <select
+                      data-testid="select-purdue-major"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
                       {purdueData.colleges.map((college) => (
-                        <SelectGroup key={college.name}>
-                          <SelectLabel>{college.name}</SelectLabel>
+                        <optgroup key={college.name} label={college.name}>
                           {college.majors.map((major) => (
-                            <SelectItem key={major.id} value={major.id}>
-                              {major.name}
-                            </SelectItem>
+                            <option key={major.id} value={major.id}>{major.name}</option>
                           ))}
-                        </SelectGroup>
+                        </optgroup>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -388,25 +379,22 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Target Major at UT Austin (Cockrell School of Engineering)</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger data-testid="select-utaustin-major">
-                        <SelectValue placeholder="Select a major" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <select
+                      data-testid="select-utaustin-major"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
                       {utaustinData.colleges.map((college) => (
-                        <SelectGroup key={college.name}>
-                          <SelectLabel>{college.name}</SelectLabel>
+                        <optgroup key={college.name} label={college.name}>
                           {college.majors.map((major) => (
-                            <SelectItem key={major.id} value={major.id}>
-                              {major.name}
-                            </SelectItem>
+                            <option key={major.id} value={major.id}>{major.name}</option>
                           ))}
-                        </SelectGroup>
+                        </optgroup>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -424,25 +412,22 @@ export function TransferForm({ onSubmit, onReset, hasResults, onValuesChange }: 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Target Major at UW-Madison (College of Engineering)</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger data-testid="select-uwmadison-major">
-                        <SelectValue placeholder="Select a major" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <select
+                      data-testid="select-uwmadison-major"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
                       {uwmadisonData.colleges.map((college) => (
-                        <SelectGroup key={college.name}>
-                          <SelectLabel>{college.name}</SelectLabel>
+                        <optgroup key={college.name} label={college.name}>
                           {college.majors.map((major) => (
-                            <SelectItem key={major.id} value={major.id}>
-                              {major.name}
-                            </SelectItem>
+                            <option key={major.id} value={major.id}>{major.name}</option>
                           ))}
-                        </SelectGroup>
+                        </optgroup>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
