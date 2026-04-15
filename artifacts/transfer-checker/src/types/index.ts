@@ -118,6 +118,7 @@ export interface UWMadisonMajor {
   id: string;
   name: string;
   requiredCourseIds: string[];
+  progressionCourseIds?: string[];
   note?: string;
   sourceUrl?: string;
 }

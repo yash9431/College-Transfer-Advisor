@@ -62,9 +62,11 @@ const COURSE_DESCRIPTIONS_GT: Record<string, string> = {
 };
 
 const COURSE_DESCRIPTIONS_GT_REC: Record<string, string> = {
-  calc3: "[Recommended] Equivalent to MATH 2551 at Georgia Tech. Competitive applicants will have completed Multivariable Calculus.",
-  physics2: "[Recommended] Equivalent to PHYS 2212 at Georgia Tech. Strongly recommended for competitive applicants.",
-  compSci1: "[Recommended] Equivalent to CS 1301 (Computing for Engineers) at Georgia Tech. Not required but strongly recommended for competitive applicants in engineering majors.",
+  calc3: "[Recommended] Equivalent to MATH 2551 (Multivariable Calculus) at Georgia Tech. Competitive engineering applicants typically complete Calc III.",
+  linAlg: "[Recommended] Equivalent to MATH 1554 (Linear Algebra) at Georgia Tech. Competitive engineering applicants typically complete Linear Algebra.",
+  diffEq: "[Recommended] Equivalent to MATH 2552 (Differential Equations) at Georgia Tech. Competitive engineering applicants typically complete Differential Equations.",
+  physics2: "[Recommended] Equivalent to PHYS 2212 at Georgia Tech. Strongly recommended for competitive applicants in most engineering programs.",
+  compSci1: "[Recommended] Equivalent to CS 1301 (Computing for Engineers) at Georgia Tech. Not required but strongly recommended for competitive engineering applicants.",
 };
 
 const COURSE_DESCRIPTIONS_UIUC: Record<string, string> = {
@@ -87,17 +89,14 @@ const COURSE_DESCRIPTIONS_UIUC: Record<string, string> = {
 };
 
 const COURSE_DESCRIPTIONS_PURDUE: Record<string, string> = {
-  calc1: "Required for all Purdue engineering majors. Equivalent to MA 16100 or MA 16500 at Purdue.",
-  calc2: "Equivalent to MA 16200 or MA 16600 at Purdue.",
-  calc3: "Equivalent to MA 26100 at Purdue. Note: Linear Algebra (MA 26500) may substitute for Calc III.",
-  chem1: "Equivalent to CHM 11500 at Purdue.",
-  chem2: "Equivalent to CHM 11610/11620/11630 at Purdue. Required specifically as the science selective for Environmental & Ecological Engineering.",
-  physics1: "Equivalent to PHYS 17200 at Purdue.",
-  physics2: "Equivalent to PHYS 27200 at Purdue.",
-  computing: "Equivalent to CS 15900 (computer programming) at Purdue.",
-  engrGraphics: "Equivalent to ENGR 13100 at Purdue — Introduction to Engineering and Problem Solving. Required for all Purdue engineering majors.",
-  engrDesign: "Equivalent to ENGR 13200 at Purdue — Engineering Projects and Design. Required for all Purdue engineering majors.",
-  advancedScience: "One advanced course in math (Calc III/above), chemistry (beyond Chem I), or physics (beyond Physics I). Must be a full course, not a lab section only.",
+  calc1: "Required for all Purdue engineering majors. Must be completed (not in-progress) at time of application. Equivalent to MA 16100 or MA 16500 at Purdue.",
+  calc2: "Required for all Purdue engineering majors. Must be completed (not in-progress) at time of application. Equivalent to MA 16200 or MA 16600 at Purdue.",
+  chem1: "Calculus-based Chemistry I. Must be completed (not in-progress) at time of application. Equivalent to CHM 11510/11520/11530 at Purdue. Not required for Computer or Electrical Engineering (another math/physics course may substitute).",
+  chem2: "Chemistry II required as the Advanced Science course for Chemical Engineering and Environmental & Ecological Engineering. Equivalent to CHM 11610/11620/11630 at Purdue.",
+  physics1: "Calculus-based Physics I. Must be completed (not in-progress) at time of application. Equivalent to PHYS 17200 at Purdue.",
+  engrGraphics: "Required ONLY for Interdisciplinary Engineering (IDES). Equivalent to ENGR 13100 (Transforming Ideas to Innovations I) at Purdue. All other majors: recommended but not required.",
+  engrDesign: "Required ONLY for Interdisciplinary Engineering (IDES). Equivalent to ENGR 13200 (Transforming Ideas to Innovations II) at Purdue. All other majors: recommended but not required.",
+  advancedScience: "One advanced course in math (Calc III or higher), chemistry (beyond Chem I), or physics (beyond Physics I). Must be completed (not in-progress) at time of application. Some programs require a specific course — see major notes.",
 };
 
 const COURSE_DESCRIPTIONS_UTAUSTIN: Record<string, string> = {
@@ -113,16 +112,15 @@ const COURSE_DESCRIPTIONS_UTAUSTIN: Record<string, string> = {
 };
 
 const COURSE_DESCRIPTIONS_UWMADISON: Record<string, string> = {
-  calc1: "[Progression Requirement] Equivalent to MATH 221 at UW-Madison. Completing before transfer enables pre-transfer progression approval.",
-  calc2: "[Progression Requirement] Equivalent to MATH 222 at UW-Madison. Minimum grade C. Core requirement for all CoE programs.",
-  calc3: "[Progression Requirement] Equivalent to MATH 234 (Multivariable Calculus) at UW-Madison. Must be completed before transfer OR within first 2 semesters at UW-Madison. This is NOT an admission prerequisite.",
-  physics1: "[Progression Requirement] Equivalent to PHYSICS 201 or 207 at UW-Madison. Minimum grade C. Core requirement for all CoE programs.",
-  physics2: "[Progression Requirement] Equivalent to PHYSICS 202 or 208 at UW-Madison. Required for AMEP, BME, Materials Science & Engineering, and Nuclear Engineering & Eng Physics. NOT an admission prerequisite.",
-  chem1: "[Progression Requirement] Equivalent to CHEM 103 or CHEM 109 at UW-Madison. Minimum grade C. Core requirement for most CoE programs.",
-  chem2: "[Progression Requirement] Equivalent to CHEM 104 at UW-Madison. Required for BME, Chemical Engineering, and Materials Science & Engineering. NOT an admission prerequisite.",
-  orgChem: "[Progression Requirement] Equivalent to CHEM 343 (Organic Chemistry I) at UW-Madison. Only required for Chemical Engineering. NOT an admission prerequisite.",
-  compSci1: "[Progression Requirement] Equivalent to COMP SCI 200 or 300 at UW-Madison. Required for Computer Engineering, Electrical Engineering, and Industrial & Systems Engineering. NOT an admission prerequisite.",
-  statics: "[Progression Requirement] Equivalent to EMA 201 (Engineering Mechanics — Statics) at UW-Madison. Minimum grade C. Required for Civil/Environmental, Mechanical, Engineering Mechanics, and Geological Engineering. NOT an admission prerequisite.",
+  calc2: "[Progression] Equivalent to MATH 222 at UW-Madison. Minimum grade C required. Needed to progress in your major after transfer.",
+  calc3: "[Progression] Equivalent to MATH 234 (Multivariable Calculus) at UW-Madison. Needed to progress in your major after transfer.",
+  physics1: "[Progression] Equivalent to PHYSICS 201 or 207 at UW-Madison. Minimum grade C required. Needed for most CoE programs.",
+  physics2: "[Progression] Equivalent to PHYSICS 202 or 208 at UW-Madison. Needed for AMEP, BME, MatSci, and Nuclear Engineering.",
+  chem1: "[Progression] Equivalent to CHEM 103 or CHEM 109 at UW-Madison. Minimum grade C required. Needed for most CoE programs.",
+  chem2: "[Progression] Equivalent to CHEM 104 at UW-Madison. Needed for BME, Chemical Engineering, and Materials Science.",
+  orgChem: "[Progression] Equivalent to CHEM 343 (Organic Chemistry I) at UW-Madison. Needed for Chemical Engineering only.",
+  compSci1: "[Progression] Equivalent to COMP SCI 200 or 300 at UW-Madison. Needed for Computer Engineering, EE, and Industrial & Systems Engineering.",
+  statics: "[Progression] Equivalent to EMA 201 (Engineering Statics) at UW-Madison. Minimum grade C required. Needed for Civil/Env, Mechanical, Engineering Mechanics, and Geological Engineering.",
 };
 
 function buildGtUniversity(majorId: string): University {
@@ -174,8 +172,7 @@ function buildPurdueUniversity(majorId: string): University {
   const allMajors = purdueData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
   const base = purdueData.base;
-  const allCourseIds = ["calc1", ...major.requiredCourseIds];
-  const requiredCourses = allCourseIds.map((id) => ({
+  const requiredCourses = major.requiredCourseIds.map((id) => ({
     id,
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_PURDUE[id] ?? "",
@@ -185,6 +182,7 @@ function buildPurdueUniversity(majorId: string): University {
     id: `purdue-${major.id}`,
     major: major.name,
     requiredCourses,
+    recommendedCourses: [],
     sourceUrl: major.sourceUrl ?? base.sourceUrl,
     notes: base.notes + (major.note ? ` Note: ${major.note}` : ""),
   } as University;
@@ -214,8 +212,13 @@ function buildUWMadisonUniversity(majorId: string): University {
   const allMajors = uwmadisonData.colleges.flatMap((c) => c.majors);
   const major = allMajors.find((m) => m.id === majorId) ?? allMajors[0];
   const base = uwmadisonData.base;
-  const allCourseIds = ["calc1", ...major.requiredCourseIds];
-  const requiredCourses = allCourseIds.map((id) => ({
+  const requiredCourses = major.requiredCourseIds.map((id) => ({
+    id,
+    name: COURSE_NAMES[id] ?? id,
+    description: COURSE_DESCRIPTIONS_UWMADISON[id] ?? "",
+  }));
+  const progressionIds: string[] = (major as { progressionCourseIds?: string[] }).progressionCourseIds ?? [];
+  const recommendedCourses = progressionIds.map((id) => ({
     id,
     name: COURSE_NAMES[id] ?? id,
     description: COURSE_DESCRIPTIONS_UWMADISON[id] ?? "",
@@ -225,6 +228,7 @@ function buildUWMadisonUniversity(majorId: string): University {
     id: `uwmadison-${major.id}`,
     major: major.name,
     requiredCourses,
+    recommendedCourses,
     sourceUrl: major.sourceUrl ?? base.sourceUrl,
     notes: base.notes + (major.note ? ` Note: ${major.note}` : ""),
   } as University;

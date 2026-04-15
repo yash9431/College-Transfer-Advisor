@@ -16,7 +16,7 @@
       "compositionWaiver": false,
       "note": "No English proficiency test required for transfer applicants. All majors require English Composition 1101 and 1102 equivalents."
     },
-    "notes": "A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. In-progress courses are accepted. Source: admission.gatech.edu/transfer/course-requirements-major (Sept 2025 chart)"
+    "notes": "A cumulative GPA of 3.3+ AND a math/lab science GPA of 3.3+ are both required. All majors universally require English Comp I/II and Calculus I (MATH 1551). In-progress courses are accepted. Source: admission.gatech.edu/transfer/course-requirements-major (Oct 2025 official chart)"
   },
   "colleges": [
     {
@@ -25,67 +25,68 @@
         {
           "id": "aerospace-engineering",
           "name": "Aerospace Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "physics1", "chem1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "biomedical-engineering",
           "name": "Biomedical Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1", "bio1"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1", "bio1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "compSci1"]
         },
         {
           "id": "chemical-biomolecular-engineering",
           "name": "Chemical & Biomolecular Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1", "chem2"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "chem2", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "compSci1"]
         },
         {
           "id": "civil-engineering",
           "name": "Civil Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "chem1"],
-          "recommendedCourseIds": ["physics2", "compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "computer-engineering",
           "name": "Computer Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "compSci1", "compSci2", "labSciElective"]
+          "requiredCourseIds": ["calc2", "chem1", "compSci1", "compSci2"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics1", "physics2"]
         },
         {
           "id": "electrical-engineering",
           "name": "Electrical Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "labSciElective"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "environmental-engineering",
           "name": "Environmental Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "chem1"],
-          "recommendedCourseIds": ["physics2", "compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "industrial-engineering",
           "name": "Industrial Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "labSciElective"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "labSciElective"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "compSci1"]
         },
         {
           "id": "materials-science-engineering",
           "name": "Materials Science & Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "mechanical-engineering",
           "name": "Mechanical Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "labSciElective"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         },
         {
           "id": "nuclear-radiological-engineering",
           "name": "Nuclear & Radiological Engineering",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2", "chem1"],
-          "recommendedCourseIds": ["compSci1"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics2", "compSci1"]
         }
       ]
     },
@@ -95,15 +96,15 @@
         {
           "id": "computer-science",
           "name": "Computer Science",
-          "requiredCourseIds": ["calc2", "linAlg", "compSci1", "compSci2", "labSciElective"],
-          "recommendedCourseIds": ["calc3"],
+          "requiredCourseIds": ["calc2", "compSci1", "compSci2", "labSciElective"],
+          "recommendedCourseIds": ["calc3", "linAlg"],
           "note": "Computer Science is the only GT major not eligible for the Conditional Admission pathway."
         },
         {
           "id": "computational-media",
           "name": "Computational Media",
-          "requiredCourseIds": ["calc2", "linAlg", "compSci1", "compSci2", "labSciElective"],
-          "recommendedCourseIds": ["calc3"]
+          "requiredCourseIds": ["calc2", "compSci1", "compSci2", "labSciElective"],
+          "recommendedCourseIds": ["calc3", "linAlg"]
         }
       ]
     },
@@ -113,54 +114,54 @@
         {
           "id": "applied-mathematics",
           "name": "Applied Mathematics",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "labSciElective"],
-          "recommendedCourseIds": ["physics2"]
+          "requiredCourseIds": ["calc2", "labSciElective"],
+          "recommendedCourseIds": ["calc3", "linAlg", "diffEq", "physics1", "physics2"]
         },
         {
           "id": "biochemistry",
           "name": "Biochemistry",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "chem2", "bio1", "bio2"]
+          "requiredCourseIds": ["calc2", "chem1", "chem2"]
         },
         {
           "id": "biology",
           "name": "Biology",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "bio1", "bio2"]
+          "requiredCourseIds": ["calc2"]
         },
         {
           "id": "chemistry",
           "name": "Chemistry",
-          "requiredCourseIds": ["calc2", "calc3", "physics1", "physics2", "chem1", "chem2"]
+          "requiredCourseIds": ["calc2", "chem1", "chem2"]
         },
         {
           "id": "discrete-mathematics",
           "name": "Discrete Mathematics",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "compSci1", "compSci2"]
+          "requiredCourseIds": ["calc2", "compSci1", "compSci2"]
         },
         {
           "id": "earth-atmospheric-sciences",
           "name": "Earth & Atmospheric Sciences",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "labSciElective"]
+          "requiredCourseIds": ["calc2", "chem1"]
         },
         {
           "id": "neuroscience",
           "name": "Neuroscience",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "bio1", "bio2"]
+          "requiredCourseIds": ["calc2", "chem1"]
         },
         {
           "id": "physics",
           "name": "Physics",
-          "requiredCourseIds": ["calc2", "calc3", "linAlg", "diffEq", "physics1", "physics2"]
+          "requiredCourseIds": ["calc2", "chem1", "physics1"]
         },
         {
           "id": "psychology",
           "name": "Psychology",
-          "requiredCourseIds": ["calc2", "labSciElective"],
+          "requiredCourseIds": ["calc2"],
           "note": "Two lab science electives are recommended for a competitive application."
         },
         {
           "id": "solid-earth-planetary-sciences",
           "name": "Solid Earth & Planetary Sciences",
-          "requiredCourseIds": ["calc2", "physics1", "chem1", "labSciElective"]
+          "requiredCourseIds": ["calc2", "chem1"]
         }
       ]
     },
@@ -170,24 +171,24 @@
         {
           "id": "architecture",
           "name": "Architecture",
-          "requiredCourseIds": ["labSciElective"],
+          "requiredCourseIds": [],
           "note": "Portfolio approval from College of Design faculty also required."
         },
         {
           "id": "arts-entertainment-creative-technologies",
           "name": "Arts, Entertainment & Creative Technologies",
-          "requiredCourseIds": ["labSciElective"],
+          "requiredCourseIds": [],
           "note": "Portfolio approval from College of Design faculty also required."
         },
         {
           "id": "industrial-design",
           "name": "Industrial Design",
-          "requiredCourseIds": ["labSciElective"]
+          "requiredCourseIds": []
         },
         {
           "id": "music-technology",
           "name": "Music Technology",
-          "requiredCourseIds": ["calc2"]
+          "requiredCourseIds": ["calc2", "physics1"]
         }
       ]
     },
@@ -197,12 +198,12 @@
         {
           "id": "economics",
           "name": "Economics",
-          "requiredCourseIds": ["calc2"]
+          "requiredCourseIds": ["calc2", "labSciElective"]
         },
         {
           "id": "global-economics-modern-languages",
           "name": "Global Economics & Modern Languages",
-          "requiredCourseIds": ["calc2"]
+          "requiredCourseIds": ["calc2", "labSciElective"]
         },
         {
           "id": "history-technology-society",
@@ -222,7 +223,7 @@
         {
           "id": "public-policy",
           "name": "Public Policy",
-          "requiredCourseIds": ["calc2"]
+          "requiredCourseIds": ["calc2", "labSciElective"]
         },
         {
           "id": "science-technology-culture",

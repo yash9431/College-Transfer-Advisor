@@ -96,38 +96,57 @@ export function ResultCard({ result, university }: ResultCardProps) {
             <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
               필수 이수 과목 (Required)
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {result.courseResults.map((course) => (
-                <div
-                  key={course.courseId}
-                  className="flex items-start gap-2 text-sm"
-                  data-testid={`course-status-${result.universityId}-${course.courseId}`}
-                >
-                  {course.met ? (
-                    <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                  ) : (
-                    <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  )}
-                  <span>
-                    <span className="font-medium text-foreground">{course.courseName}</span>
-                    {course.isInProgress && (
-                      <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">(in progress)</span>
+            {result.courseResults.length === 0 ? (
+              <p className="text-sm text-muted-foreground italic">
+                입학 심사는 홀리스틱 전형 — 지정된 필수 과목 없음 (No specific course prerequisites required for admission)
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {result.courseResults.map((course) => (
+                  <div
+                    key={course.courseId}
+                    className="flex items-start gap-2 text-sm"
+                    data-testid={`course-status-${result.universityId}-${course.courseId}`}
+                  >
+                    {course.met ? (
+                      <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    ) : (
+                      <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
                     )}
-                  </span>
-                </div>
-              ))}
-            </div>
+                    <span>
+                      <span className="font-medium text-foreground">{course.courseName}</span>
+                      {course.isInProgress && (
+                        <span className="ml-1 text-xs text-yellow-600 dark:text-yellow-400">(in progress)</span>
+                      )}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Recommended Courses (GT only for now) */}
+          {/* Recommended / Progression Courses */}
           {hasRecommended && (
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-1">
-                권장 이수 과목 (Recommended)
-              </h4>
-              <p className="text-xs text-muted-foreground mb-2">
-                지원 자격 요건은 아니지만, 경쟁력 있는 지원자는 이 과목들도 이수합니다.
-              </p>
+              {result.universityId.startsWith("uwmadison") ? (
+                <>
+                  <h4 className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">
+                    이수 권장 — Progression Requirements
+                  </h4>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    입학 필수 요건은 아니지만, 전공 이수 자격(Progression)을 위해 전학 전 또는 첫 2학기 내 완료해야 합니다.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h4 className="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-1">
+                    권장 이수 과목 (Recommended)
+                  </h4>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    지원 자격 요건은 아니지만, 경쟁력 있는 지원자는 이 과목들도 이수합니다.
+                  </p>
+                </>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {result.recommendedCourseResults.map((course) => (
                   <div
